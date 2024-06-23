@@ -75,6 +75,7 @@
                         </div>
 
                         <form id="login-form" method="post">
+                            @csrf
                             <div class="px-2">
                                 <div class="input-style no-borders has-icon mb-4" id="phonediv">
                                     <i class="fa fa-phone"></i>
@@ -154,7 +155,7 @@
                     '<i class="fa fa-spinner fa-spin" aria-hidden="true"></i> Verifying .');
 
                 $.ajax({
-                    url: '/home/includes/route.php?login',
+                    url: '/auth/sign-in',
                     data: new FormData($(this)[0]),
                     cache: false,
                     contentType: false,
@@ -166,7 +167,7 @@
                         if (resp == 0) {
                             swal('Alert!!', "Login Succesfull", "success");
                             setTimeout(function() {
-                                location.replace('/home/')
+                                location.replace('/user/dashboard')
                             }, 1000)
                         } else if (resp == 1) {
                             swal('Alert!!',
@@ -174,10 +175,10 @@
                                 "error");
                         } else if (resp == 2) {
                             swal('Alert!!',
-                                "Sorry, Your Account Have Been Blocked By {{env('APP_NAME')}} Management. Please Contactus For Futher Support.",
+                                "Incorrect password details",
                                 "error");
                         } else {
-                            swal('Alert!!', "Unknow Error, Please Contact us at {{env('APP_NAME')}}",
+                            swal('Alert!!', "Unknow Error, Please Contact us at  {{env('APP_NAME')}}.",
                                 "error");
                         }
 

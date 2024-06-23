@@ -21,12 +21,12 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'username',
         'balance',
         'referral_id',
         'referred_by',
         'referral_balance',
         'state',
+        'phone',
         'pin',
     ];
 
@@ -48,7 +48,6 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'password' => 'hashed',
-        'pin' => 'hashed'
+        'pin' => 'encrypted'
     ];
 }

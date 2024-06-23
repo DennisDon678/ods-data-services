@@ -16,13 +16,13 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('username');
-            $table->string('balance');
+            $table->string('balance')->default(0);
             $table->string('referral_id');
-            $table->string('referred_by');
-            $table->string('referral_balance');
-            $table->string('state');
-            $table->integer('pin');
+            $table->string('referred_by')->nullable();
+            $table->string('referral_balance')->default(0);
+            $table->string('phone');
+            $table->string('state')->nullable();
+            $table->string('pin');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
