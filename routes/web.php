@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,15 +27,39 @@ Route::get('/account-deletion-policy', function () {
     return view('account');
 });
 
-Route::get('/auth/sign-in', function () {
-    return view('sign-in');
+Route::prefix('/auth')->group(function () {
+    Route::get('/sign-in', function () {
+        return view('sign-in');
+    });
+
+    Route::get('/sign-up', function () {
+        return view('sign-up');
+    });
+
+    Route::post('/sign-up', [AuthController::class, 'sign_up']);
+    Route::post('sign-in', [AuthController::class, 'sign_in']);
+
+    Route::get('/sign-out', function () {
+        return view('sign-out');
+    });
+
+    Route::get('/forgot-password', function () {
+        return view('forgot-password');
+    });
+
+    Route::get('/reset-password', function () {
+        return view('reset-password');
+    });
+
+    Route::post('/reset-password', function () {
+        return view('reset-password');
+    });
 });
 
-// sign-up
-Route::get('/auth/sign-up', function () {
-    return view('sign-up');
-});
 
-Route::post('/auth/sign-up', function () {
-    return view('sign-up');
+// User Dashboard routes
+Route::middleware('auth')->prefix('user')->group(function () {
+    Route::get('/dashboard', function () {
+        dd(Auth::user());
+    });
 });

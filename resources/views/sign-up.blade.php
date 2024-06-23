@@ -10,7 +10,7 @@
     <title>Register</title>
     <link rel="stylesheet" type="text/css" href="/mobile/assets/styles/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="/mobile/assets/styles/style.css">
-    <link href="css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/mobile/assets/fonts/css/fontawesome-all.min.css">
     <link rel="manifest" href="/mobile/assets/scripts/_manifest.json" data-pwa-version="set_in_manifest_and_pwa_js">
     <link rel="apple-touch-icon" sizes="180x180" href="/mobile/assets/img/favicon.png">
@@ -88,11 +88,12 @@
                         </div>
 
                         <form id="reg-form" method="post">
+                            @csrf
                             <div class="px-2">
                                 <div id="regDiv">
                                     <div class="input-style  no-borders has-icon mb-4">
                                         <i class="fa fa-user"></i>
-                                        <input type="text" class="form-control" id="fname" name="fname"
+                                        <input type="text" class="form-control" id="fname" name="firstname"
                                             placeholder="First Name" required="">
                                         <label for="name" class="color-highlight">First Name</label>
                                         <em>(required)</em>
@@ -100,7 +101,7 @@
 
                                     <div class="input-style  no-borders has-icon mb-4">
                                         <i class="fa fa-user"></i>
-                                        <input type="text" class="form-control" id="lname" name="lname"
+                                        <input type="text" class="form-control" id="lname" name="lastname"
                                             placeholder="Last Name" required="">
                                         <label for="name" class="color-highlight">Last Name</label>
                                         <em>(required)</em>
@@ -192,7 +193,7 @@
 
                                     <div class="input-style  no-borders has-icon mb-4">
                                         <i class="fa fa-lock"></i>
-                                        <input type="password" class="form-control" id="cpassword" name="cpassword"
+                                        <input type="password" class="form-control" id="cpassword" name="password_confirmation"
                                             placeholder="Confirm Password" required="" readonly/="">
                                         <label for="cpassword" class="color-highlight">Confirm Password</label>
                                         <em>(required)</em>
@@ -200,7 +201,7 @@
 
                                     <div class="input-style  no-borders has-icon mb-4">
                                         <i class="fa fa-lock"></i>
-                                        <input type="number" class="form-control" id="transpin" name="transpin"
+                                        <input type="number" class="form-control" id="transpin" name="pin"
                                             placeholder="Pin" required="">
                                         <label for="transpin" class="color-highlight">Transaction Pin</label>
                                         <em>(required)</em>
@@ -208,7 +209,7 @@
 
                                     <div class="input-style  no-borders has-icon mb-4">
                                         <i class="fa fa-user-plus"></i>
-                                        <input type="number" value="" class="form-control" id="referal"
+                                        <input type="text" value="" class="form-control" id="referal"
                                             name="referal" placeholder="Referal">
                                         <label for="referal" class="color-highlight">Referral</label>
                                         <em>(required)</em>
@@ -358,7 +359,7 @@
                     '<i class="fa fa-spinner fa-spin" aria-hidden="true"></i> Processing ...');
 
                 $.ajax({
-                    url: '/mobile/home/includes/route.php?register',
+                    url: '/auth/sign-up',
                     data: new FormData($(this)[0]),
                     cache: false,
                     contentType: false,
@@ -370,7 +371,7 @@
                         if (resp == 0) {
                             swal('Alert!!', "Registration Succesfull", "success");
                             setTimeout(function() {
-                                location.replace('/mobile/home/')
+                                location.replace('/user/dashboard')
                             }, 1000)
                         } else if (resp == 1) {
                             swal('Alert!!', "Email & Phone Number Already Exist.", "error");
