@@ -26,6 +26,8 @@ class User extends Authenticatable
         'referral_id',
         'referred_by',
         'referral_balance',
+        'state',
+        'pin',
     ];
 
     /**
@@ -35,6 +37,7 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
+        'pin',
         'remember_token',
     ];
 
@@ -45,5 +48,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+        'pin' => 'hashed'
     ];
 }

@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('referral_id');
             $table->string('referred_by');
             $table->string('referral_balance');
+            $table->string('state');
+            $table->integer('pin');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
