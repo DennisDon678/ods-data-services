@@ -99,7 +99,7 @@
 
                                 <div class="row pt-5 mb-3">
                                     <div class="col-12 text-center font-15">
-                                        <a class="text-white" href="/recovery/index.htm">Forget Password? Recover
+                                        <a class="text-white" href="/auth/forgot-password">Forget Password? Recover
                                             It</a>
                                     </div>
                                     <div class="col-12 text-center font-15 mt-2">
