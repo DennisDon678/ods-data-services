@@ -47,13 +47,7 @@ Route::prefix('/auth')->group(function () {
         return view('forgot-password');
     });
 
-    Route::get('/reset-password', function () {
-        return view('reset-password');
-    });
-
-    Route::post('/reset-password', function () {
-        return view('reset-password');
-    });
+    Route::post('/reset-password', [AuthController::class, 'reset_password']);
 });
 
 
