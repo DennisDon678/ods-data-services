@@ -54,6 +54,6 @@ Route::prefix('/auth')->group(function () {
 // User Dashboard routes
 Route::middleware('auth')->prefix('user')->group(function () {
     Route::get('/dashboard', function () {
-        dd(Auth::user());
+        return view('users.dashboard');
     });
 });
