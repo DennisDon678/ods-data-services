@@ -73,9 +73,7 @@
                 </div>
 
                 <style>
-                    .swiper-slide{
-                        
-                    }
+                    .swiper-slide {}
                 </style>
 
                 {{-- Services --}}
@@ -101,8 +99,9 @@
                                         <div class="card border-0 mb-3 ">
                                             <div class="card-body" style="text-align:center;">
                                                 <h4>Airtime</h4>
-                                                <a href="" class="btn btn-primary">Buy Now</a>
-                                                
+                                                <button type="button" data-bs-toggle="modal" data-bs-target="#airtimeModal"
+                                                    class="btn btn-primary">Buy Now</button>
+
                                             </div>
                                         </div>
                                     </div>
@@ -110,10 +109,10 @@
                                         <div class="card border-0  mb-3">
                                             <div class="card-body" style="text-align:center;">
                                                 <h4>Mobile Data</h4>
-                                                <a href="" class="btn btn-primary">Buy Now</a>
+                                                <button type="button" data-bs-toggle="modal" data-bs-target="#dataModal" class="btn btn-primary">Buy Now</a>
                                             </div>
                                         </div>
-                                        
+
                                     </div>
                                     <div class="swiper-slide">
                                         <div class="card border-0 mb-3">
@@ -148,12 +147,15 @@
                 </div>
             </div>
         </div>
-
     </main>
+    {{-- Forms Airtime --}}
+    @include('users.forms.airtime')
+    @include('users.forms.data')
 
 
     @include('users.partials.mobileNav')
     @include('users.partials.scripts')
+    @include('users.partials.homejs')
 </body>
 
 </html>

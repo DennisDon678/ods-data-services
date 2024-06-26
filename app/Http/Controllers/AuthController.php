@@ -38,7 +38,7 @@ class AuthController extends Controller
         ]);
 
         if ($user && Auth::attempt([
-            'email' => $request->phone,
+            'email' => $request->email,
             'password' => $request->password,
         ])) {
             return response()->json(0);
@@ -121,6 +121,15 @@ class AuthController extends Controller
             } else {
                 return response()->json(1);
             }
+        }
+    }
+
+    public function check_user_pin(Request $request){
+        $user = User::find($request->user()->id);
+        if($user->pin == $request->pin){
+            return response()->json(0);
+        }else{
+            return response()->json(1);
         }
     }
 }
