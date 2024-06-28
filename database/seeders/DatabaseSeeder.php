@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Cable_list;
 use App\Models\Dataplans;
 use App\Models\Network_list;
 use App\Models\plan_type_list;
@@ -42,104 +43,120 @@ class DatabaseSeeder extends Seeder
         //     plan_type_list::create($mtn_plans_types);
         // }
 
-        // Create SME options
-        $sme = [
+        // // Create SME options
+        // $sme = [
+        //     [
+        //         'data_id' => 210,
+        //         'plan_id' => 1,
+        //         'size' => '500MB',
+        //         'validity' => 30,
+        //         'price' => 160,
+        //     ],
+        //     [
+        //         'data_id' => 7,
+        //         'plan_id' => 1,
+        //         'size' => '1GB',
+        //         'validity' => 30,
+        //         'price' => 280,
+        //     ],
+        //     [
+        //         'data_id' => 8,
+        //         'plan_id' => 1,
+        //         'size' => '2GB',
+        //         'validity' => 30,
+        //         'price' => 558,
+        //     ],
+        //     [
+        //         'data_id' => 240,
+        //         'plan_id' => 1,
+        //         'size' => '3GB',
+        //         'validity' => 30,
+        //         'price' => 780
+        //     ],
+        //     [
+        //         'data_id' => 222,
+        //         'plan_id' => 1,
+        //         'size' => '5GB',
+        //         'validity' => 30,
+        //         'price' => 1376
+        //     ],
+        //     [
+        //         'data_id' => 247,
+        //         'plan_id' => 1,
+        //         'size' => '10GB',
+        //         'validity' => 30,
+        //         'price' => 2752
+        //     ]
+        // ];
+
+        // foreach ($sme as $sme){
+        //     Dataplans::create($sme);
+        // }
+
+        // // Create Gifting
+        // $gifting = [
+        //     [
+        //         'data_id' => 91,
+        //         'plan_id' => 2,
+        //         'size' => '1GB',
+        //         'validity' => 30,
+        //         'price' => 160,
+        //     ],
+        //     [
+        //         'data_id' => 238,
+        //         'plan_id' => 2,
+        //         'size' => '1.2GB',
+        //         'validity' => 30,
+        //         'price' => 280,
+        //     ],
+        //     [
+        //         'data_id' => 256,
+        //         'plan_id' => 2,
+        //         'size' => '3GB',
+        //         'validity' => 30,
+        //         'price' => 558,
+        //     ],
+        //     [
+        //         'data_id' => 56,
+        //         'plan_id' => 2,
+        //         'size' => '10GB',
+        //         'validity' => 30,
+        //         'price' => 780
+        //     ],
+        //     [
+        //         'data_id' => 57,
+        //         'plan_id' => 2,
+        //         'size' => '20GB',
+        //         'validity' => 30,
+        //         'price' => 1376
+        //     ],
+        //     [
+        //         'data_id' => 59,
+        //         'plan_id' => 2,
+        //         'size' => '40GB',
+        //         'validity' => 30,
+        //         'price' => 2752
+        //     ]
+        // ];
+
+        // foreach ($gifting as $sme){
+        //     Dataplans::create($sme);
+        // }
+
+        $cables = [
             [
-                'data_id' => 210,
-                'plan_id' => 1,
-                'size' => '500MB',
-                'validity' => 30,
-                'price' => 160,
+                'label' => 'GOTV'
             ],
             [
-                'data_id' => 7,
-                'plan_id' => 1,
-                'size' => '1GB',
-                'validity' => 30,
-                'price' => 280,
+                'label' => 'DSTV'
             ],
             [
-                'data_id' => 8,
-                'plan_id' => 1,
-                'size' => '2GB',
-                'validity' => 30,
-                'price' => 558,
+                'label' => 'STARTIME'
             ],
-            [
-                'data_id' => 240,
-                'plan_id' => 1,
-                'size' => '3GB',
-                'validity' => 30,
-                'price' => 780
-            ],
-            [
-                'data_id' => 222,
-                'plan_id' => 1,
-                'size' => '5GB',
-                'validity' => 30,
-                'price' => 1376
-            ],
-            [
-                'data_id' => 247,
-                'plan_id' => 1,
-                'size' => '10GB',
-                'validity' => 30,
-                'price' => 2752
-            ]
         ];
 
-        foreach ($sme as $sme){
-            Dataplans::create($sme);
-        }
-
-        // Create Gifting
-        $gifting = [
-            [
-                'data_id' => 91,
-                'plan_id' => 2,
-                'size' => '1GB',
-                'validity' => 30,
-                'price' => 160,
-            ],
-            [
-                'data_id' => 238,
-                'plan_id' => 2,
-                'size' => '1.2GB',
-                'validity' => 30,
-                'price' => 280,
-            ],
-            [
-                'data_id' => 256,
-                'plan_id' => 2,
-                'size' => '3GB',
-                'validity' => 30,
-                'price' => 558,
-            ],
-            [
-                'data_id' => 56,
-                'plan_id' => 2,
-                'size' => '10GB',
-                'validity' => 30,
-                'price' => 780
-            ],
-            [
-                'data_id' => 57,
-                'plan_id' => 2,
-                'size' => '20GB',
-                'validity' => 30,
-                'price' => 1376
-            ],
-            [
-                'data_id' => 59,
-                'plan_id' => 2,
-                'size' => '40GB',
-                'validity' => 30,
-                'price' => 2752
-            ]
-        ];
-
-        foreach ($gifting as $sme){
-            Dataplans::create($sme);
+        foreach ($cables as $cable){
+            Cable_list::create($cable);
         }
     }
 }

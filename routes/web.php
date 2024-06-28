@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DataController;
+use App\Http\Controllers\UserDashboardController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -64,4 +65,12 @@ Route::middleware('auth')->prefix('user')->group(function () {
     Route::get('data/get_data_plans',[DataController::class,'get_data_plans']);
     Route::get('/data/get_plan',[DataController::class,'get_plan']);
     Route::post('/data/buy_data',[DataController::class,'buy_data']);
+    Route::post('/fund-wallet/create',[UserDashboardController::class,'create_deposit']);
+
+    // Transaction
+    Route::get('/transactions',[UserDashboardController::class,'transactions']);
+    Route::get('/transaction/view/{id}',[UserDashboardController::class,'view_transaction']);
+
+    // Profile management
+    Route::get('/profile',[UserDashboardController::class,'profile']);
 });

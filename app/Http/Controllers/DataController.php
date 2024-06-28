@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Dataplans;
 use App\Models\plan_type_list;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class DataController extends Controller
 {
@@ -33,12 +35,21 @@ class DataController extends Controller
     public function get_plan(Request $request)
     {
         if (isset($request->data_id)) {
-            $data = Dataplans::where('data_id','=', $request->data_id)->first();
+            $data = Dataplans::where('data_id', '=', $request->data_id)->first();
             return response()->json($data);
         }
     }
 
-    public function buy_data(Request $request){
-        return response()->json($request->all());
+    public function buy_data(Request $request)
+    {
+        // Check Users Balance
+        $user = User::find($request->user()->id);
+        $plan = Dataplans::find($request->plan_id);
+
+        if ($user->balance >= $plan->price) {
+            return response()->json(0);
+        }else{
+            return response()->json(1);
+        }
     }
 }

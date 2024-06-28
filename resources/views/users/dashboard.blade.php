@@ -17,7 +17,7 @@
         <div class="container mt-4">
             <div class="row">
                 <!-- Balance card -->
-                <div class="col-12 col-md-6 col-lg-12 mb-4 ">
+                <div class="col-12 col-md-12 col-lg-12 mb-4 ">
                     <div class="card border-0 bg-radial-gradient h-100">
                         <div class="card-header bg-none">
                             <div class="row align-items-center">
@@ -32,15 +32,11 @@
                         </div>
                         <div class="card-body bg-none text-white">
                             <div class="text-center mb-3">
-                                <figure class="avatar avatar-100 coverimg rounded-circle mb-3 mx-auto">
-                                    <img src="/dashboard/assets/img/user-1.jpg" class="ususerphotoonboarding"
-                                        alt="">
-                                </figure>
                                 <h5 class="fw-normal mb-0 username">{{ explode(' ', Auth::user()->name)[0] }}</h5>
                                 <h3 class="fw-medium">&#8358;{{ number_format(Auth::user()->balance, 2) }}</h3>
                             </div>
 
-                            <div class="row">
+                            {{-- <div class="row">
                                 <div class="col-6">
                                     <div class="row align-items-center">
                                         <div class="col-auto">
@@ -67,7 +63,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -86,7 +82,7 @@
                                 </div>
                                 <div class="col ps-0">
                                     <h6 class="fw-medium mb-0">Services</h6>
-                                    <p class="small text-secondary">What are looking for today?</p>
+                                    <p class="small text-secondary">What are you looking for today?</p>
                                 </div>
                                 <div class="col-auto">
                                 </div>
@@ -99,8 +95,9 @@
                                         <div class="card border-0 mb-3 ">
                                             <div class="card-body" style="text-align:center;">
                                                 <h4>Airtime</h4>
-                                                <button type="button" data-bs-toggle="modal" data-bs-target="#airtimeModal"
-                                                    class="btn btn-primary">Buy Now</button>
+                                                <button type="button" data-bs-toggle="modal"
+                                                    data-bs-target="#airtimeModal" class="btn btn-primary">Buy
+                                                    Now</button>
 
                                             </div>
                                         </div>
@@ -109,7 +106,8 @@
                                         <div class="card border-0  mb-3">
                                             <div class="card-body" style="text-align:center;">
                                                 <h4>Mobile Data</h4>
-                                                <button type="button" data-bs-toggle="modal" data-bs-target="#dataModal" class="btn btn-primary">Buy Now</a>
+                                                <button type="button" data-bs-toggle="modal"
+                                                    data-bs-target="#dataModal" class="btn btn-primary">Buy Now</a>
                                             </div>
                                         </div>
 
@@ -118,7 +116,8 @@
                                         <div class="card border-0 mb-3">
                                             <div class="card-body" style="text-align:center;">
                                                 <h4>TV</h4>
-                                                <a href="" class="btn btn-primary">Buy Now</a>
+                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                    data-bs-target="#cableModal">Buy Now</button>
                                             </div>
                                         </div>
                                     </div>
@@ -146,13 +145,19 @@
                     </div>
                 </div>
             </div>
+
+            @include('users.partials.transaction')
         </div>
+
+
     </main>
     {{-- Forms Airtime --}}
     @include('users.forms.airtime')
     @include('users.forms.data')
+    @include('users.forms.tv')
+    @include('users.forms.funding')
 
-
+    {{--  --}}
     @include('users.partials.mobileNav')
     @include('users.partials.scripts')
     @include('users.partials.homejs')

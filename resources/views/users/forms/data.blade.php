@@ -5,7 +5,7 @@
                 <h6 class="modal-title" id="exampleModalLabel">Buy Mobile Data</h6>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="col-12 col-lg-12 border">
+            <div class="col-12 col-lg-12 mb-2 border">
                 <form action="" id="buyData">
                     @csrf
                     <div class="modal-body">
@@ -95,8 +95,11 @@
                                 </div>
                             </div>
                         </div>
-                        <input type="submit" value="Buy" required=""
-                            class=" border-start-0 btn btn-primary mb-2">
+                        <div class="" id="buyBtn">
+                            <input type="submit" value="Buy Now" required=""
+                                class=" border-start-0 btn btn-primary mb-2">
+                        </div>
+
                     </div>
                 </form>
             </div>
@@ -111,6 +114,15 @@
     // Working on Data type
     $('#network').on('change', () => {
         const network_id = $('#network').val();
+
+        if (network_id == "") {
+            $('#plan_type').html(
+                '<option value="" id="emptyPlan">----------------------</option>')
+            $('#plan').html(
+                '<option value="" id="emptyPlan">----------------------</option>')
+            $('#amount').val('');
+            return false;
+        }
 
         $.ajax({
             type: "GET",
@@ -134,7 +146,7 @@
                         '<option value="" id="emptyType">No Data Type to Show</option>')
                     $('#plan').html(
                         '<option value="" id="emptyPlan">----------------------</option>')
-                    $('#price').val(0);
+                    $('#amount').val('');
                 }
 
             }
@@ -190,10 +202,12 @@
 
         // check if number is 11 digits alert message
         if ($('#phone').val().length != 11) {
-            swal('Alert!!', "Phone number should be 11 digitl", "error");
+            swal('Alert!!', "Phone number should be 11 digits!", "error");
             return false;
         }
 
+        $('#buyBtn').html(
+            '<i class="fa fa-spinner fa-spin text-warning" aria-hidden="true"></i> Buying Please wait .');
         // Verify Pin Code
         const pin = $("#pin").val();
         $.ajax({
@@ -203,6 +217,10 @@
                 // console.log(response);
                 if (response != 0) {
                     swal('Alert!!', "Pin code is not correct", "error");
+                    $('#buyBtn').html(
+                        `<input type="submit" value="Buy Now"
+                                class="border-start-0 btn btn-primary mb-2">`
+                    );
                     return false;
                 }
 
@@ -223,7 +241,11 @@
                                 location.replace('/user/dashboard')
                             }, 1000)
                         } else if (response == 1) {
-                            swal('Alert!!', "Data Buy Failed", "error");
+                            swal('Alert!!', "Insufficient Balance", "error");
+                            $('#buyBtn').html(
+                                `<input type="submit" value="Buy Now"
+                                class="border-start-0 btn btn-primary mb-2">`
+                            );
                         }
                     }
                 });
