@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DataController;
+use App\Http\Controllers\UserDashboardController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -30,7 +32,7 @@ Route::get('/account-deletion-policy', function () {
 Route::prefix('/auth')->group(function () {
     Route::get('/sign-in', function () {
         return view('sign-in');
-    });
+    })->name('login');
 
     Route::get('/sign-up', function () {
         return view('sign-up');
@@ -54,6 +56,21 @@ Route::prefix('/auth')->group(function () {
 // User Dashboard routes
 Route::middleware('auth')->prefix('user')->group(function () {
     Route::get('/dashboard', function () {
-        dd(Auth::user());
+        return view('users.dashboard');
     });
+    Route::get('/check_pin_code', [AuthController::class, 'check_user_pin']);
+
+    // Ajax requests for data
+    Route::get('/data/get_plan_type',[DataController::class,'get_plan_types']);
+    Route::get('data/get_data_plans',[DataController::class,'get_data_plans']);
+    Route::get('/data/get_plan',[DataController::class,'get_plan']);
+    Route::post('/data/buy_data',[DataController::class,'buy_data']);
+    Route::post('/fund-wallet/create',[UserDashboardController::class,'create_deposit']);
+
+    // Transaction
+    Route::get('/transactions',[UserDashboardController::class,'transactions']);
+    Route::get('/transaction/view/{id}',[UserDashboardController::class,'view_transaction']);
+
+    // Profile management
+    Route::get('/profile',[UserDashboardController::class,'profile']);
 });
