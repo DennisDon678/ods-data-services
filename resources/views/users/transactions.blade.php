@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="dark-mode">
+<html lang="en">
 
 @include('users.partials.head')
 
@@ -73,7 +73,6 @@
     {{--  --}}
     @include('users.partials.mobileNav')
     @include('users.partials.scripts')
-    @include('users.partials.homejs')
 </body>
 
 </html>
