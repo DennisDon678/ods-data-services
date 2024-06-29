@@ -60,6 +60,9 @@ Route::middleware('auth')->prefix('user')->group(function () {
     });
     Route::get('/check_pin_code', [AuthController::class, 'check_user_pin']);
 
+    // Services
+    Route::get('/services',[UserDashboardController::class,'services']);
+
     // Ajax requests for data
     Route::get('/data/get_plan_type',[DataController::class,'get_plan_types']);
     Route::get('data/get_data_plans',[DataController::class,'get_data_plans']);
@@ -73,4 +76,10 @@ Route::middleware('auth')->prefix('user')->group(function () {
 
     // Profile management
     Route::get('/profile',[UserDashboardController::class,'profile']);
+    Route::post('/change_password',[UserDashboardController::class,'change_password']);
+    Route::post('/change_pin',[UserDashboardController::class,'change_pin']);
+
+
+    // Generate bank
+    Route::get('/generate_bank',[UserDashboardController::class,'generate_bank']);
 });

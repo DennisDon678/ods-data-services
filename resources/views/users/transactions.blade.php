@@ -67,8 +67,6 @@
             </div>
 
         </div>
-
-
     </main>
     {{--  --}}
     @include('users.partials.mobileNav')
