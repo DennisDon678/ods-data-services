@@ -24,7 +24,7 @@
                 <table class="table table-borderless">
                     <tbody class="">
                         @php
-                            $trans = App\Models\Transactions::where('user_id', '=', Auth::user()->id)->paginate(5);
+                            $trans = App\Models\Transactions::where('user_id', '=', Auth::user()->id)->orderby('created_at','DESC')->paginate(5);
                         @endphp
 
                         @forelse ($trans as $tran)

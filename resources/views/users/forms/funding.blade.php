@@ -8,18 +8,21 @@
             <div class="col-12 col-lg-12 mb-2 border">
 
                 <div class="modal-body">
-                    <div class="accounts row">
-                        <div class="col-3">
-                            <h6>Account:</h6>
-                        </div>
+                        @php
+                            $account = App\Models\Reserved_bank::where('user_id', '=', Auth::user()->id)->first();
+                        @endphp
 
-                        <div class="col-9">
-                            <div class="accountinfo">
-                                <h5>2006315047</h5>
-                                <h6 class="text-muted">Account Name</h6>
-                                <h6 class="text-muted">Bank</h6>
+                        @if ($account)
+                            <div class="col-12">
+                                <div class="accountinfo">
+                                    <h5>{{$account->account_number}}, <h6 class="text-muted">{{$account->account_name}}, {{$account->bank_name}}</h6></h5>
+                                </div>
                             </div>
-                        </div>
+                        @else
+                            <div class="col-12">
+                                <Button class="btn btn-primary" id="generateBank">Generate Account</Button>
+                            </div>
+                        @endif
                     </div>
                     <hr>
                     <h6 class="text-center">OR</h6>
@@ -110,4 +113,25 @@
             }
         });
     }
+
+
+    // Generate bank
+    $('#generateBank').on('click', function() {
+        $('#generateBank').html(
+            '<i class="fa fa-spinner fa-spin text-warning" aria-hidden="true"></i> Generating Bank Please wait .'
+            );
+        $.ajax({
+            type: "get",
+            url: "/user/generate_bank",
+            success: function(response) {
+                if (response == 0) {
+                    swal("Alart!","Bank created successfully, wait while we refresh your profile.", "success")
+
+                    setTimeout(()=>{
+                        location.replace('/user/dashboard')
+                    },2000)
+                }
+            }
+        });
+    });
 </script>

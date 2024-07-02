@@ -132,4 +132,9 @@ class AuthController extends Controller
             return response()->json(1);
         }
     }
+
+    public function logout(Request $request){
+        Auth::logout();
+        return redirect('/auth/sign-in');
+    }
 }

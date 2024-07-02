@@ -27,8 +27,8 @@
                                             <i class="bi bi-shop h5 avatar avatar-40 bg-light-theme rounded"></i>
                                         </div>
                                         <div class="col align-self-center mb-2">
-                                            <h6 class="fw-medium mb-0">History</h6>
-                                            <p class="text-secondary small">All Transactions</p>
+                                            <h6 class="fw-medium mb-0">Notifications</h6>
+                                            <p class="text-secondary small">All Notifications</p>
                                         </div>
                                     </div>
                                 </div>
@@ -37,27 +37,28 @@
                         <div class="card-body px-4">
                             <table class="table table-borderless">
                                 <tbody class="">
-                                    @forelse ($transactions as $tran)
+                                    @forelse ($notifications as $tran)
                                         <tr class="">
                                             <td>
-                                                <a href="/user/transaction/view/{{ $tran->transaction_id }}">
+                                                <a href="/user/transaction/view/{{ $tran->id }}">
                                                     <div class="row align-items-center p-4 border rounded">
-                                                        <div class="col-8 ps-0">
+                                                        <div class="col-6 ps-0">
                                                             <h6 class="mb-0 bold">{{ strtoupper($tran->title) }}</h6>
-                                                            <p class="text-secondary small">TRANSACTION
-                                                                {{ $tran->status }}</p>
+                                                            <p class="text-secondary small">
+                                                                {{ $tran->description }}</p>
                                                         </div>
 
-                                                        <div class="col-4">
-                                                            <h6
-                                                                class="{{ $tran->type == 'deposit' ? 'text-success' : 'text-danger' }}">
-                                                                &#8358;{{ number_format($tran->amount, 2) }}</h6>
+                                                        <div class="col-6">
+                                                            <a
+                                                                class="{{ $tran->status == 0 ? 'text-success' : 'text-gray' }}">
+                                                                Mark As Read</a>
                                                         </div>
                                                     </div>
                                                 </a>
                                             </td>
                                         </tr>
                                     @empty
+                                    Nothing to show here!
                                     @endforelse
                                 </tbody>
                             </table>

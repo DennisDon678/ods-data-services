@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="dark-mode">
+<html lang="en">
 
 @include('users.partials.head')
 

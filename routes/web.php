@@ -50,6 +50,7 @@ Route::prefix('/auth')->group(function () {
     });
 
     Route::post('/reset-password', [AuthController::class, 'reset_password']);
+    Route::get('/logout',[AuthController::class, 'logout']);
 });
 
 
@@ -59,6 +60,10 @@ Route::middleware('auth')->prefix('user')->group(function () {
         return view('users.dashboard');
     });
     Route::get('/check_pin_code', [AuthController::class, 'check_user_pin']);
+
+    // notifications
+    Route::get('/notifications',[UserDashboardController::class,'notifications']);
+
 
     // Ajax requests for data
     Route::get('/data/get_plan_type',[DataController::class,'get_plan_types']);
@@ -73,4 +78,10 @@ Route::middleware('auth')->prefix('user')->group(function () {
 
     // Profile management
     Route::get('/profile',[UserDashboardController::class,'profile']);
+    Route::post('/change_password',[UserDashboardController::class,'change_password']);
+    Route::post('/change_pin',[UserDashboardController::class,'change_pin']);
+
+
+    // Generate bank
+    Route::get('/generate_bank',[UserDashboardController::class,'generate_bank']);
 });
