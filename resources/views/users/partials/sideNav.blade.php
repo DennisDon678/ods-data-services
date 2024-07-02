@@ -41,13 +41,6 @@
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link " href="/user/services" role="button" aria-expanded="false">
-                                <div class="avatar avatar-40 icon"><i class="bi bi-binoculars"></i></div>
-                                <div class="col">Our Services</div>
-                            </a>
-                        </li>
-
-                        <li class="nav-item dropdown">
-                            <a class="nav-link " href="/user/services" role="button" aria-expanded="false">
                                 <div class="avatar avatar-40 icon"><i class="bi bi-coin"></i></div>
                                 <div class="col">Payments</div>
                             </a>
@@ -66,12 +59,6 @@
                                 <div class="avatar avatar-40 icon"><i class="bi bi-person-circle"></i></div>
                                 <div class="col">Profile</div>
 
-                            </a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link " href="/user/faqs" aria-expanded="false">
-                                <div class="avatar avatar-40 icon"><i class="bi bi-question-circle"></i></div>
-                                <div class="col">FAQs</div>
                             </a>
                         </li>
                         <li class="nav-item dropdown">

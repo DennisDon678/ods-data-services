@@ -14,12 +14,12 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/user/services">
+                <button class="nav-link" id="services" data-bs-toggle="modal" data-bs-target="#servicesModal">
                     <span>
                         <i class="nav-icon bi bi-binoculars"></i>
                         <span class="nav-text">Sevices</span>
                     </span>
-                </a>
+                </button>
             </li>
             <li class="nav-item centerbutton">
                 <button class="nav-link" id="fundWallet" data-bs-toggle="modal" data-bs-target="#fundModal">
@@ -29,7 +29,7 @@
                 </button>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="app-email.html">
+                <a class="nav-link" href="/user/notifications">
                     <span>
                         <i class="nav-icon bi bi-bell"></i>
                         <span class="nav-text">Notification</span>
@@ -48,3 +48,5 @@
     </div>
 </footer>
 <!-- footer sticky bottom ends -->
+@include('users.forms.funding')
+@include('users.forms.services')

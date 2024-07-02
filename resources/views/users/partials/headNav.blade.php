@@ -48,30 +48,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div><a class="dropdown-item" href="profile.html">My Profile</a></div>
-                                <div>
-                                    <a class="dropdown-item" href="index.html">
-                                        <div class="row g-0">
-                                            <div class="col align-self-center">My Dashboard</div>
-                                            <div class="col-auto">
-                                                <figure class="avatar avatar-20 coverimg rounded-circle">
-                                                    <img src="/dashboard/assets/img/user-2.jpg" alt="">
-                                                </figure>
-                                                <figure class="avatar avatar-20 coverimg rounded-circle">
-                                                    <img src="/dashboard/assets/img/user-3.jpg" alt="">
-                                                </figure>
-                                                <figure class="avatar avatar-20 coverimg rounded-circle">
-                                                    <img src="/dashboard/assets/img/user-4.jpg" alt="">
-                                                </figure>
-                                                <div class="avatar avatar-20 bg-theme rounded-circle">
-                                                    <small class="fs-10 vm">9+</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div><a class="dropdown-item" href="your-settings.html">Account Setting</a></div>
-                                <div><a class="dropdown-item" href="login.html">Logout</a></div>
+                                <div><a class="dropdown-item" href="/user/profile">My Profile</a></div>
+                                <div><a class="dropdown-item" href="/auth/logout">Logout</a></div>
                             </div>
                         </div>
                     </div>

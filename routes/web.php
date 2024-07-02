@@ -50,6 +50,7 @@ Route::prefix('/auth')->group(function () {
     });
 
     Route::post('/reset-password', [AuthController::class, 'reset_password']);
+    Route::get('/logout',[AuthController::class, 'logout']);
 });
 
 
@@ -60,8 +61,9 @@ Route::middleware('auth')->prefix('user')->group(function () {
     });
     Route::get('/check_pin_code', [AuthController::class, 'check_user_pin']);
 
-    // Services
-    Route::get('/services',[UserDashboardController::class,'services']);
+    // notifications
+    Route::get('/notifications',[UserDashboardController::class,'notifications']);
+
 
     // Ajax requests for data
     Route::get('/data/get_plan_type',[DataController::class,'get_plan_types']);

@@ -15,9 +15,7 @@
                         @if ($account)
                             <div class="col-12">
                                 <div class="accountinfo">
-                                    <h5>{{$account->account_number}}</h5>
-                                    <h6 class="text-muted">{{$account->account_name}}</h6>
-                                    <h6 class="text-muted">{{$account->bank_name}}</h6>
+                                    <h5>{{$account->account_number}}, <h6 class="text-muted">{{$account->account_name}}, {{$account->bank_name}}</h6></h5>
                                 </div>
                             </div>
                         @else

@@ -130,15 +130,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="swiper-slide">
-                                        <div class="card border-0 mb-3">
-                                            <div class="card-body" style="text-align:center;">
-                                                <h4>Education</h4>
-                                                <a href="" class="btn btn-primary">Buy Now</a>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -155,7 +146,7 @@
     @include('users.forms.airtime')
     @include('users.forms.data')
     @include('users.forms.tv')
-    @include('users.forms.funding')
+    @include('users.forms.services')
 
     {{--  --}}
     @include('users.partials.mobileNav')

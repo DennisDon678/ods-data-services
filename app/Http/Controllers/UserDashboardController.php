@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notification;
 use App\Models\Reserved_bank;
 use App\Models\Transactions;
 use App\Models\User;
@@ -31,6 +32,15 @@ class UserDashboardController extends Controller
             $user->balance = $user->balance + $request->amount;
             $user->save();
 
+            // create notification and save to database
+            Notification::create([
+                'user_id' => $request->user()->id,
+                'title' => "Deposit Successful",
+                'description' => "You have deposited NGN" . $request->amount . " into your wallet",
+                'status' => 0
+            ]);
+
+
             return response()->json([
                 'status' => 'success',
             ]);
@@ -45,7 +55,7 @@ class UserDashboardController extends Controller
 
     public function transactions()
     {
-        $transactions = Transactions::where('user_id', '=', Auth::user()->id)->paginate(20);
+        $transactions = Transactions::where('user_id', '=', Auth::user()->id)->orderby('created_at','DESC')->paginate(20);
 
         return view('users.transactions', compact('transactions'));
     }
@@ -83,6 +93,13 @@ class UserDashboardController extends Controller
             'bank_name' => $account['responseBody']['accounts'][0]['bankName'],
         ]);
         if ($create) {
+            // Create notification
+            $notification = Notification::create([
+                'user_id' => Auth::user()->id,
+                'title' => 'Bank Account Created',
+                'description' => 'Your bank account has been successfully created.',
+                'status' => 0
+            ]);
             return response()->json(0);
         } else {
             return response()->json(1);
@@ -117,7 +134,17 @@ class UserDashboardController extends Controller
         }
     }
 
-    public function services(){
-        return view('users.services');
+    public function notifications()
+    {
+        $notifications = Notification::where('user_id', '=', Auth::user()->id)->orderby('created_at', 'DESC')->paginate(10);
+
+        //run through all notifications
+        foreach ($notifications as $notification) {
+            if ($notification->status == 0) {
+                $notification->status = 1;
+                $notification->save();
+            }
+        }
+        return view('users.notifications', compact('notifications'));
     }
 }
