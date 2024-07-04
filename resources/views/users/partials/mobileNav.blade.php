@@ -48,5 +48,10 @@
     </div>
 </footer>
 <!-- footer sticky bottom ends -->
+{{-- Forms Airtime --}}
+@include('users.forms.airtime')
+@include('users.forms.data')
+@include('users.forms.tv')
 @include('users.forms.funding')
 @include('users.forms.services')
+@include('users.forms.preorder')

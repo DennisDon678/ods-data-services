@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Cable_list;
+use App\Models\Contacts;
 use App\Models\Dataplans;
 use App\Models\Network_list;
 use App\Models\plan_type_list;
@@ -143,20 +144,38 @@ class DatabaseSeeder extends Seeder
         //     Dataplans::create($sme);
         // }
 
-        $cables = [
+        // $cables = [
+        //     [
+        //         'label' => 'GOTV'
+        //     ],
+        //     [
+        //         'label' => 'DSTV'
+        //     ],
+        //     [
+        //         'label' => 'STARTIME'
+        //     ],
+        // ];
+
+        // foreach ($cables as $cable){
+        //     Cable_list::create($cable);
+        // }
+
+        $contacts = [
             [
-                'label' => 'GOTV'
+                'title' => 'Conttact Via Email',
+                'detail' => 'sitemail@site.com',
+                'type' => 'email',
             ],
+
             [
-                'label' => 'DSTV'
-            ],
-            [
-                'label' => 'STARTIME'
+                'title' => 'Contact Via whatsapp',
+                'detail' => '+1234567890',
+                'type' => 'whatsapp',
             ],
         ];
 
-        foreach ($cables as $cable){
-            Cable_list::create($cable);
+        foreach ($contacts as $contact){
+            Contacts::create($contact);
         }
     }
 }
