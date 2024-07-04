@@ -62,11 +62,9 @@
                             </a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link " data-bs-toggle="dropdown" data-bs-auto-close="false"
-                                data-bs-display="static" href="#" role="button" aria-expanded="false">
+                            <a class="nav-link " href="/user/contact">
                                 <div class="avatar avatar-40 icon"><i class="bi bi-chat"></i></div>
                                 <div class="col">Contact Us</div>
-
                             </a>
                         </li>
                     </ul>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Contacts;
 use App\Models\Notification;
 use App\Models\Reserved_bank;
 use App\Models\Transactions;
@@ -55,7 +56,7 @@ class UserDashboardController extends Controller
 
     public function transactions()
     {
-        $transactions = Transactions::where('user_id', '=', Auth::user()->id)->orderby('created_at','DESC')->paginate(20);
+        $transactions = Transactions::where('user_id', '=', Auth::user()->id)->orderby('created_at', 'DESC')->paginate(20);
 
         return view('users.transactions', compact('transactions'));
     }
@@ -146,5 +147,12 @@ class UserDashboardController extends Controller
             }
         }
         return view('users.notifications', compact('notifications'));
+    }
+
+    public function contact()
+    {
+        $contacts = Contacts::all();
+
+        return view('users.contact',compact('contacts'));
     }
 }

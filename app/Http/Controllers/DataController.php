@@ -4,8 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Dataplans;
 use App\Models\plan_type_list;
+use App\Models\Preorder;
+use App\Models\Preordered;
+use App\Models\Transactions;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
 class DataController extends Controller
@@ -48,7 +52,72 @@ class DataController extends Controller
 
         if ($user->balance >= $plan->price) {
             return response()->json(0);
-        }else{
+        } else {
+            return response()->json(1);
+        }
+    }
+
+    public function get_preorders(Request $request)
+    {
+        $plans = Preorder::where('network_id', '=', $request->network_id)->get();
+
+        if ($plans) {
+            return response()->json($plans);
+        } else {
+            return response()->json(1);
+        }
+    }
+
+
+    public function get_preorders_details(Request $request)
+    {
+        $plan = Preorder::find($request->data_id);
+
+        if ($plan) {
+            return response()->json($plan);
+        } else {
+            return response()->json(1);
+        }
+    }
+
+    public function submit_preorders(Request $request)
+    {
+        $plan = Preorder::find($request->data_id);
+
+        // Charge the User Account
+        $user = User::find($request->user()->id);
+        // check if user has enough balance
+        if ($user->balance >= $plan->price) {
+            $user->balance -= $plan->price;
+            $user->save();
+
+            // Created Preordered 
+            $reference = uniqid();
+            $order = Preordered::create([
+                'reference' => $reference,
+                'user_id' => Auth::user()->id,
+                'network' => 'MTN',
+                'size' => $plan->size,
+                'number' => $request->number,
+                'status' => 'processing',
+            ]);
+
+            if ($order) {
+                // Create Transaction
+                $transaction = Transactions::create([
+                    'user_id' => $request->user()->id,
+                    'transaction_id' => $reference,
+                    'title' => 'MTN '.$plan->size.' Pre-Order',
+                    'type' => "preorder",
+                    'amount' => $plan->price,
+                    'status' => 'processing',
+                ]);
+
+                return response()->json(0);
+            } else {
+                return response()->json(2);
+            }
+        } else {
             return response()->json(1);
         }
     }

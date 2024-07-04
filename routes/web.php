@@ -63,6 +63,7 @@ Route::middleware('auth')->prefix('user')->group(function () {
 
     // notifications
     Route::get('/notifications',[UserDashboardController::class,'notifications']);
+    Route::get('/contact',[UserDashboardController::class, 'contact']);
 
 
     // Ajax requests for data
@@ -70,6 +71,12 @@ Route::middleware('auth')->prefix('user')->group(function () {
     Route::get('data/get_data_plans',[DataController::class,'get_data_plans']);
     Route::get('/data/get_plan',[DataController::class,'get_plan']);
     Route::post('/data/buy_data',[DataController::class,'buy_data']);
+    Route::get('/get_preorders',[DataController::class,'get_preorders']);
+    Route::get('/get_preorders_details',[DataController::class,'get_preorders_details']);
+    Route::post('/submit_preorder',[DataController::class,'submit_preorders']);
+
+
+    // Wallets AJAX
     Route::post('/fund-wallet/create',[UserDashboardController::class,'create_deposit']);
 
     // Transaction
