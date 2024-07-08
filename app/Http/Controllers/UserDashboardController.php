@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Airtime_to_cash;
 use App\Models\Contacts;
 use App\Models\Notification;
 use App\Models\Reserved_bank;
@@ -154,5 +155,45 @@ class UserDashboardController extends Controller
         $contacts = Contacts::all();
 
         return view('users.contact',compact('contacts'));
+    }
+
+
+    public function airtime_to_cash(Request $request){
+        $req = (object) $request->all();
+        // dd($req);
+        return view('users.airtime_to_cash', compact('req'));
+    }
+
+    public function airtime_to_cash_convert(Request $request){
+        
+        $amount = (int)filter_var($request->amount, FILTER_SANITIZE_NUMBER_INT)/100;
+        $transactionId = uniqid();
+
+        $cash = Airtime_to_cash::create([
+            'amount' => $amount,
+            'user_id' => $request->user()->id,
+            'to' => $request->to,
+            'from' => $request->from,
+            'bank_name' => $request->bankName,
+            'account_number' => $request->accountNumber,
+            'account_name' => $request->accountName,
+            'transaction_id' => $transactionId,
+            'networks' => $request->networks,
+        ]);
+
+        $trans = Transactions::create([
+            'user_id' => $request->user()->id,
+            'transaction_id' => $transactionId,
+            'title' => "Airtime 2 Cash",
+            'type' => "deposit",
+            'amount' => $amount,
+            'status' => strtolower('processing'),
+        ]);
+
+        if($trans && $cash){
+            return response()->json(0);
+        }else{
+            return response()->json(1);
+        }
     }
 }
