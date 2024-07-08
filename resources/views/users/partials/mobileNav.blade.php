@@ -55,3 +55,4 @@
 @include('users.forms.funding')
 @include('users.forms.services')
 @include('users.forms.preorder')
+@include('users.forms.a2c')

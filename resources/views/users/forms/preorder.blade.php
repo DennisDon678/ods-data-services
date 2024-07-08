@@ -135,10 +135,20 @@
             type: "get",
             url: "/user/get_preorders_details?data_id=" + data_id,
             success: function(response) {
-                if (response == 1) {
+                if (response == 2) {
                     Swal.fire({
                         title: 'Error!',
                         text: 'This data type is not available for preorder.',
+                        icon: 'error',
+                        confirmButtonText: 'Okay'
+                    });
+                    $('#preOrderPlan').val('');
+                    return false;
+                }else if (response == 1) {
+                    // insufficient balance
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Insufficient balance.',
                         icon: 'error',
                         confirmButtonText: 'Okay'
                     });

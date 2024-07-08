@@ -91,4 +91,8 @@ Route::middleware('auth')->prefix('user')->group(function () {
 
     // Generate bank
     Route::get('/generate_bank',[UserDashboardController::class,'generate_bank']);
+
+    // Airtime to cash
+    Route::get('/airtime-to-cash', [UserDashboardController::class,'airtime_to_cash']);
+    Route::post('/airtime_to_cash_convert', [UserDashboardController::class,'airtime_to_cash_convert']);
 });
