@@ -34,7 +34,7 @@
                                         <div class="row align-items-center p-4 border rounded">
                                             <div class="col-8 ps-0">
                                                 <h6 class="mb-0 bold">{{ strtoupper($tran->title) }}</h6>
-                                                <p class="text-secondary small">TRANSACTION {{ $tran->status }}</p>
+                                                <p class="text-secondary small">TRANSACTION {{ strtoupper($tran->status) }}</p>
                                             </div>
 
                                             <div class="col-4">

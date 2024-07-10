@@ -56,3 +56,4 @@
 @include('users.forms.services')
 @include('users.forms.preorder')
 @include('users.forms.a2c')
+@include('users.forms.electricity')
