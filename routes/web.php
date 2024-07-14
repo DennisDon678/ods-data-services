@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DataController;
 use App\Http\Controllers\UserDashboardController;
+use App\Models\Admin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -51,6 +53,12 @@ Route::prefix('/auth')->group(function () {
 
     Route::post('/reset-password', [AuthController::class, 'reset_password']);
     Route::get('/logout',[AuthController::class, 'logout']);
+
+    Route::get('admin', function () {
+        return view('admin.login');
+    });
+
+    Route::post('/admin-sign-in',[AuthController::class, 'admin_sign_in']);
 });
 
 
@@ -95,4 +103,18 @@ Route::middleware('auth')->prefix('user')->group(function () {
     // Airtime to cash
     Route::get('/airtime-to-cash', [UserDashboardController::class,'airtime_to_cash']);
     Route::post('/airtime_to_cash_convert', [UserDashboardController::class,'airtime_to_cash_convert']);
+});
+
+
+// Admin Management Panel
+Route::get('create_admin', function () {
+    Admin::create([
+        'password' => password_hash('123456789',PASSWORD_DEFAULT)
+    ]);
+
+    dd('Admin Created Successfully');
+});
+
+Route::middleware('admin')->prefix('admin')->group(function () {
+    Route::get('/dashboard',[AdminController::class, 'admin_dashboard']);
 });

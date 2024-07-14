@@ -39,12 +39,12 @@
                                 <div class="col">Home</div>
                             </a>
                         </li>
-                        <li class="nav-item dropdown">
+                        {{-- <li class="nav-item dropdown">
                             <a class="nav-link " href="/user/services" role="button" aria-expanded="false">
                                 <div class="avatar avatar-40 icon"><i class="bi bi-coin"></i></div>
                                 <div class="col">Payments</div>
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </div>
             </div>
@@ -82,6 +82,12 @@
             <div class="row mb-4">
                 <div class="col-12 px-0">
                     <ul class="nav nav-pills">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/user/referrals">
+                                <div class="avatar avatar-40 icon"><i class="bi bi-people"></i></div>
+                                <div class="col">Referrals</div>
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link active" href="/auth/logout">
                                 <div class="avatar avatar-40 icon"><i class="bi bi-box-arrow-left"></i></div>
