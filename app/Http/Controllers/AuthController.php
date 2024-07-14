@@ -137,4 +137,15 @@ class AuthController extends Controller
         Auth::logout();
         return redirect('/auth/sign-in');
     }
+
+    public function admin_sign_in(Request $request){
+        if (Auth::guard('admin')->attempt([
+            'email' => $request->email,
+            'password' => $request->password,
+        ])) {
+            return response()->json(0);
+        } else {
+            return response()->json(1);
+        }
+    }
 }

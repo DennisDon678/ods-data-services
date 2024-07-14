@@ -70,7 +70,9 @@
                                             <div class="card border-0 mb-3">
                                                 <div class="card-body" style="text-align:center;">
                                                     <h4>Electricity</h4>
-                                                    <a href="" class="btn btn-primary">Buy Now</a>
+                                                    <button type="button" data-bs-toggle="modal"
+                                                    data-bs-target="#electricityModal" class="btn btn-primary">Buy
+                                                    Now</button>
                                                 </div>
                                             </div>
                                         </div>
