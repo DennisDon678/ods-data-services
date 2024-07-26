@@ -1,103 +1,449 @@
-<!-- Sidebar -->
-<div class="sidebar-wrap">
-    <div class="sidebar">
-        <div class="container">
-            <div class="row mb-4">
-                <div class="col align-self-center">
-                    <h6>Main navigation</h6>
-                </div>
-                <div class="col-auto">
-                    <a class="" data-bs-toggle="collapse" data-bs-target="#usersidebarprofile" aria-expanded="false"
-                        role="button" aria-controls="usersidebarprofile">
-                        <i class="bi bi-person-circle"></i>
-                    </a>
-                </div>
-            </div>
+    <div data-bs-theme="">
+        <nav class="navbar navbar-vertical fixed-start navbar-expand-md" id="sidebar">
+            <div class="container-fluid">
 
-            <!-- user information -->
-            <div class="row text-center collapse " id="usersidebarprofile">
-                <div class="col-12">
-                    <div class="avatar avatar-100 rounded-circle shadow-sm mb-3 bg-white">
-                        <figure class="avatar avatar-90 rounded-circle coverimg">
-                            <img src="/dashboard/assets/img/user-1.jpg" alt="" id="userphotoonboarding">
-                        </figure>
+                <!-- Toggler -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarCollapse"
+                    aria-controls="sidebarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Brand -->
+                <a class="navbar-brand" href="index.html">
+                    <img src="/admin/assets/img/logo.svg" class="navbar-brand-img mx-auto" alt="...">
+                </a>
+
+                <!-- User (xs) -->
+                <div class="navbar-user d-md-none">
+
+                    <!-- Dropdown -->
+                    <div class="dropdown">
+
+                        <!-- Toggle -->
+                        <a href="#" id="sidebarIcon" class="dropdown-toggle" role="button"
+                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <div class="avatar avatar-sm avatar-online">
+                                <img src="/admin/assets/img/avatars/profiles/avatar-1.jpg"
+                                    class="avatar-img rounded-circle" alt="...">
+                            </div>
+                        </a>
+
+                        <!-- Menu -->
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="sidebarIcon">
+                            <a href="profile-posts.html" class="dropdown-item">Profile</a>
+                            <a href="account-general.html" class="dropdown-item">Settings</a>
+                            <hr class="dropdown-divider">
+                            <a href="sign-in.html" class="dropdown-item">Logout</a>
+                        </div>
+
                     </div>
-                </div>
-                <div class="col-12 mb-4">
-                    <h6 class="mb-1" id="usernamedisplay">Admin</h6>
-                </div>
-            </div>
 
-            <!-- user menu navigation -->
-            <div class="row mb-4">
-                <div class="col-12 px-0">
-                    <ul class="nav nav-pills">
+                </div>
+
+                <!-- Collapse -->
+                <div class="collapse navbar-collapse" id="sidebarCollapse">
+
+                    <!-- Navigation -->
+                    <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/user/dashboard">
-                                <div class="avatar avatar-40 icon"><i class="bi bi-house-door"></i></div>
-                                <div class="col">Dashboard</div>
-                            </a>
-                        </li>
-                        {{-- <li class="nav-item dropdown">
-                            <a class="nav-link " href="/user/services" role="button" aria-expanded="false">
-                                <div class="avatar avatar-40 icon"><i class="bi bi-coin"></i></div>
-                                <div class="col">Payments</div>
-                            </a>
-                        </li> --}}
-                    </ul>
-                </div>
-            </div>
-
-            <!-- user secondary menu navigation -->
-            <h6>Pages</h6>
-            <div class="row mb-4">
-                <div class="col-12 px-0">
-                    <ul class="nav nav-pills">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link " href="/user/profile" aria-expanded="false">
-                                <div class="avatar avatar-40 icon"><i class="bi bi-person-circle"></i></div>
-                                <div class="col">Profile</div>
-
-                            </a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link " href="/user/contact">
-                                <div class="avatar avatar-40 icon"><i class="bi bi-chat"></i></div>
-                                <div class="col">Contact Us</div>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Quick links -->
-            <div class="row mb-3">
-                <div class="col align-self-center">
-                    <h6>Quick Links</h6>
-                </div>
-                <div class="col-auto">
-                </div>
-            </div>
-            <div class="row mb-4">
-                <div class="col-12 px-0">
-                    <ul class="nav nav-pills">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="/user/referrals">
-                                <div class="avatar avatar-40 icon"><i class="bi bi-people"></i></div>
-                                <div class="col">Referrals</div>
+                            <a class="nav-link" href="/admin/dashboard" >
+                                <i class="fe fe-home"></i> Dashboards
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="/auth/logout">
-                                <div class="avatar avatar-40 icon"><i class="bi bi-box-arrow-left"></i></div>
-                                <div class="col">Logout</div>
+                            <a class="nav-link" href="#sidebarPages" >
+                                <i class="fe fe-users"></i> Users Management
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="widgets.html">
+                                <i class="fe fe-grid"></i> Widgets
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#sidebarAuth" data-bs-toggle="collapse" role="button"
+                                aria-expanded="false" aria-controls="sidebarAuth">
+                                <i class="fe fe-user"></i> Authentication
+                            </a>
+                            <div class="collapse" id="sidebarAuth">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="#sidebarSignIn" class="nav-link" data-bs-toggle="collapse"
+                                            role="button" aria-expanded="false" aria-controls="sidebarSignIn">
+                                            Sign in
+                                        </a>
+                                        <div class="collapse" id="sidebarSignIn">
+                                            <ul class="nav nav-sm flex-column">
+                                                <li class="nav-item">
+                                                    <a href="sign-in-cover.html" class="nav-link">
+                                                        Cover
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="sign-in-illustration.html" class="nav-link">
+                                                        Illustration
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="sign-in.html" class="nav-link">
+                                                        Basic
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#sidebarSignUp" class="nav-link" data-bs-toggle="collapse"
+                                            role="button" aria-expanded="false" aria-controls="sidebarSignUp">
+                                            Sign up
+                                        </a>
+                                        <div class="collapse" id="sidebarSignUp">
+                                            <ul class="nav nav-sm flex-column">
+                                                <li class="nav-item">
+                                                    <a href="sign-up-cover.html" class="nav-link">
+                                                        Cover
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="sign-up-illustration.html" class="nav-link">
+                                                        Illustration
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="sign-up.html" class="nav-link">
+                                                        Basic
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#sidebarPassword" class="nav-link" data-bs-toggle="collapse"
+                                            role="button" aria-expanded="false" aria-controls="sidebarPassword">
+                                            Password reset
+                                        </a>
+                                        <div class="collapse" id="sidebarPassword">
+                                            <ul class="nav nav-sm flex-column">
+                                                <li class="nav-item">
+                                                    <a href="password-reset-cover.html" class="nav-link">
+                                                        Cover
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="password-reset-illustration.html" class="nav-link">
+                                                        Illustration
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="password-reset.html" class="nav-link">
+                                                        Basic
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#sidebarError" class="nav-link" data-bs-toggle="collapse"
+                                            role="button" aria-expanded="false" aria-controls="sidebarError">
+                                            Error
+                                        </a>
+                                        <div class="collapse" id="sidebarError">
+                                            <ul class="nav nav-sm flex-column">
+                                                <li class="nav-item">
+                                                    <a href="error-illustration.html" class="nav-link">
+                                                        Illustration
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="error.html" class="nav-link">
+                                                        Basic
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item d-md-none">
+                            <a class="nav-link" data-bs-toggle="offcanvas" href="#sidebarOffcanvasActivity"
+                                aria-contrtols="sidebarOffcanvasActivity">
+                                <span class="fe fe-bell"></span> Notifications
                             </a>
                         </li>
                     </ul>
-                </div>
-            </div>
 
-        </div>
+                    <!-- Divider -->
+                    <hr class="navbar-divider my-3">
+
+                    <!-- Heading -->
+                    <h6 class="navbar-heading">
+                        Documentation
+                    </h6>
+
+                    <!-- Navigation -->
+                    <ul class="navbar-nav mb-md-4">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#sidebarBasics" data-bs-toggle="collapse" role="button"
+                                aria-expanded="false" aria-controls="sidebarBasics">
+                                <i class="fe fe-clipboard"></i> Basics
+                            </a>
+                            <div class="collapse " id="sidebarBasics">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="docs/getting-started.html" class="nav-link ">
+                                            Getting Started
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="docs/design-file.html" class="nav-link ">
+                                            Design File
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#sidebarComponents" data-bs-toggle="collapse" role="button"
+                                aria-expanded="false" aria-controls="sidebarComponents">
+                                <i class="fe fe-book-open"></i> Components
+                            </a>
+                            <div class="collapse " id="sidebarComponents">
+                                <ul class="nav nav-sm flex-column">
+                                    <li>
+                                        <a href="docs/components.html#accordion" class="nav-link">
+                                            Accordion
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="docs/components.html#alerts" class="nav-link">
+                                            Alerts
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="docs/components.html#autosize" class="nav-link">
+                                            Autosize
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="docs/components.html#avatars" class="nav-link">
+                                            Avatars
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="docs/components.html#badges" class="nav-link">
+                                            Badges
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="docs/components.html#breadcrumb" class="nav-link">
+                                            Breadcrumb
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="docs/components.html#buttons" class="nav-link">
+                                            Buttons
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="docs/components.html#buttonGroup" class="nav-link">
+                                            Button group
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="docs/components.html#cards" class="nav-link">
+                                            Cards
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="docs/components.html#charts" class="nav-link">
+                                            Charts
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="docs/components.html#checklist" class="nav-link">
+                                            Checklist
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="docs/components.html#dropdowns" class="nav-link">
+                                            Dropdowns
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="docs/components.html#forms" class="nav-link">
+                                            Forms
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="docs/components.html#icons" class="nav-link">
+                                            Icons
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="docs/components.html#kanban" class="nav-link">
+                                            Kanban
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="docs/components.html#listGroup" class="nav-link">
+                                            List group
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="docs/components.html#map" class="nav-link">
+                                            Map
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="docs/components.html#modals" class="nav-link">
+                                            Modal
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="docs/components.html#navbarDocs" class="nav-link">
+                                            Navbar
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="docs/components.html#navsAndTabs" class="nav-link">
+                                            Navs & tabs
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="docs/components.html#offcanvas" class="nav-link">
+                                            Offcanvas
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="docs/components.html#pageHeaders" class="nav-link">
+                                            Page headers
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="docs/components.html#pagination" class="nav-link">
+                                            Pagination
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="docs/components.html#placeholders" class="nav-link">
+                                            Placeholders
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="docs/components.html#popovers" class="nav-link">
+                                            Popovers
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="docs/components.html#progress" class="nav-link">
+                                            Progress
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="docs/components.html#socialPosts" class="nav-link">
+                                            Social post
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="docs/components.html#spinners" class="nav-link">
+                                            Spinners
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="docs/components.html#tables" class="nav-link">
+                                            Tables
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="docs/components.html#toasts" class="nav-link">
+                                            Toasts
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="docs/components.html#tooltips" class="nav-link">
+                                            Tooltips
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="docs/components.html#typography" class="nav-link">
+                                            Typography
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="docs/components.html#utilities" class="nav-link">
+                                            Utilities
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="docs/changelog.html">
+                                <i class="fe fe-git-branch"></i> Changelog <span
+                                    class="badge bg-primary ms-auto">v2.3.0</span>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <!-- Push content down -->
+                    <div class="mt-auto"></div>
+
+                    <!-- Customize -->
+                    <div class="mb-4" id="popoverDemo" title="Make Dashkit Your Own!"
+                        data-bs-content="Switch the demo to Dark Mode or adjust the navigation layout, icons, and colors!">
+                        <a class="btn w-100 btn-primary" data-bs-toggle="offcanvas" href="#offcanvasDemo"
+                            aria-controls="offcanvasDemo">
+                            <i class="fe fe-sliders me-2"></i> Customize
+                        </a>
+                    </div>
+                    <div id="popoverDemoContainer" data-bs-theme="dark"></div>
+
+                    <!-- User (md) -->
+                    <div class="navbar-user d-none d-md-flex" id="sidebarUser">
+
+                        <!-- Icon -->
+                        <a class="navbar-user-link" data-bs-toggle="offcanvas" href="#sidebarOffcanvasActivity"
+                            aria-controls="sidebarOffcanvasActivity">
+                            <span class="icon">
+                                <i class="fe fe-bell"></i>
+                            </span>
+                        </a>
+
+                        <!-- Dropup -->
+                        <div class="dropup">
+
+                            <!-- Toggle -->
+                            <a href="#" id="sidebarIconCopy" class="dropdown-toggle" role="button"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <div class="avatar avatar-sm avatar-online">
+                                    <img src="/admin/assets/img/avatars/profiles/avatar-1.jpg"
+                                        class="avatar-img rounded-circle" alt="...">
+                                </div>
+                            </a>
+
+                            <!-- Menu -->
+                            <div class="dropdown-menu" aria-labelledby="sidebarIconCopy">
+                                <a href="profile-posts.html" class="dropdown-item">Profile</a>
+                                <a href="account-general.html" class="dropdown-item">Settings</a>
+                                <hr class="dropdown-divider">
+                                <a href="sign-in.html" class="dropdown-item">Logout</a>
+                            </div>
+
+                        </div>
+
+                        <!-- Icon -->
+                        <a class="navbar-user-link" data-bs-toggle="offcanvas" href="#sidebarOffcanvasSearch"
+                            aria-controls="sidebarOffcanvasSearch">
+                            <span class="icon">
+                                <i class="fe fe-search"></i>
+                            </span>
+                        </a>
+
+                    </div>
+
+                </div> <!-- / .navbar-collapse -->
+
+            </div>
+        </nav>
     </div>
-</div>
-<!-- Sidebar ends -->

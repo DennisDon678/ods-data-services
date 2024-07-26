@@ -196,4 +196,8 @@ class UserDashboardController extends Controller
             return response()->json(1);
         }
     }
+
+    public function referrals(){
+        return view('users.referrals');
+    }
 }

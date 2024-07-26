@@ -56,7 +56,7 @@ Route::prefix('/auth')->group(function () {
 
     Route::get('admin', function () {
         return view('admin.login');
-    });
+    })->name('admin_login');
 
     Route::post('/admin-sign-in',[AuthController::class, 'admin_sign_in']);
 });
@@ -72,6 +72,7 @@ Route::middleware('auth')->prefix('user')->group(function () {
     // notifications
     Route::get('/notifications',[UserDashboardController::class,'notifications']);
     Route::get('/contact',[UserDashboardController::class, 'contact']);
+    Route::get('/referrals', [UserDashboardController::class, 'referrals']);
 
 
     // Ajax requests for data

@@ -32,7 +32,8 @@
                         </div>
                         <div class="card-body bg-none text-white">
                             <div class="text-center mb-3">
-                                <h5 class="fw-normal mb-0 username">{{ explode(' ', Auth::user()->name)[0] }}</h5>
+                                <h5 class="fw-normal mb-0 username">
+                                    {{ strtoupper(explode(' ', Auth::user()->name)[0]) }}</h5>
                                 <h3 class="fw-medium">&#8358;{{ number_format(Auth::user()->balance, 2) }}</h3>
                             </div>
 
@@ -92,17 +93,6 @@
                             <div class="swiper-container creditcards">
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide">
-                                        <div class="card border-0 mb-3 ">
-                                            <div class="card-body" style="text-align:center;">
-                                                <h4>Airtime</h4>
-                                                <button type="button" data-bs-toggle="modal"
-                                                    data-bs-target="#airtimeModal" class="btn btn-primary">Buy
-                                                    Now</button>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
                                         <div class="card border-0  mb-3">
                                             <div class="card-body" style="text-align:center;">
                                                 <h4>Mobile Data</h4>
@@ -121,6 +111,18 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="swiper-slide">
+                                        <div class="card border-0 mb-3 ">
+                                            <div class="card-body" style="text-align:center;">
+                                                <h4>Airtime</h4>
+                                                <button type="button" data-bs-toggle="modal"
+                                                    data-bs-target="#airtimeModal" class="btn btn-primary">Buy
+                                                    Now</button>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
 
                                     <div class="swiper-slide">
                                         <div class="card border-0 mb-3">

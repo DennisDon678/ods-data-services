@@ -15,7 +15,7 @@
                             <div class="row gy-4 gy-md-8 pt-9 pt-lg-0">
                                 <div class="col-lg-6 text-center text-lg-start">
                                     <h1 class="fs-2 fs-lg-1 text-white fw-bold mb-2 mb-lg-x1 lh-base mt-3 mt-lg-0">
-                                        Instant Topup Platform <span class="text-nowrap">With {{env('APP_NAME')}}</span></h1>
+                                        Instant Topup <span class="text-nowrap">With {{env('APP_NAME')}}</span></h1>
                                     <p class="fs-8 text-white mb-3 mb-lg-4 lh-lg">Buy Cheap Mobile Data, Airtime, Pay
                                         Electricity Bill, Pay TV Subscription, Educational Payment, Print Recharge Card
                                         & Data Pin.</p>
