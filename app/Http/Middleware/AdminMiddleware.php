@@ -20,7 +20,7 @@ class AdminMiddleware
         if(Auth::guard('admin')->check()){
             return $next($request);
         }else{
-            return redirect(url('admin_login'));
+            return redirect(route('admin_login'));
         }
     }
 }

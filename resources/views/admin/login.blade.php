@@ -1,229 +1,177 @@
-<!DOCTYPE HTML>
-<html lang="en">
+<!doctype html>
+<html lang="en" data-bs-theme="">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover">
-    <title>Login</title>
-    <link rel="stylesheet" type="text/css" href="/mobile/assets/styles/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="/mobile/assets/styles/style.css">
-    <link href="/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/mobile/assets/fonts/css/fontawesome-all.min.css">
-    <link rel="manifest" href="/mobile/assets/scripts/_manifest.json" data-pwa-version="set_in_manifest_and_pwa_js">
-    <link rel="apple-touch-icon" sizes="180x180" href="/mobile/assets/img/favicon.png">
-    <link rel="icon" type="image/png" href="/mobile/assets/img/favicon.png">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/admin/assets/favicon/favicon.ico" type="image/x-icon">
+
+    <!-- Map CSS -->
+    {{-- <link rel="stylesheet" href="mapbox-gl-js/v0.53.0/mapbox-gl.css"> --}}
+
+    <!-- Libs CSS -->
+    <link rel="stylesheet" href="/admin/assets/css/libs.bundle.css">
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="/admin/assets/css/theme.bundle.css">
+    <link rel="stylesheet" href="">
+
     <style>
         body {
-            background-color: #000000;
-        }
-
-        .card {
-            background: rgba(0, 0, 0, 0.5);
-            margin: 20px;
-        }
-
-        .form-control {
-            background-color: #fafafa !important;
-            border-radius: 1rem !important;
-            padding: 25px !important;
-            padding-left: 50px !important;
-        }
-
-        .form-control:focus {
-            background-color: #ffffff !important;
-        }
-
-
-        .input-style i {
-            padding-left: 20px !important;
-        }
-
-        .btn {
-            border-radius: 1rem !important;
+            display: none;
         }
     </style>
+
+    <!-- Title -->
+    <title>{{ env('APP_NAME') }} admin portal</title>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async="" src="gtag/js?id=UA-156446909-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag("js", new Date());
+        gtag("config", "UA-156446909-1");
+    </script>
 </head>
 
-<body class="theme-light">
+<body class="d-flex align-items-center bg-auth border-top border-top-2 border-primary">
 
-    <div id="preloader">
-        <div class="spinner-border color-highlight" role="status"></div>
-    </div>
+    <!-- CONTENT
+    ================================================== -->
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-5 col-xl-4 my-5">
 
-    <div id="page">
+                <!-- Heading -->
+                <h1 class="display-4 text-center mb-3">
+                    Welcome {{ env('APP_NAME') }} admin, Sign in
+                </h1>
 
+                <!-- Form -->
+                <form id="loginForm" method="post">
+                    @csrf
+                    <!-- Email address -->
+                    <div class="form-group">
 
+                        <!-- Label -->
+                        <label class="form-label">
+                            Email Address
+                        </label>
 
-        <div class="page-content mt-3">
-
-            <div style="display:flex; justify-content:center; align-content:center;">
-                <div class="card card-style">
-                    <div class="content ">
-
-                        <div class="text-center">
-                            <h2 class="mb-3 text-white mt-5" id="accountname">Welcome TO Admin Portal</h2>
-                            <h4 class="font-25 mb-3 text-white" id="accountname2">Login To {{env('APP_NAME')}} Admin</h4>
-                        </div>
-
-                        <div class="text-center">
-                            <div class="pb-3 pt-3">
-                                <a href="/">
-                                    {{-- <img src="/assets/IMG_2024.png" class="img-fluid" width="200"> --}}
-                                    <h1 class="text-light">{{env('APP_NAME')}}</h1>
-                                </a>
-                            </div>
-                        </div>
-
-                        <form id="login-form" method="post">
-                            @csrf
-                            <div class="px-2">
-                                <div class="input-style no-borders has-icon mb-4" id="phonediv">
-                                    <i class="fa fa-envelope"></i>
-                                    <input type="text" class="form-control" id="email" name="email"
-                                        placeholder="Email Address" required="" readonly="">
-                                    <label for="email" class="color-highlight">email</label>
-                                    <em>(required)</em>
-                                </div>
-                                <div class="input-style no-borders has-icon mb-4">
-                                    <i class="fa fa-lock"></i>
-                                    <input type="password" class="form-control" id="password" name="password"
-                                        placeholder="Password" required="" readonly="">
-                                    <label for="password" class="color-highlight">Password</label>
-                                    <em>(required)</em>
-                                </div>
-
-                                <button type="submit" id="submit-btn" style="width: 100%;"
-                                    class="btn btn-full btn-l font-600 font-15 gradient-highlight mt-4 ">
-                                    Login
-                                </button>
-
-                                <div class="row pt-5 mb-3">
-                                    <div class="col-12 text-center font-15">
-                                        <a class="text-white" href="/auth/forgot-password">Forget Password? Recover
-                                            It</a>
-                                    </div>
-                                    <div class="col-12 text-center font-15 mt-2">
-                                        <a class="text-white" href="/auth/sign-up">New User? Create New
-                                            Account</a>
-                                    </div>
-                                    <div class="col-12 text-center font-15 mt-3">
-                                        <a class="text-white"></a><b>{{env('APP_NAME')}} v1.0</b>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </form>
+                        <!-- Input -->
+                        <input type="email" id="email" class="form-control" name="email" placeholder="name@address.com">
 
                     </div>
-                </div>
+
+                    <!-- Password -->
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col">
+
+                                <!-- Label -->
+                                <label class="form-label">
+                                    Password
+                                </label>
+
+                            </div>
+                            <div class="col-auto">
+
+                                <!-- Help text -->
+                                <a href="password-reset-cover.html"  class="form-text small text-body-secondary">
+                                    Forgot password?
+                                </a>
+
+                            </div>
+                        </div> <!-- / .row -->
+
+                        <!-- Input group -->
+                        <div class="input-group input-group-merge">
+
+                            <!-- Input -->
+                            <input class="form-control" id="password" name="password" type="password"
+                                placeholder="Enter your password">
+
+                            <!-- Icon -->
+                            <span class="input-group-text">
+                                <i class="fe fe-eye"></i>
+                            </span>
+
+                        </div>
+                    </div>
+
+                    <!-- Submit -->
+                    <button id="submitBtn" class="btn btn-lg w-100 btn-primary mb-3">
+                        Sign in
+                    </button>
+
+                    <!-- Link -->
+                    <div class="text-center">
+                        <small class="text-body-secondary text-center">
+                            Don't have an account yet? <a href="sign-up.html">Sign up</a>.
+                        </small>
+                    </div>
+
+                </form>
+
             </div>
+        </div> <!-- / .row -->
+    </div> <!-- / .container -->
+
+    <!-- JAVASCRIPT -->
+    <!-- Map JS -->
+    {{-- <script src='mapbox-gl-js/v0.53.0/mapbox-gl.js'></script> --}}
+
+    <!-- Vendor JS -->
+    <script src="/admin/assets/js/vendor.bundle.js"></script>
+
+    <!-- Theme JS -->
+    <script src="/admin/assets/js/theme.bundle.js"></script>
+    <script src="/sweetalert@2.1.2/dist/sweetalert.min.js"></script>
+    <script src="/jquery-3.6.0.min.js"></script>
 
 
-
-        </div>
-        <!-- Page content ends here-->
-
-
-    </div>
-
-    <script src="/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-        crossorigin="anonymous"></script>
-    <script type="text/javascript" src="/mobile/assets/scripts/bootstrap.min.js"></script>
-    <script src="/sweetalert%402.1.2/dist/sweetalert.min.js"></script>
-    <script type="text/javascript" src="/mobile/assets/scripts/custom.js"></script>
-
-    <script type="text/javascript">
-        $("document").ready(function() {
-
-            //Save Phone Number
-            checkIfPhoneNumberSaved();
-
-            //Enable Form Input
-            $("#email").click(function() {
-                $(this).removeAttr("readonly");
-            });
-            $("#password").click(function() {
-                $(this).removeAttr("readonly");
-            });
-
-            //Registration Form
-            $('#login-form').submit(function(e) {
-                e.preventDefault()
-                $('#submit-btn').removeClass("gradient-highlight");
-                $('#submit-btn').addClass("btn-secondary");
-                $('#submit-btn').html(
-                    '<i class="fa fa-spinner fa-spin" aria-hidden="true"></i> Verifying .');
-
+    <script>
+        $('#loginForm').submit((e) => {
+            e.preventDefault();
+            if ($('#email').val() != '' || $('#password').val() != '') {
+                console.log($('#password').val())
+                $('#submitBtn').html('<i class="fa fa-spinner fa-spin" aria-hidden="true"></i> Verifying .')
                 $.ajax({
-                    url: '/auth/admin-sign-in',
-                    data: new FormData($(this)[0]),
-                    cache: false,
+                    type: "post",
+                    url: "/auth/admin-sign-in",
+                    data: new FormData($('#loginForm')[0]),
                     contentType: false,
                     processData: false,
-                    method: 'POST',
-                    type: 'POST',
-                    success: function(resp) {
-                        console.log(resp);
-                        if (resp == 0) {
-                            swal('Alert!!', "Login Succesfull", "success");
-                            setTimeout(function() {
-                                location.replace('/admin/dashboard')
-                            }, 1000)
-                        } else if (resp == 1) {
-                            swal('Alert!!',
-                                "Incorrect {{env('APP_NAME')}} Login Details, Please Try Again with a correct one to avoid suspension.",
-                                "error");
-                        } else if (resp == 2) {
-                            swal('Alert!!',
-                                "Incorrect password details",
-                                "error");
+                    success: function(response) {
+                        console.log(response);
+                        if (response === 0) {
+                            location.replace('/admin/dashboard');
                         } else {
-                            swal('Alert!!', "Unknow Error, Please Contact us at  {{env('APP_NAME')}}.",
-                                "error");
+                            $('#submitBtn').html('Sign in');
+                            swal(
+                                'Alert!!',
+                                "Invalid email or password.",
+                                'error'
+                            )
                         }
-
-                        $('#submit-btn').removeClass("btn-secondary");
-                        $('#submit-btn').addClass("gradient-highlight");
-                        $('#submit-btn').html("Login");
-
                     }
                 })
-            });
-
-        });
-
-        function checkIfPhoneNumberSaved() {
-            $phone = atob(unescape(getCookie("loginPhone")));
-            $name = atob(unescape(getCookie("loginName")));
-            if ($phone != null && $phone != "") {
-                let msg =
-                    '<p class="mb-3"><a href="javascript:showNumber();"><b class="text-white">Login With Another Account?</b></a></p>';
-                $("#accountname2").after(msg);
-                $("#accountname").append(" " + $name + "!");
-                $("#phonediv").hide();
-                $("#phone").val($phone);
+            } else {
+                swal(
+                    'alert!!',
+                    "All fields are required.",
+                    'error'
+                )
             }
-        }
-
-        function showNumber() {
-            $("#phonediv").show();
-        }
-
-        function getCookie(cname) {
-            var name = cname + "=";
-            var ca = document.cookie.split(';');
-            for (var i = 0; i < ca.length; i++) {
-                var c = ca[i];
-                while (c.charAt(0) == ' ') c = c.substring(1);
-                if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
-            }
-            return "";
-        }
+        })
     </script>
-
 </body>
 
 </html>

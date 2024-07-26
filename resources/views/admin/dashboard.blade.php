@@ -1,87 +1,221 @@
-<!doctype html>
-<html lang="en">
-
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="">
 @include('admin.partials.head')
 
-<body class="d-flex flex-column h-100 sidebar-pushcontent sidebar-filled" data-sidebarstyle="sidebar-pushcontent">
+<body>
 
-    @include('admin.partials.preloader')
-
-    @include('admin.partials.headNav')
-
+    <!-- NAVIGATION -->
     @include('admin.partials.sideNav')
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        <!-- HEADER -->
+        <div class="header">
+            <div class="container-fluid">
 
-    <!-- Begin page content -->
-    <main class="main mainheight">
-        <!-- content -->
-        <div class="container mt-4">
-            <div class="row">
-                <!-- Balance card -->
-                <div class="col-12 col-md-12 col-lg-12 mb-4 ">
-                    <div class="card border-0 bg-radial-gradient h-100">
-                        <div class="card-header bg-none">
-                            <div class="row align-items-center">
-                                <div class="col">
-                                    <h6 class="fw-medium">
-                                        <i class="bi bi-wallet2 h5 me-1 avatar avatar-30 rounded"></i>
-                                        Wallet
-                                    </h6>
-                                </div>
+                <!-- Body -->
+                <div class="header-body">
+                    <div class="row align-items-end">
+                        <div class="col">
 
-                            </div>
+                            <!-- Pretitle -->
+                            <h6 class="header-pretitle">
+                                Overview
+                            </h6>
+
+                            <!-- Title -->
+                            <h1 class="header-title">
+                                Dashboard
+                            </h1>
+
                         </div>
-                        <div class="card-body bg-none text-white">
-                            <div class="text-center mb-3">
-                                <h5 class="fw-normal mb-0 username">Admin</h5>
-                                <h3 class="fw-medium">&#8358;{{ number_format(0, 2) }}</h3>
-                            </div>
 
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="row align-items-center">
-                                        <div class="col-auto">
-                                            <div class="avatar avatar-40 rounded-circle bg-green">
-                                                <i class="bi bi-arrow-down-left"></i>
-                                            </div>
-                                        </div>
-                                        <div class="col ps-0">
-                                            <p class="small text-muted mb-1">30 days Income </p>
-                                            <p class="">1525 <small>k</small></p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6 text-end border-left-dashed">
-                                    <div class="row align-items-center">
-                                        <div class="col pe-0">
-                                            <p class="small text-muted mb-1">30 days Expense</p>
-                                            <p class="">1321 <small>k</small></p>
-                                        </div>
-                                        <div class="col-auto">
-                                            <div class="avatar avatar-40 rounded-circle bg-red">
-                                                <i class="bi bi-arrow-up-right"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <style>
-                    .swiper-slide {}
-                </style>
+                    </div> <!-- / .row -->
+                </div> <!-- / .header-body -->
 
             </div>
+        </div> <!-- / .header -->
 
-            @include('admin.partials.transaction')
+        <!-- CARDS -->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 col-lg-6 col-xl-4">
+
+                    <!-- Value  -->
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row align-items-center gx-0">
+                                <div class="col">
+
+                                    <!-- Title -->
+                                    <h6 class="text-uppercase text-body-secondary mb-2">
+                                        API Balance
+                                    </h6>
+
+                                    <!-- Heading -->
+                                    <span class="h2 mb-0">
+                                        &#8358;24,500
+                                    </span>
+                                </div>
+                            </div> <!-- / .row -->
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-12 col-lg-6 col-xl-4">
+
+                    <!-- Hours -->
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row align-items-center gx-0">
+                                <div class="col">
+
+                                    <!-- Title -->
+                                    <h6 class="text-uppercase text-body-secondary mb-2">
+                                        Total Users Balance
+                                    </h6>
+
+                                    <!-- Heading -->
+                                    <span class="h2 mb-0">
+                                        &#8358;{{number_format(App\Models\User::sum('balance'),2)}}
+                                    </span>
+
+                                </div>
+
+                            </div> <!-- / .row -->
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-12 col-lg-6 col-xl-4">
+
+                    <!-- Exit -->
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row align-items-center gx-0">
+                                <div class="col">
+
+                                    <!-- Title -->
+                                    <h6 class="text-uppercase text-body-secondary mb-2">
+                                        Transactions today
+                                    </h6>
+
+                                    <!-- Heading -->
+                                    <span class="h2 mb-0">
+                                        35.5%
+                                    </span>
+
+                                </div>
+                            </div> <!-- / .row -->
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-12 col-lg-6 col-xl-4">
+
+                    <!-- Time -->
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row align-items-center gx-0">
+                                <div class="col">
+
+                                    <!-- Title -->
+                                    <h6 class="text-uppercase text-body-secondary mb-2">
+                                        Avg. Time
+                                    </h6>
+
+                                    <!-- Heading -->
+                                    <span class="h2 mb-0">
+                                        2:37
+                                    </span>
+
+                                </div>
+                            </div> <!-- / .row -->
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-12 col-lg-6 col-xl-4">
+
+                    <!-- Time -->
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row align-items-center gx-0">
+                                <div class="col">
+
+                                    <!-- Title -->
+                                    <h6 class="text-uppercase text-body-secondary mb-2">
+                                        Total Users
+                                    </h6>
+
+                                    <!-- Heading -->
+                                    <span class="h2 mb-0">
+                                        {{count(App\Models\User::all())}}
+                                    </span>
+
+                                </div>
+                            </div> <!-- / .row -->
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-12 col-lg-6 col-xl-4">
+
+                    <!-- Time -->
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row align-items-center gx-0">
+                                <div class="col">
+
+                                    <!-- Title -->
+                                    <h6 class="text-uppercase text-body-secondary mb-2">
+                                        No. of Vendors
+                                    </h6>
+
+                                    <!-- Heading -->
+                                    <span class="h2 mb-0">
+                                        2:37
+                                    </span>
+
+                                </div>
+                            </div> <!-- / .row -->
+                        </div>
+                    </div>
+
+                </div>
+            </div> <!-- / .row -->
+
+            <div class="row">
+
+                <div class="col-12 col-xl-4-12">
+
+                    <!-- Sales -->
+                    <div class="card">
+                        <div class="card-header">
+
+                            <!-- Title -->
+                            <h4 class="card-header-title">
+                                Account Funding
+                            </h4>
+
+                        </div>
+                        <div class="card-body">
+
+                            <!-- Chart -->
+                            <div class="chart">
+                                <canvas id="salesChart" class="chart-canvas"></canvas>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div> <!-- / .row -->
         </div>
 
+    </div><!-- / .main-content -->
+    @include('admin.partials.script')
 
-    </main>
-    {{--  --}}
-    @include('admin.partials.mobileNav')
-    @include('admin.partials.scripts')
 </body>
 
 </html>
