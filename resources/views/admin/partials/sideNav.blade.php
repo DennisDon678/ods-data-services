@@ -90,12 +90,12 @@
                             <div class="collapse" id="cable">
                                 <ul class="nav nav-sm flex-column">
                                     <li class="nav-item">
-                                        <a href="/admin/networks" class="nav-link">
+                                        <a href="/admin/cables" class="nav-link">
                                             Cable lists
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="/admin/data-types" class="nav-link">
+                                        <a href="/admin/cable-plans" class="nav-link">
                                             Cable Plans
                                         </a>
                                     </li>

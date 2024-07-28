@@ -146,5 +146,14 @@ Route::middleware('admin')->prefix('admin')->group(function () {
     Route::get('/data/get_plan_type', [DataController::class, 'get_plan_types']);
 
     // Cable list management
-    
+    Route::get('/cables',[AdminController::class, 'cable_list']);
+    Route::get('/cable/edit',[AdminController::class, 'edit_cable_list']);
+    Route::get('/cable/delete',[AdminController::class, 'delete_cable_list']);
+    Route::post('/cable/add',[AdminController::class, 'add_cable_list']);
+
+    // Cable plan management
+    Route::get('/cable-plans',[AdminController::class, 'cable_plans']);
+    Route::post('/cable-plan/edit',[AdminController::class, 'edit_cable_plan']);
+    Route::get('/cable-plan/delete',[AdminController::class, 'delete_cable_plan']);
+    Route::post('/cable-plan/add',[AdminController::class, 'add_cable_plan']);
 });

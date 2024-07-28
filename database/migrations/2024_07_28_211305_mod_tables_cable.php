@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         //
-        // Schema::table('network_lists', function (Blueprint $table){
-        //     $table->integer('network_id')->unique()->after('id');
+        // Schema::table('cable_lists', function (Blueprint $table) {
+        //     $table->integer('cable_id')->unique()->after('id');
         // });
     }
 

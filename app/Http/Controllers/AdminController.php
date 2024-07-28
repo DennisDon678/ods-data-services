@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cable_list;
+use App\Models\Cable_plan;
 use App\Models\Dataplans;
 use App\Models\Network_list;
 use App\Models\plan_type_list;
@@ -183,6 +185,73 @@ class AdminController extends Controller
   public function add_data_plan(Request $request)
   {
     Dataplans::create($request->except('_token'));
+
+    return redirect()->back();
+  }
+
+  public function cable_list(Request $request)
+  {
+    $cable_lists = Cable_list::all();
+
+    return view('admin.cable_list', compact('cable_lists'));
+  }
+
+  public function edit_cable_list(Request $request)
+  {
+    $cable_list = Cable_list::find($request->id);
+    $cable_list->label = $request->label;
+    $cable_list->cable_id = $request->network_id;
+    $cable_list->save();
+
+    return redirect()->back();
+  }
+
+  public function delete_cable_list(Request $request)
+  {
+    $cable_list = Cable_list::find($request->id);
+    $cable_list->delete();
+
+    return redirect()->back();
+  }
+
+  public function add_cable_list(Request $request)
+  {
+    Cable_list::create($request->except('_token'));
+
+    return redirect()->back();
+  }
+
+  // Cable plan management
+  public function cable_plans(Request $request)
+  {
+    $cable_plans = Cable_plan::all();
+
+    return view('admin.cable_plans', compact('cable_plans'));
+  }
+
+  public function add_cable_plan(Request $request)
+  {
+    Cable_plan::create($request->except('_token'));
+
+    return redirect()->back();
+  }
+
+  public function edit_cable_plan(Request $request)
+  {
+    $cable_plan = Cable_plan::find($request->id);
+    $cable_plan->plan_id = $request->plan_id;
+    $cable_plan->plan_name = $request->plan_name;
+    $cable_plan->price = $request->price;
+    $cable_plan->cable_id = $request->cable_id;
+    $cable_plan->save();
+
+    return redirect()->back();
+  }
+
+  public function delete_cable_plan(Request $request)
+  {
+    $cable_plan = Cable_plan::find($request->id);
+    $cable_plan->delete();
 
     return redirect()->back();
   }

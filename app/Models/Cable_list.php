@@ -10,5 +10,6 @@ class Cable_list extends Model
     use HasFactory;
     protected $fillable = [
         'label',
+        'cable_id',
     ];
 }

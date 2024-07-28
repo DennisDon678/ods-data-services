@@ -15,6 +15,11 @@ return new class extends Migration
     {
         Schema::create('cable_plans', function (Blueprint $table) {
             $table->id();
+            $table->string('plan_id');
+            $table->string('plan_name');
+            $table->unsignedBigInteger('cable_id');
+            $table->foreign('cable_id')->references('id')->on('cable_lists')->onDelete('cascade');
+            $table->string('price');
             $table->timestamps();
         });
     }

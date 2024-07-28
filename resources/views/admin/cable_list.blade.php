@@ -24,7 +24,7 @@
 
                             <!-- Title -->
                             <h1 class="header-title">
-                                Network List
+                                Cable List
                             </h1>
 
                         </div>
@@ -56,7 +56,7 @@
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Label</th>
-                                    <th scope="col">Network ID</th>
+                                    <th scope="col">Cable ID</th>
                                     <th scope="col">Edit</th>
                                     <th scope="col">Delete</th>
                                 </tr>
@@ -65,14 +65,14 @@
                                 @php
                                     $sn = 1;
                                 @endphp
-                                @forelse ($networks as $network)
+                                @forelse ($cable_lists as $network)
                                     <tr>
                                         <th scope="row">{{ $sn }}</th>
                                         <td>{{ strtoupper($network->label) }}</td>
-                                        <td>{{ $network->network_id }}</td>
+                                        <td>{{ $network->cable_id }}</td>
                                         <td><button type="button" class="btn btn-primary" data-bs-target="#edit-{{$network->id}}"
                                                 data-bs-toggle="modal">Edit</button></td>
-                                        <td><a href="/admin/network/delete?id={{ $network->id }}"
+                                        <td><a href="/admin/cable/delete?id={{ $network->id }}"
                                                 class="btn btn-danger">Delete</a></td>
                                     </tr>
 
@@ -102,7 +102,7 @@
 
                                                         <!-- Form -->
                                                         <form id="creditForm" method="post"
-                                                            action="/admin/network/edit?id={{ $network->id }}">
+                                                            action="/admin/cable/edit?id={{ $network->id }}">
                                                             @csrf
                                                             <div class="mb-3 ">
                                                                 <label for="">Label</label>
@@ -114,7 +114,7 @@
                                                                 <label for="">Network ID
                                                                     <small>(Most be Unique)</small></label>
                                                                 <input class="form-control "
-                                                                    value="{{ $network->network_id }}" type="number"
+                                                                    value="{{ $network->cable_id }}" type="number"
                                                                     name="network_id" placeholder="Enter Amount">
                                                             </div>
                                                             <div class="">
@@ -151,7 +151,7 @@
 
                                                     <!-- Form -->
                                                     <form id="creditForm" method="post"
-                                                        action="/admin/network/add">
+                                                        action="/admin/cable/add">
                                                         @csrf
                                                         <div class="mb-3 ">
                                                             <label for="">Label</label>
@@ -163,7 +163,7 @@
                                                             <label for="">Network ID
                                                                 <small>(Most be Unique)</small></label>
                                                             <input class="form-control" type="number"
-                                                                name="network_id" placeholder="Enter Amount">
+                                                                name="cable_id" placeholder="Enter Amount">
                                                         </div>
                                                         <div class="">
                                                             <button class="btn btn-primary"
