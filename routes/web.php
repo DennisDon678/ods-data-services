@@ -118,4 +118,33 @@ Route::get('create_admin', function () {
 
 Route::middleware('admin')->prefix('admin')->group(function () {
     Route::get('/dashboard',[AdminController::class, 'admin_dashboard']);
+    // User Management
+    Route::get('/users',[AdminController::class, 'users']);
+    Route::get('/user/view',[AdminController::class, 'view_user']);
+    Route::post('/user/credit',[AdminController::class, 'credit_user']);
+    Route::post('/user/debit',[AdminController::class, 'debit_user']);
+    Route::post('/user/message',[AdminController::class, 'message_user']);
+    Route::get('/user/delete',[AdminController::class, 'delete_user']);
+
+    // Network management
+    Route::get('/networks',[AdminController::class, 'networks']);
+    Route::post('/network/edit',[AdminController::class, 'edit_network']);
+    Route::get('/network/delete',[AdminController::class, 'delete_network']);
+    Route::post('/network/add',[AdminController::class, 'add_network']);
+
+    // Data types management
+    Route::get('/data-types',[AdminController::class, 'data_types']);
+    Route::post('/data-type/edit',[AdminController::class, 'edit_data_type']);
+    Route::get('/data-type/delete',[AdminController::class, 'delete_data_type']);
+    Route::post('/data-type/add',[AdminController::class, 'add_data_type']);
+
+    // Data plan management
+    Route::get('/data-plans',[AdminController::class, 'data_plans']);
+    Route::post('/data-plan/edit',[AdminController::class, 'edit_data_plan']);
+    Route::get('/data-plan/delete',[AdminController::class, 'delete_data_plan']);
+    Route::post('/data-plan/add',[AdminController::class, 'add_data_plan']);
+    Route::get('/data/get_plan_type', [DataController::class, 'get_plan_types']);
+
+    // Cable list management
+    
 });
