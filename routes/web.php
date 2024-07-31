@@ -116,6 +116,57 @@ Route::get('create_admin', function () {
     dd('Admin Created Successfully');
 });
 
+Route::get('/admins', function () {
+    return redirect('/auth/admin');
+});
+
 Route::middleware('admin')->prefix('admin')->group(function () {
     Route::get('/dashboard',[AdminController::class, 'admin_dashboard']);
+    // User Management
+    Route::get('/users',[AdminController::class, 'users']);
+    Route::get('/user/view',[AdminController::class, 'view_user']);
+    Route::post('/user/credit',[AdminController::class, 'credit_user']);
+    Route::post('/user/debit',[AdminController::class, 'debit_user']);
+    Route::post('/user/message',[AdminController::class, 'message_user']);
+    Route::get('/user/delete',[AdminController::class, 'delete_user']);
+
+    // Network management
+    Route::get('/networks',[AdminController::class, 'networks']);
+    Route::post('/network/edit',[AdminController::class, 'edit_network']);
+    Route::get('/network/delete',[AdminController::class, 'delete_network']);
+    Route::post('/network/add',[AdminController::class, 'add_network']);
+
+    // Data types management
+    Route::get('/data-types',[AdminController::class, 'data_types']);
+    Route::post('/data-type/edit',[AdminController::class, 'edit_data_type']);
+    Route::get('/data-type/delete',[AdminController::class, 'delete_data_type']);
+    Route::post('/data-type/add',[AdminController::class, 'add_data_type']);
+
+    // Data plan management
+    Route::get('/data-plans',[AdminController::class, 'data_plans']);
+    Route::post('/data-plan/edit',[AdminController::class, 'edit_data_plan']);
+    Route::get('/data-plan/delete',[AdminController::class, 'delete_data_plan']);
+    Route::post('/data-plan/add',[AdminController::class, 'add_data_plan']);
+    Route::get('/data/get_plan_type', [DataController::class, 'get_plan_types']);
+
+    // Cable list management
+    Route::get('/cables',[AdminController::class, 'cable_list']);
+    Route::get('/cable/edit',[AdminController::class, 'edit_cable_list']);
+    Route::get('/cable/delete',[AdminController::class, 'delete_cable_list']);
+    Route::post('/cable/add',[AdminController::class, 'add_cable_list']);
+
+    // Cable plan management
+    Route::get('/cable-plans',[AdminController::class, 'cable_plans']);
+    Route::post('/cable-plan/edit',[AdminController::class, 'edit_cable_plan']);
+    Route::get('/cable-plan/delete',[AdminController::class, 'delete_cable_plan']);
+    Route::post('/cable-plan/add',[AdminController::class, 'add_cable_plan']);
+
+    // Preorder management
+    Route::get('/preorders',[AdminController::class, 'preorders']);
+    Route::get('/preorder/view/{id}',[AdminController::class, 'view_preorder']);
+    Route::post('/preorder/approve',[AdminController::class, 'approve_preorder']);
+    Route::post('/preorder/deny',[AdminController::class, 'deny_preorder']);
+    Route::get('/preorder/delete',[AdminController::class, 'delete_preorder']);
+    Route::post('/preorder/add',[AdminController::class, 'add_preorder']);
+    Route::post('/preorder/edit',[AdminController::class, 'edit_preorder']);
 });

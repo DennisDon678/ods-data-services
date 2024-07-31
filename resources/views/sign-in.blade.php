@@ -14,7 +14,7 @@
     <link rel="stylesheet" type="text/css" href="/mobile/assets/fonts/css/fontawesome-all.min.css">
     <link rel="manifest" href="/mobile/assets/scripts/_manifest.json" data-pwa-version="set_in_manifest_and_pwa_js">
     <link rel="apple-touch-icon" sizes="180x180" href="/mobile/assets/img/favicon.png">
-    <link rel="icon" type="image/png" href="/mobile/assets/img/favicon.png">
+    <link rel="icon" type="image/png" href="/assets/img/logos/spiner.jpg">
     <style>
         body {
             background-color: #000000;
@@ -70,7 +70,7 @@
 
                         <div class="text-center">
                             <div class="pb-3 pt-3">
-                                <a href="/"><img src="/assets/IMG_2024.png" class="img-fluid" width="200"></a>
+                                <a href="/"><img src="/assets/img/logos/logo.png" class="img-fluid" width="200"></a>
                             </div>
                         </div>
 
@@ -99,7 +99,7 @@
 
                                 <div class="row pt-5 mb-3">
                                     <div class="col-12 text-center font-15">
-                                        <a class="text-white" href="/auth/forgot-password">Forget Password? Recover
+                                        <a class="text-white" href="/auth/forgot-password">Forgot Password? Recover
                                             It</a>
                                     </div>
                                     <div class="col-12 text-center font-15 mt-2">

@@ -23,7 +23,7 @@
             </li>
             <li class="nav-item centerbutton">
                 <button class="nav-link" id="fundWallet" data-bs-toggle="modal" data-bs-target="#fundModal">
-                    <span class="bg-radial-gradient-theme">
+                    <span class="" style="background-color: #0a062b !important;">
                         <i class="bi bi-plus-circle size-22"></i>
                     </span>
                 </button>

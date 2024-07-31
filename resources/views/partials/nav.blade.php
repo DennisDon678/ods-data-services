@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-md fixed-top" id="navbar" data-navbar-soft-on-scroll="data-navbar-soft-on-scroll">
     <div class="container-fluid px-0"><a href="index.htm"><img class="navbar-brand w-75 d-md-none"
-                src="assets/img/logos/GooCreditLogo2.png" width="" height="54" alt="logo"></a><a
-            class="navbar-brand fw-bold d-none d-md-block" href="/">{{env('APP_NAME')}}</a><a
+                src="/assets/img/logos/logo.png" width="" height="54" alt="logo"></a><a
+            class="navbar-brand fw-bold d-none d-md-block" href="/"><img class="navbar-brand w-75" style="height: 70px !important;" src="/assets/img/logos/logo.png" alt=""></a><a
             class="btn btn-primary btn-sm ms-md-x1 mt-lg-0 order-md-1 ms-auto" href="/auth/sign-in">Login
         </a><button class="navbar-toggler border-0 pe-0" type="button" data-bs-toggle="collapse"
             data-bs-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false"

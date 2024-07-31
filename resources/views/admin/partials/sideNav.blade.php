@@ -35,7 +35,6 @@
                             <hr class="dropdown-divider">
                             <a href="sign-in.html" class="dropdown-item">Logout</a>
                         </div>
-
                     </div>
 
                 </div>
@@ -46,131 +45,68 @@
                     <!-- Navigation -->
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="/admin/dashboard" >
+                            <a class="nav-link" href="/admin/dashboard">
                                 <i class="fe fe-home"></i> Dashboards
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#sidebarPages" >
+                            <a class="nav-link" href="/admin/users">
                                 <i class="fe fe-users"></i> Users Management
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link " href="widgets.html">
-                                <i class="fe fe-grid"></i> Widgets
-                            </a>
-                        </li>
+
                         <li class="nav-item">
                             <a class="nav-link" href="#sidebarAuth" data-bs-toggle="collapse" role="button"
                                 aria-expanded="false" aria-controls="sidebarAuth">
-                                <i class="fe fe-user"></i> Authentication
+                                <i class="fe fe-terminal"></i> Data Configuration
                             </a>
                             <div class="collapse" id="sidebarAuth">
                                 <ul class="nav nav-sm flex-column">
                                     <li class="nav-item">
-                                        <a href="#sidebarSignIn" class="nav-link" data-bs-toggle="collapse"
-                                            role="button" aria-expanded="false" aria-controls="sidebarSignIn">
-                                            Sign in
+                                        <a href="/admin/networks" class="nav-link">
+                                            Networks
                                         </a>
-                                        <div class="collapse" id="sidebarSignIn">
-                                            <ul class="nav nav-sm flex-column">
-                                                <li class="nav-item">
-                                                    <a href="sign-in-cover.html" class="nav-link">
-                                                        Cover
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="sign-in-illustration.html" class="nav-link">
-                                                        Illustration
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="sign-in.html" class="nav-link">
-                                                        Basic
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="#sidebarSignUp" class="nav-link" data-bs-toggle="collapse"
-                                            role="button" aria-expanded="false" aria-controls="sidebarSignUp">
-                                            Sign up
+                                        <a href="/admin/data-types" class="nav-link">
+                                            Data Types
                                         </a>
-                                        <div class="collapse" id="sidebarSignUp">
-                                            <ul class="nav nav-sm flex-column">
-                                                <li class="nav-item">
-                                                    <a href="sign-up-cover.html" class="nav-link">
-                                                        Cover
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="sign-up-illustration.html" class="nav-link">
-                                                        Illustration
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="sign-up.html" class="nav-link">
-                                                        Basic
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="#sidebarPassword" class="nav-link" data-bs-toggle="collapse"
-                                            role="button" aria-expanded="false" aria-controls="sidebarPassword">
-                                            Password reset
+                                        <a href="/admin/data-plans" class="nav-link">
+                                            Data Plans
                                         </a>
-                                        <div class="collapse" id="sidebarPassword">
-                                            <ul class="nav nav-sm flex-column">
-                                                <li class="nav-item">
-                                                    <a href="password-reset-cover.html" class="nav-link">
-                                                        Cover
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="password-reset-illustration.html" class="nav-link">
-                                                        Illustration
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="password-reset.html" class="nav-link">
-                                                        Basic
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="#sidebarError" class="nav-link" data-bs-toggle="collapse"
-                                            role="button" aria-expanded="false" aria-controls="sidebarError">
-                                            Error
+                                        <a class="nav-link" href="/admin/preorders">
+                                            Pre Orders
                                         </a>
-                                        <div class="collapse" id="sidebarError">
-                                            <ul class="nav nav-sm flex-column">
-                                                <li class="nav-item">
-                                                    <a href="error-illustration.html" class="nav-link">
-                                                        Illustration
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="error.html" class="nav-link">
-                                                        Basic
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
                                     </li>
                                 </ul>
                             </div>
                         </li>
-                        <li class="nav-item d-md-none">
-                            <a class="nav-link" data-bs-toggle="offcanvas" href="#sidebarOffcanvasActivity"
-                                aria-contrtols="sidebarOffcanvasActivity">
-                                <span class="fe fe-bell"></span> Notifications
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#cable" data-bs-toggle="collapse" role="button"
+                                aria-expanded="false" aria-controls="sidebarAuth">
+                                <i class="fe fe-terminal"></i> Cable Configuration
                             </a>
+                            <div class="collapse" id="cable">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="/admin/cables" class="nav-link">
+                                            Cable lists
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/admin/cable-plans" class="nav-link">
+                                            Cable Plans
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                         </li>
+
                     </ul>
 
                     <!-- Divider -->
@@ -178,7 +114,7 @@
 
                     <!-- Heading -->
                     <h6 class="navbar-heading">
-                        Documentation
+                        Charging and other Site settings
                     </h6>
 
                     <!-- Navigation -->

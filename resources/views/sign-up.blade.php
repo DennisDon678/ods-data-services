@@ -14,7 +14,7 @@
     <link rel="stylesheet" type="text/css" href="/mobile/assets/fonts/css/fontawesome-all.min.css">
     <link rel="manifest" href="/mobile/assets/scripts/_manifest.json" data-pwa-version="set_in_manifest_and_pwa_js">
     <link rel="apple-touch-icon" sizes="180x180" href="/mobile/assets/img/favicon.png">
-    <link rel="icon" type="image/png" href="/mobile/assets/img/favicon.png">
+    <link rel="icon" type="image/png" href="/assets/img/logos/spiner.jpg">
     <style>
         #lga option {
             color: #000000 !important;
@@ -73,17 +73,15 @@
 
                         <div class="text-center">
                             <h1 class="font-30 mb-3 mt-3 text-white">Register</h1>
-                            <p class="mb-3 text-white">Enter your credentials below to create a free account. <br>
+                            {{-- <p class="mb-3 text-white">Enter your credentials below to create a free account. <br>
                                 <b>WARNING:</b> Please Ensure information provided on creating GooCredit account are
                                 correct and genuine to avoid "Account Blocking".
-                            </p>
-
-
+                            </p> --}}
                         </div>
 
                         <div class="text-center">
                             <div class="pb-3 pt-3">
-                                <a href="/"><img src="/assets/IMG_2024.png" class="img-fluid" width="200"></a>
+                                <a href="/"><img src="/assets/img/logos/logo.png" class="img-fluid" width="200"></a>
                             </div>
                         </div>
 

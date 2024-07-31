@@ -9,5 +9,5 @@ class Network_list extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['label'];
+    protected $fillable = ['label','network_id'];
 }
