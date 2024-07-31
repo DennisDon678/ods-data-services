@@ -7,6 +7,7 @@ use App\Models\Cable_plan;
 use App\Models\Dataplans;
 use App\Models\Network_list;
 use App\Models\plan_type_list;
+use App\Models\Preorder;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -253,6 +254,21 @@ class AdminController extends Controller
     $cable_plan = Cable_plan::find($request->id);
     $cable_plan->delete();
 
+    return redirect()->back();
+  }
+
+  //preorder management
+  public function preorders(){
+    $preorders = Preorder::all();
+    return view('admin.preorders', compact('preorders'));
+  }
+
+  public function edit_preorder(Request $request){
+
+  }
+
+  public function add_preorder(Request $request){
+    Preorder::create($request->except('_token'));
     return redirect()->back();
   }
 }

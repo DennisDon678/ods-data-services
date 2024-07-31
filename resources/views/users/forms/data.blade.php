@@ -115,14 +115,13 @@
     $('#network').on('change', () => {
         const network_id = $('#network').val();
 
-        if (network_id == "") {
+       
             $('#plan_type').html(
-                '<option value="" id="emptyPlan">----------------------</option>')
+                '<option value="" id="emptyType">----------------------</option>')
             $('#plan').html(
                 '<option value="" id="emptyPlan">----------------------</option>')
             $('#amount').val('');
-            return false;
-        }
+
 
         $.ajax({
             type: "GET",
@@ -176,7 +175,7 @@
                     });
                 } else {
                     $('#plan').html(
-                        '<option value="" id="emptyPlan">No Data Type to Show</option>');
+                        '<option value="" id="emptyPlan">No Data Plan to Show</option>');
                     $('#amount').val('');
                 }
 

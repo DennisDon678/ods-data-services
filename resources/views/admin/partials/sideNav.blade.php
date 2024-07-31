@@ -35,7 +35,6 @@
                             <hr class="dropdown-divider">
                             <a href="sign-in.html" class="dropdown-item">Logout</a>
                         </div>
-
                     </div>
 
                 </div>
@@ -78,6 +77,11 @@
                                             Data Plans
                                         </a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/admin/preorders">
+                                            Pre Orders
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                         </li>
@@ -102,12 +106,7 @@
                                 </ul>
                             </div>
                         </li>
-                        <li class="nav-item d-md-none">
-                            <a class="nav-link" data-bs-toggle="offcanvas" href="#sidebarOffcanvasActivity"
-                                aria-contrtols="sidebarOffcanvasActivity">
-                                <span class="fe fe-bell"></span> Notifications
-                            </a>
-                        </li>
+
                     </ul>
 
                     <!-- Divider -->
@@ -115,7 +114,7 @@
 
                     <!-- Heading -->
                     <h6 class="navbar-heading">
-                        Documentation
+                        Charging and other Site settings
                     </h6>
 
                     <!-- Navigation -->

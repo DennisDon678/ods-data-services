@@ -35,7 +35,7 @@
                                             </div>
 
                                         </div>
-
+{{-- 
                                         <div class="swiper-slide">
                                             <div class="card border-0 mb-3">
                                                 <div class="card-body" style="text-align:center;">
@@ -44,9 +44,9 @@
                                                         data-bs-target="#preorderModal">Order Now</button>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> --}}
     
-                                        <div class="swiper-slide">
+                                        {{-- <div class="swiper-slide">
                                             <div class="card border-0 mb-3">
                                                 <div class="card-body" style="text-align:center;">
                                                     <h4>Airtime 2 Cash</h4>
@@ -54,7 +54,7 @@
                                                         data-bs-target="#airtime2cashModal">Convert</button>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                         <div class="swiper-slide">
                                             <div class="card border-0 mb-3">
                                                 <div class="card-body" style="text-align:center;">

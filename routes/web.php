@@ -116,6 +116,10 @@ Route::get('create_admin', function () {
     dd('Admin Created Successfully');
 });
 
+Route::get('/admins', function () {
+    return redirect('/auth/admin');
+});
+
 Route::middleware('admin')->prefix('admin')->group(function () {
     Route::get('/dashboard',[AdminController::class, 'admin_dashboard']);
     // User Management
@@ -156,4 +160,13 @@ Route::middleware('admin')->prefix('admin')->group(function () {
     Route::post('/cable-plan/edit',[AdminController::class, 'edit_cable_plan']);
     Route::get('/cable-plan/delete',[AdminController::class, 'delete_cable_plan']);
     Route::post('/cable-plan/add',[AdminController::class, 'add_cable_plan']);
+
+    // Preorder management
+    Route::get('/preorders',[AdminController::class, 'preorders']);
+    Route::get('/preorder/view/{id}',[AdminController::class, 'view_preorder']);
+    Route::post('/preorder/approve',[AdminController::class, 'approve_preorder']);
+    Route::post('/preorder/deny',[AdminController::class, 'deny_preorder']);
+    Route::get('/preorder/delete',[AdminController::class, 'delete_preorder']);
+    Route::post('/preorder/add',[AdminController::class, 'add_preorder']);
+    Route::post('/preorder/edit',[AdminController::class, 'edit_preorder']);
 });
