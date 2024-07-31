@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- ===============================================--><!--    Document Title--><!-- ===============================================-->
-    <title>GooCredit - Instant Recharge and Billing Online Services</title>
+    <title>{{env('APP_NAME')}} - Instant Recharge and Billing Online Services</title>
 
     <!-- ===============================================--><!--    Favicons--><!-- ===============================================-->
     <link rel="apple-touch-icon" sizes="180x180" href="assets/img/logos/spiner.jpg">
