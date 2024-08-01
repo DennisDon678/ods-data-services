@@ -168,5 +168,5 @@ Route::middleware('admin')->prefix('admin')->group(function () {
     Route::post('/preorder/deny',[AdminController::class, 'deny_preorder']);
     Route::get('/preorder/delete',[AdminController::class, 'delete_preorder']);
     Route::post('/preorder/add',[AdminController::class, 'add_preorder']);
-    Route::get('/preorder/edit',[AdminController::class, 'edit_preorder']);
+    Route::post('/preorder/edit',[AdminController::class, 'edit_preorder']);
 });
