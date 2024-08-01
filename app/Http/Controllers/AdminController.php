@@ -264,11 +264,25 @@ class AdminController extends Controller
   }
 
   public function edit_preorder(Request $request){
+    $preorder = Preorder::find($request->id);
 
+    $preorder->size = $request->size;
+    $preorder->price = $request->price;
+    $preorder->validity = $request->validity;
+
+    $preorder->save();
+    return redirect()->back();
   }
 
   public function add_preorder(Request $request){
     Preorder::create($request->except('_token'));
     return redirect()->back();
   }
+
+  public function delete_preorder(Request $request){
+    $preorder = Preorder::find($request->id);
+    $preorder->delete();
+    return redirect()->back();
+  }
+
 }
