@@ -23,7 +23,7 @@
                         <div class="col-12" id="copy">
                             <div class="form-group mb-2">
                                 <input type="text"
-                                    value="{{ env('APP_URL') }}/sign-in?referral-id={{ Auth::user()->referral_id }}"
+                                    value="{{ env('APP_URL') }}/auth/sign-in?referral-id={{ Auth::user()->referral_id }}"
                                     disabled="" class="form-control border-start-0" id="referral">
                                     
                             </div>

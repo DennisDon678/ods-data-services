@@ -10,7 +10,7 @@
 
                 <!-- Brand -->
                 <a class="navbar-brand" href="index.html">
-                    <img src="/admin/assets/img/logo.svg" class="navbar-brand-img mx-auto" alt="...">
+                    <img src="/assets/img/logos/spiner.jpg" class="navbar-brand-img mx-auto" alt="...">
                 </a>
 
                 <!-- User (xs) -->
