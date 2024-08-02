@@ -6,7 +6,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="col-12 col-lg-12 mb-2 border">
-                <form action="" id="buyData">
+                <form action="" id="BuyTV">
                     @csrf
                     <div class="modal-body">
                         <div class="row">
@@ -34,7 +34,7 @@
                                     <div class="input-group input-group-lg">
                                         <div class="form-floating">
                                             <select class="form-select border-0" id="Cable_plan" required="">
-                                                <option value="" id="emptyType">----------------------</option>
+                                                <option value="" id="emptyCablePlan">----------------------</option>
                                             </select>
                                             <label for="country2">Cable Plan</label>
                                         </div>
@@ -64,7 +64,7 @@
                                 <div class="input-group input-group-lg">
                                     <div class="form-floating">
                                         <input type="number" placeholder="100" required=""
-                                            class="form-control border-start-0" id="amount" readonly>
+                                            class="form-control border-start-0" id="planPrice" readonly>
                                         <label>Enter Amount (&#8358;)</label>
                                     </div>
                                 </div>
@@ -101,32 +101,31 @@
 
         if(cable === '') {
             $('#Cable_plan').empty();
-            $('#Cable_plan').append('<option value="" id="emptyType">----------------------</option>');
+            $('#Cable_plan').append('<option value="" id="emptyCablePlan">----------------------</option>');
             return;
         }else {
+            // console.log(cable);
             $.ajax({
             type: "GET",
             url: "/user/tv/get_plans?cable_id=" + cable,
             success: function(response) {
+                // console.log(response);
                 if (response.length > 0) {
-                    $('#emptyType').remove();
+                    $('#emptyCablePlan').remove();
                     $('#Cable_plan').append(
                         '<option value="">Choose a Cable Plan</option>'
                     )
                     response.forEach((data) => {
-                        // console.log(data);
+                        // console.log(data.plan_id);
                         $('#Cable_plan').append(
-                            '<option value="' + data.id + '">' + data.plan_type +
+                            '<option value="' + data.plan_id + '">' + data.plan_name +
                             '</option>'
                         )
-                        $('#amount').val('');
+                        $('#planPrice').val('');
                     });
                 } else {
                     $('#Cable_plan').html(
-                        '<option value="" id="emptyType">No cable Plan to Show</option>')
-                    $('#plan').html(
-                        '<option value="" id="emptyPlan">----------------------</option>')
-                    $('#amount').val(0);
+                        '<option value="" id="emptyCablePlan">No cable Plan to Show</option>')
                 }
 
             }
@@ -137,15 +136,21 @@
 
     // Get Plan details
     $('#Cable_plan').on('change', () => {
-        const data_id = $('#plan').val();
-        $.ajax({
+        const plan_id = $('#Cable_plan').val();
+        // console.log(plan_id);
+       if(plan_id == ''){
+        $('#planPrice').val('');
+        return;
+       }else{
+         $.ajax({
             type: "get",
-            url: "/user/data/get_plan?data_id=" + data_id,
+            url: "/user/tv/get_plan_info?plan_id=" + plan_id,
             success: function(response) {
-                $('#amount').val(response.price)
-                // console.log(response);
+                $('#planPrice').val(response.price)
+                console.log(response);
             }
         });
+       }
     })
 
     // Validate IUC
@@ -155,5 +160,12 @@
 
         $('#validateIUC').removeClass('btn-warning');
         $('#validateIUC').addClass('btn-success');
+    });
+
+    // Submit
+    $('#BuyTV').on('submit', (e) => {
+        e.preventDefault();
+        swal('Oops!', ' Not yet ready but stay tuned!', 'success');
+        return false;
     });
 </script>

@@ -87,6 +87,7 @@ Route::middleware('auth')->prefix('user')->group(function () {
 
     // AJAX for TV
     Route::get('/tv/get_plans',[TvController::class,'get_plans']);
+    Route::get('/tv/get_plan_info',[TvController::class,'get_plan_info']);
 
 
     // Wallets AJAX
