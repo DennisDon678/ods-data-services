@@ -297,7 +297,7 @@
                             <div class="col-md-8 col-lg-7">
                                 <h2
                                     class="fs-6 fs-lg-5 fw-bold text-white text-center pt-7 pb-4 pt-lg-9 pb-lg-6 lh-lg">
-                                    <span class="underline">What Our Happy Customer Says </span>Get to Know!
+                                    <span class="">What Our Happy Customer Says - </span>Get to Know!
                                 </h2>
                             </div>
                             <div class="col-12 mb-4 mb-lg-6">
@@ -319,7 +319,7 @@
                                                                     to purchase
                                                                     your data and pay for utility bills. They sell at
                                                                     discount and their service is top-notch.”</p>
-                                                                <p class="text-800 lh-xl mb-0">Isaac Olson</p>
+                                                                <p class="text-800 lh-xl mb-0">Samuel Okoro</p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -337,7 +337,7 @@
                                                                     across {{ env('APP_NAME') }}, it’s been over a year
                                                                     now and
                                                                     still counting. Thank you for this opportunity.”</p>
-                                                                <p class="text-800 lh-xl mb-0">Wale Young</p>
+                                                                <p class="text-800 lh-xl mb-0">Omotosho Gbenga</p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -371,7 +371,7 @@
                                                                 <p class="fs-8 mb-2 lh-lg line-clamp-3 text-1100">“Wow
                                                                     i love their customer service as they response to
                                                                     queries asap. God bless you guys.”</p>
-                                                                <p class="text-800 lh-xl mb-0">Kakashi Hatake</p>
+                                                                <p class="text-800 lh-xl mb-0">Ibrahim Isa</p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -387,7 +387,7 @@
                                                                 <p class="fs-8 mb-2 lh-lg line-clamp-3 text-1100">“Keep
                                                                     up the good job Freshway, always fast and reliable.”
                                                                 </p>
-                                                                <p class="text-800 lh-xl mb-0">Eduke Uchiha</p>
+                                                                <p class="text-800 lh-xl mb-0">Ebuka Josh</p>
                                                             </div>
                                                         </div>
                                                     </div>
