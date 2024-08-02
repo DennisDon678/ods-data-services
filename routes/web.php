@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DataController;
+use App\Http\Controllers\TvController;
 use App\Http\Controllers\UserDashboardController;
 use App\Models\Admin;
 use Illuminate\Support\Facades\Auth;
@@ -83,6 +84,9 @@ Route::middleware('auth')->prefix('user')->group(function () {
     Route::get('/get_preorders',[DataController::class,'get_preorders']);
     Route::get('/get_preorders_details',[DataController::class,'get_preorders_details']);
     Route::post('/submit_preorder',[DataController::class,'submit_preorders']);
+
+    // AJAX for TV
+    Route::get('/tv/get_plans',[TvController::class,'get_plans']);
 
 
     // Wallets AJAX

@@ -99,26 +99,31 @@
     $('#cable').on('change', () => {
         const cable = $('#cable').val();
 
-        $.ajax({
+        if(cable === '') {
+            $('#Cable_plan').empty();
+            $('#Cable_plan').append('<option value="" id="emptyType">----------------------</option>');
+            return;
+        }else {
+            $.ajax({
             type: "GET",
-            url: "/user/data/get_plan_type?network_id=" + cable,
+            url: "/user/tv/get_plans?cable_id=" + cable,
             success: function(response) {
                 if (response.length > 0) {
                     $('#emptyType').remove();
                     $('#Cable_plan').append(
-                        '<option value="">Choose a Data type</option>'
+                        '<option value="">Choose a Cable Plan</option>'
                     )
                     response.forEach((data) => {
                         // console.log(data);
-                        $('#plan_type').append(
+                        $('#Cable_plan').append(
                             '<option value="' + data.id + '">' + data.plan_type +
                             '</option>'
                         )
                         $('#amount').val('');
                     });
                 } else {
-                    $('#plan_type').html(
-                        '<option value="" id="emptyType">No Data Type to Show</option>')
+                    $('#Cable_plan').html(
+                        '<option value="" id="emptyType">No cable Plan to Show</option>')
                     $('#plan').html(
                         '<option value="" id="emptyPlan">----------------------</option>')
                     $('#amount').val(0);
@@ -126,6 +131,7 @@
 
             }
         });
+        }
     })
 
 
@@ -143,10 +149,11 @@
     })
 
     // Validate IUC
-    $('#validateIUC').on('click', ()=>{
-        
+    $('#validateIUC').on('click', () => {
+        swal('Oops!', ' Not yet ready but stay tuned!', 'success');
+        return false;
+
         $('#validateIUC').removeClass('btn-warning');
         $('#validateIUC').addClass('btn-success');
     });
-
 </script>
