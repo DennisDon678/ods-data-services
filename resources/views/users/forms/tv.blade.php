@@ -112,7 +112,7 @@
                 // console.log(response);
                 if (response.length > 0) {
                     $('#emptyCablePlan').remove();
-                    $('#Cable_plan').append(
+                    $('#Cable_plan').html(
                         '<option value="">Choose a Cable Plan</option>'
                     )
                     response.forEach((data) => {
