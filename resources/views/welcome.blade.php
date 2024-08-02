@@ -430,7 +430,7 @@
                                     </div>
                                     <div class="p-x1 text-center bg-white border shadow-sm rounded-2 pricing-card">
                                         @php
-                                            $sme = App\Models\Dataplans::where('plan_id', '=', 6)->get();
+                                            $sme = App\Models\Dataplans::where('plan_id', '=', 8)->get();
                                         @endphp
                                         <p class="fs-10 text-uppercase mb-3 fw-bold text-primary ls-2"> Airtel</p>
 
@@ -479,7 +479,7 @@
                                     <div class="p-x1 text-center bg-white border shadow-sm rounded-2 pricing-card">
                                         <p class="fs-10 text-uppercase mb-3 fw-bold text-primary ls-2"> 9Moblie</p>
                                         @php
-                                            $sme = App\Models\Dataplans::where('plan_id', '=', 9)->get();
+                                            $sme = App\Models\Dataplans::where('plan_id', '=', 11)->get();
                                         @endphp
                                         <ul class="list-unstyled fs-8 lh-xl fw-light text-1100 ls-1">
                                             @if ($sme != null)
