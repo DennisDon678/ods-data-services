@@ -75,6 +75,12 @@ Route::middleware('auth')->prefix('user')->group(function () {
     Route::get('/contact',[UserDashboardController::class, 'contact']);
     Route::get('/referrals', [UserDashboardController::class, 'referrals']);
 
+    // Services routes
+    Route::get('/buy-mobile-data',[UserDashboardController::class, 'buy_mobile_data']);
+    Route::get('/buy-airtime',[UserDashboardController::class, 'buy_airtime']);
+    Route::get('/buy-cable-subscription',[UserDashboardController::class,'buy_cable_subscription']);
+    Route::get('/buy-electricity',[UserDashboardController::class,'buy_electricity']);
+
 
     // Ajax requests for data
     Route::get('/data/get_plan_type',[DataController::class,'get_plan_types']);

@@ -200,4 +200,20 @@ class UserDashboardController extends Controller
     public function referrals(){
         return view('users.referrals');
     }
+
+    public function buy_mobile_data(Request $request){
+        return view('users.forms.data');
+    }
+
+    public function buy_airtime(Request $request){
+        return view('users.forms.airtime');
+    }
+
+    public function buy_cable_subscription(Request $request){
+        return view('users.forms.tv');
+    }
+
+    public function buy_electricity(Request $request){
+        return view('users.forms.electricity');
+    }
 }

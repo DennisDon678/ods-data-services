@@ -1,15 +1,29 @@
-<div class="modal fade" id="electricityModal" tabindex="-1" role="dialog" data-bs-backdrop="static" aria-hidden="true">
-    <div class="row  justify-content-center mb-2 modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h6 class="modal-title" id="exampleModalLabel">Pay For Electricity</h6>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="col-12 col-lg-12 mb-2 border">
-                <form action="" id="buyData">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="row">
+<!doctype html>
+<html lang="en">
+
+@include('users.partials.head')
+
+<body class="d-flex flex-column h-100 sidebar-pushcontent sidebar-filled" data-sidebarstyle="sidebar-pushcontent">
+
+    @include('users.partials.preloader')
+
+    @include('users.partials.headNav')
+
+    @include('users.partials.sideNav')
+
+    <!-- Begin page content -->
+    <main class="main mainheight">
+        <!-- content -->
+        <div class="container mt-4">
+            <div class="p-2 mb-2 ">
+                <div class="card">
+
+                    <div class="card-header">
+                        <h6 class="title" id="exampleModalLabel">Buy Electricity</h6>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="row ">
                             <div class="col-12 col-md-12 mb-2">
                                 <div class="form-group mb-3 position-relative check-valid">
                                     <div class="input-group input-group-lg">
@@ -118,15 +132,18 @@
                         <input type="submit" value="Buy" required=""
                             class=" border-start-0 btn btn-primary mb-2">
                     </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
-</div>
+    </main>
+    <script src="/sweetalert%402.1.2/dist/sweetalert.min.js"></script>
+    <script src="/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        crossorigin="anonymous"></script>
+    <script></script>
 
-<script src="/sweetalert%402.1.2/dist/sweetalert.min.js"></script>
-<script src="/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-    crossorigin="anonymous"></script>
-<script>
+    @include('users.partials.mobileNav')
+    @include('users.partials.scripts')
+</body>
 
-</script>
+</html>

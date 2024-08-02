@@ -3,12 +3,11 @@
     <!-- Fixed navbar -->
     <nav class="navbar fixed-top">
         <div class="container-fluid">
-            <button class="btn btn-link btn-square menu-btn me-2" type="button">
+            <button class="btn btn-link btn-square menu-btn me-1" type="button">
                 <i class="bi bi-list fs-4"></i>
             </button>
             <div class="header-title align-self-center">
                 <h5 class="mb-0">{{env('APP_NAME')}}</h5>
-                <p class="text-secondary small">Portal</p>
             </div>
             
             <div class="ms-auto">
