@@ -29,8 +29,7 @@
                                             <div class="card border-0  mb-3">
                                                 <div class="card-body" style="text-align:center;">
                                                     <h4>Mobile Data</h4>
-                                                    <button type="button" data-bs-toggle="modal"
-                                                        data-bs-target="#dataModal" class="btn btn-primary">Buy Now</a>
+                                                     <a href="/user/buy-airtime" class="btn btn-primary">Buy Now</a>
                                                 </div>
                                             </div>
 
@@ -59,9 +58,8 @@
                                             <div class="card border-0 mb-3">
                                                 <div class="card-body" style="text-align:center;">
                                                     <h4>TV</h4>
-                                                    <button type="button" class="btn btn-primary"
-                                                        data-bs-toggle="modal" data-bs-target="#cableModal">Buy
-                                                        Now</button>
+                                                    <a href="/user/buy-cable-subscription" class="btn btn-primary">Buy
+                                                    Now</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -70,9 +68,8 @@
                                             <div class="card border-0 mb-3">
                                                 <div class="card-body" style="text-align:center;">
                                                     <h4>Electricity</h4>
-                                                    <button type="button" data-bs-toggle="modal"
-                                                    data-bs-target="#electricityModal" class="btn btn-primary">Buy
-                                                    Now</button>
+                                                   <a href="/user/buy-electricity" class="btn btn-primary">Buy
+                                                    Now</a>
                                                 </div>
                                             </div>
                                         </div>
