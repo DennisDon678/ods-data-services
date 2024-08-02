@@ -15,7 +15,7 @@
                             <div class="row gy-4 gy-md-8 pt-9 pt-lg-0">
                                 <div class="col-lg-6 text-center text-lg-start">
                                     <h1 class="fs-2 fs-lg-1 text-white fw-bold mb-2 mb-lg-x1 lh-base mt-3 mt-lg-0">
-                                        Instant Topup <span class="text-nowrap">With {{env('APP_NAME')}}</span></h1>
+                                        Instant Topup <span class="text-nowrap">With {{ env('APP_NAME') }}</span></h1>
                                     <p class="fs-8 text-white mb-3 mb-lg-4 lh-lg">Buy Cheap Mobile Data, Airtime, Pay
                                         Electricity Bill, Pay TV Subscription, Educational Payment, Print Recharge Card
                                         & Data Pin.</p>
@@ -30,9 +30,8 @@
                                             href="/auth/sign-up"> <img class="img-fluid"
                                                 src="assets/img/logos/App_Store.webp"
                                                 alt="assets/img/logos/App_Store.webp"></a><a
-                                            class="border-0 p-0 bg-transparent cursor-pointer rounded-1"
-                                            href="/"> <img
-                                                class="img-fluid" src="assets/img/logos/Play_Store.webp"
+                                            class="border-0 p-0 bg-transparent cursor-pointer rounded-1" href="/">
+                                            <img class="img-fluid" src="assets/img/logos/Play_Store.webp"
                                                 alt="assets/img/logos/Play_Store.webp"></a>
                                     </div>
                                 </div>
@@ -79,7 +78,8 @@
                             <div class="row justify-content-center justify-content-lg-start">
                                 <div class="col-sm-10 col-md-8 col-lg-12">
                                     <h2 class="fs-4 fs-lg-3 fw-bold mb-2 text-center text-lg-start">Why Us</h2>
-                                    <p class="fs-8 mb-4 mb-lg-5 lh-lg text-center text-lg-start fw-normal">{{env('APP_NAME')}}
+                                    <p class="fs-8 mb-4 mb-lg-5 lh-lg text-center text-lg-start fw-normal">
+                                        {{ env('APP_NAME') }}
                                         helps you make payments for services you enjoy right from the comfort of your
                                         home or office. The experience of total convenience, fast service delivery and
                                         easy payment is just at your fingertips.</p>
@@ -171,7 +171,8 @@
                                     </div>
                                     <div class="py-1 py-lg-0 px-lg-5 w-75 w-sm-50 w-lg-100 timeline-content">
                                         <h6 class="fs-8 fw-bold text-lg-center lh-lg mb-2">Fund your wallet</h6>
-                                        <p class="text-lg-center lh-xl mb-0">Fund your {{env('APP_NAME')}}.mwb.ng wallet using
+                                        <p class="text-lg-center lh-xl mb-0">Fund your {{ env('APP_NAME') }}.mwb.ng
+                                            wallet using
                                             any of our automated means of payment. <span class="text-nowrap">from bank.
                                             </span></p>
                                     </div>
@@ -221,7 +222,7 @@
                             </div>
                             <div class="col-md-8 col-lg-7">
                                 <h2 class="fs-4 fs-lg-3 fw-bold text-center text-white mb-5 mb-lg-9 lh-sm">We Made
-                                    {{env('APP_NAME')}} For You.</h2>
+                                    {{ env('APP_NAME') }} For You.</h2>
                             </div>
                             <div class="col-12">
                                 <div class="row gy-4 g-md-3 pb-8 pb-lg-11 px-1">
@@ -247,7 +248,8 @@
                                             src="assets/img/icons/share-91.svg" alt="">
                                         <div>
                                             <h5 class="fs-8 text-white lh-lg fw-bold">Customer Support</h5>
-                                            <p class="text-white text-opacity-50 lh-xl mb-0">At {{env('APP_NAME')}} Our customers
+                                            <p class="text-white text-opacity-50 lh-xl mb-0">At {{ env('APP_NAME') }}
+                                                Our customers
                                                 are premium to us, hence satisfying them is our topmost priority. Our
                                                 customer service is just a click away. Were Online 24/7..</p>
                                         </div>
@@ -313,7 +315,8 @@
                                                                     src="goocr.png" alt=""></div>
                                                             <div class="text-center text-lg-start">
                                                                 <p class="fs-8 mb-2 lh-lg line-clamp-3 text-1100">
-                                                                    “{{env('APP_NAME')}} is hands-down the best plan to purchase
+                                                                    “{{ env('APP_NAME') }} is hands-down the best plan
+                                                                    to purchase
                                                                     your data and pay for utility bills. They sell at
                                                                     discount and their service is top-notch.”</p>
                                                                 <p class="text-800 lh-xl mb-0">Isaac Olson</p>
@@ -331,7 +334,8 @@
                                                             <div class="text-center text-lg-start">
                                                                 <p class="fs-8 mb-2 lh-lg line-clamp-3 text-1100">“I
                                                                     was seriously looking for a side hustle when I came
-                                                                    across {{env('APP_NAME')}}, it’s been over a year now and
+                                                                    across {{ env('APP_NAME') }}, it’s been over a year
+                                                                    now and
                                                                     still counting. Thank you for this opportunity.”</p>
                                                                 <p class="text-800 lh-xl mb-0">Wale Young</p>
                                                             </div>
@@ -347,7 +351,8 @@
                                                                     src="goocr.png" alt=""></div>
                                                             <div class="text-center text-lg-start">
                                                                 <p class="fs-8 mb-2 lh-lg line-clamp-3 text-1100">
-                                                                    “{{env('APP_NAME')}} is hands-down the best plan to purchase
+                                                                    “{{ env('APP_NAME') }} is hands-down the best plan
+                                                                    to purchase
                                                                     your data and pay for utility bills. They sell at
                                                                     discount and their service is top-notch.”</p>
                                                                 <p class="text-800 lh-xl mb-0">Esther</p>
@@ -392,9 +397,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="text-center"><a class="py-1 link-success"
-                                    href="/auth/sign-in"><span>Read more reviews </span><span
-                                        class="uil uil-arrow-right icon"></span></a></div>
+                            <div class="text-center"><a class="py-1 link-success" href="/auth/sign-in"><span>Read
+                                        more reviews </span><span class="uil uil-arrow-right icon"></span></a></div>
                         </div>
                     </div>
                 </section>
@@ -411,31 +415,34 @@
                                     class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-3">
                                     <div
                                         class="p-x1 text-center price-card-1 bg-transparent border mb-3 mb-md-0 rounded-2 pricing-card">
+                                        @php
+                                            $sme = App\Models\Dataplans::where('plan_id', '=', 1)->get();
+                                        @endphp
                                         <p class="fs-10 text-uppercase mb-3 fw-bold text-primary ls-2"> MTN</p>
-                                        <h2 class="mb-3"><span class="fs-6 fs-md-7 fw-bold">₦</span><span
-                                                class="fs-2 fs-md-1 fw-bold">255</span><span
-                                                class="fs-9 lh-xl font-sans-serif">/ 1GB</span></h2>
                                         <ul class="list-unstyled fs-8 lh-xl fw-light text-1100 ls-1">
-                                            <li class="py-x1 px-1 border-top"> 500MB - ₦130 (30 Days) </li>
-                                            <li class="py-x1 px-1 border-top"> 1GB - ₦255 (30 Days) </li>
-                                            <li class="py-x1 px-1 border-top"> 2GB - ₦515 (30 Days) </li>
-                                            <li class="py-x1 px-1 border-top"> 5GB - ₦1,288 (30 Days) </li>
+                                            @foreach ($sme as $sme)
+                                                <li class="py-x1 px-1 border-top"> {{ $sme->size }} -
+                                                    ₦{{ $sme->price }} ({{ $sme->validity }} Days) </li>
+                                            @endforeach
                                             <li class="mt-1 d-grid"> <button
-                                                    class="btn btn-secondary btn-lg lh-xl">Cheak More</button></li>
+                                                    class="btn btn-secondary btn-lg lh-xl">Check More</button></li>
                                         </ul>
                                     </div>
                                     <div class="p-x1 text-center bg-white border shadow-sm rounded-2 pricing-card">
+                                        @php
+                                            $sme = App\Models\Dataplans::where('plan_id', '=', 6)->get();
+                                        @endphp
                                         <p class="fs-10 text-uppercase mb-3 fw-bold text-primary ls-2"> Airtel</p>
-                                        <h2 class="mb-3"><span class="fs-6 fs-md-7 fw-bold">₦</span><span
-                                                class="fs-2 fs-md-1 fw-bold">280</span><span
-                                                class="fs-9 lh-xl font-sans-serif">/ 1GB</span></h2>
+
                                         <ul class="list-unstyled fs-8 lh-xl fw-light text-1100 ls-1">
-                                            <li class="py-x1 px-1 border-top"> 500MB - ₦131 (30 Days) </li>
-                                            <li class="py-x1 px-1 border-top"> 1GB - ₦280 (30 Days) </li>
-                                            <li class="py-x1 px-1 border-top"> 2GB - ₦558 (30 Days) </li>
-                                            <li class="py-x1 px-1 border-top"> 5GB - ₦1,376 (30 Days) </li>
+                                            @if ($sme != null)
+                                                @foreach ($sme as $sme)
+                                                    <li class="py-x1 px-1 border-top"> {{ $sme->size }} -
+                                                        ₦{{ $sme->price }} ({{ $sme->validity }} Days) </li>
+                                                @endforeach
+                                            @endif
                                             <li class="mt-1 d-grid"> <button
-                                                    class="btn btn-secondary btn-lg lh-xl">Cheak More</button></li>
+                                                    class="btn btn-secondary btn-lg lh-xl">Check More</button></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -453,31 +460,36 @@
                                     class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-3">
                                     <div
                                         class="p-x1 text-center price-card-1 bg-transparent border mb-3 mb-md-0 rounded-2 pricing-card">
+                                        @php
+                                            $sme = App\Models\Dataplans::where('plan_id', '=', 8)->get();
+                                        @endphp
                                         <p class="fs-10 text-uppercase mb-3 fw-bold text-primary ls-2"> GLO</p>
-                                        <h2 class="mb-3"><span class="fs-6 fs-md-7 fw-bold">₦</span><span
-                                                class="fs-2 fs-md-1 fw-bold">230</span><span
-                                                class="fs-9 lh-xl font-sans-serif">/ 1GB</span></h2>
+
                                         <ul class="list-unstyled fs-8 lh-xl fw-light text-1100 ls-1">
-                                            <li class="py-x1 px-1 border-top"> 500MB - ₦120 (30 Days) </li>
-                                            <li class="py-x1 px-1 border-top"> 1GB - ₦230 (30 Days) </li>
-                                            <li class="py-x1 px-1 border-top"> 2GB - ₦448 (30 Days) </li>
-                                            <li class="py-x1 px-1 border-top"> 5GB - ₦1,100 (30 Days) </li>
+                                            @if ($sme != null)
+                                                @foreach ($sme as $sme)
+                                                    <li class="py-x1 px-1 border-top"> {{ $sme->size }} -
+                                                        ₦{{ $sme->price }} ({{ $sme->validity }} Days) </li>
+                                                @endforeach
+                                            @endif
                                             <li class="mt-1 d-grid"> <button
-                                                    class="btn btn-secondary btn-lg lh-xl">Cheak More</button></li>
+                                                    class="btn btn-secondary btn-lg lh-xl">Check More</button></li>
                                         </ul>
                                     </div>
                                     <div class="p-x1 text-center bg-white border shadow-sm rounded-2 pricing-card">
                                         <p class="fs-10 text-uppercase mb-3 fw-bold text-primary ls-2"> 9Moblie</p>
-                                        <h2 class="mb-3"><span class="fs-6 fs-md-7 fw-bold">₦</span><span
-                                                class="fs-2 fs-md-1 fw-bold">120</span><span
-                                                class="fs-9 lh-xl font-sans-serif">/ 1GB</span></h2>
+                                        @php
+                                            $sme = App\Models\Dataplans::where('plan_id', '=', 9)->get();
+                                        @endphp
                                         <ul class="list-unstyled fs-8 lh-xl fw-light text-1100 ls-1">
-                                            <li class="py-x1 px-1 border-top"> 500MB - ₦95 (30 Days) </li>
-                                            <li class="py-x1 px-1 border-top"> 1GB - ₦120 (30 Days) </li>
-                                            <li class="py-x1 px-1 border-top"> 2GB - ₦275 (30 Days) </li>
-                                            <li class="py-x1 px-1 border-top"> 20GB - ₦2,695 (30 Days) </li>
+                                            @if ($sme != null)
+                                                @foreach ($sme as $sme)
+                                                    <li class="py-x1 px-1 border-top"> {{ $sme->size }} -
+                                                        ₦{{ $sme->price }} ({{ $sme->validity }} Days) </li>
+                                                @endforeach
+                                            @endif
                                             <li class="mt-1 d-grid"> <button
-                                                    class="btn btn-secondary btn-lg lh-xl">Cheak More</button></li>
+                                                    class="btn btn-secondary btn-lg lh-xl">Check More</button></li>
                                         </ul>
                                     </div>
                                 </div>
