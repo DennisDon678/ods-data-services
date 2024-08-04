@@ -19,7 +19,7 @@ class DataController extends Controller
     public function get_plan_types(Request $request)
     {
         if (isset($request->network_id)) {
-            $plan_types = plan_type_list::where('network_id', '=', $request->network_id)->get();
+            $plan_types = plan_type_list::where('network_id', '=', $request->network_id)->where('status','=','active')->get();
             return response()->json($plan_types);
         } else {
             return response()->json('Invalid network request');

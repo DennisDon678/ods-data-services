@@ -108,7 +108,7 @@
                                         <td>{{ $network->data_id }}</td>
                                         <td>{{ $net->label }}</td>
                                         <td>{{ strtoupper($network->size) }}</td>
-                                        <td>&#8358;{{ number_format($network->price, 2) }}</td>
+                                        <td>&#8358;{{ number_format((int)$network->price, 2) }}</td>
                                         <td>{{ strtoupper($network->validity) }}</td>
                                         <td>{{ strtoupper($plan->plan_type) }}</td>
                                         <td><button type="button" class="btn btn-primary"
@@ -167,7 +167,7 @@
                                                             <div class="mb-3 ">
                                                                 <label for="">Validity</label>
                                                                 <input class="form-control "
-                                                                    value="{{ $network->validity }}" type="number"
+                                                                    value="{{ $network->validity }}" type="text"
                                                                     name="validity" placeholder="Enter validity">
                                                             </div>
                                                             @php
@@ -262,7 +262,7 @@
                                                         </div>
                                                         <div class="mb-3 ">
                                                             <label for="">Validity</label>
-                                                            <input class="form-control " type="number"
+                                                            <input class="form-control " type="text"
                                                                 name="validity" placeholder="Enter validity">
                                                         </div>
                                                         @php

@@ -215,8 +215,7 @@
                             // console.log(data);
                             $('#plan').append(
                                 '<option value="' + data.data_id + '">' + data.size +
-                                ' for ' + data.validity +
-                                ' days.</option>'
+                                ' for ' + data.validity+'.</option>'
                             )
                             $('#amount').val('');
                         });
