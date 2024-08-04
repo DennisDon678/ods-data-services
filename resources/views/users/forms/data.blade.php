@@ -236,7 +236,7 @@
                 url: "/user/data/get_plan?data_id=" + data_id,
                 success: function(response) {
                     $('#amount').val(response)
-                    console.log(response);
+                    // console.log(response);
                 }
             });
         })

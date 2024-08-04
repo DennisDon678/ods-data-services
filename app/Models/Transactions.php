@@ -16,5 +16,7 @@ class Transactions extends Model
         'amount',
         'status',
         'title',
+        'size',
+        'number',
     ];
 }

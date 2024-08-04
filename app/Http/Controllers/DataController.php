@@ -145,4 +145,61 @@ class DataController extends Controller
             return response()->json(1);
         }
     }
+
+    public function buy_airtime(Request $request)
+    {
+        // Check Users Balance
+        $user = User::find($request->user()->id);
+        $airtime = $request->amount;
+        // $reference = uniqid();
+        if ($user->balance >= $airtime) {
+            $curl = curl_init();
+
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => env('API_BASE_URL').'topup/',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => '{"network":' . $request->network . ',
+                "amount":' . $request->amount . ',
+                "mobile_number":"'.$request->phone.'",
+                "Ported_number":true,
+                "airtime_type":"VTU"
+                }',
+                CURLOPT_HTTPHEADER => array(
+                    'Authorization: Token '.env('API_TOKEN'),
+                    'Content-Type: application/json'
+                ),
+            ));
+
+            $response = curl_exec($curl);
+            $response = json_decode($response, true);
+
+            curl_close($curl);
+            if (array_key_exists('error', $response)) {
+                return response()->json($response);
+            } else {
+                // debit User's account
+                $user->balance = $user->balance - $request->amount;
+                $user->save();
+                // create transaction
+                Transactions::create([
+                    'user_id' => $request->user()->id,
+                    'transaction_id' => $response['ident'],
+                    'title' => 'Airtime Purchase',
+                    'type' => "airtime",
+                    'amount' => $request->amount,
+                    'status' => $response['Status'],
+                    'number' => $response['mobile_number'],
+                ]);
+            }
+            return response()->json(0);
+        } else {
+            return response()->json(1);
+        }
+    }
 }

@@ -658,4 +658,11 @@ class AdminController extends Controller
     $profits = Profits::all();
     return view('admin.profit', compact('profits')); 
   }
+
+  public function edit_profit(Request $request){
+    $profit = Profits::find($request->id);
+    $profit->profit = $request->profit;
+    $profit->save();
+    return redirect()->back();
+  }
 }
