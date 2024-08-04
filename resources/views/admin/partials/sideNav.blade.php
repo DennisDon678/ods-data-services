@@ -120,24 +120,9 @@
                     <!-- Navigation -->
                     <ul class="navbar-nav mb-md-4">
                         <li class="nav-item">
-                            <a class="nav-link" href="#sidebarBasics" data-bs-toggle="collapse" role="button"
-                                aria-expanded="false" aria-controls="sidebarBasics">
-                                <i class="fe fe-clipboard"></i> Basics
+                            <a class="nav-link" href="/admin/profits" >
+                                <i class="fe fe-clipboard"></i> Profit Config
                             </a>
-                            <div class="collapse " id="sidebarBasics">
-                                <ul class="nav nav-sm flex-column">
-                                    <li class="nav-item">
-                                        <a href="docs/getting-started.html" class="nav-link ">
-                                            Getting Started
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="docs/design-file.html" class="nav-link ">
-                                            Design File
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#sidebarComponents" data-bs-toggle="collapse" role="button"
