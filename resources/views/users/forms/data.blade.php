@@ -235,8 +235,8 @@
                 type: "get",
                 url: "/user/data/get_plan?data_id=" + data_id,
                 success: function(response) {
-                    $('#amount').val(response.price)
-                    // console.log(response);
+                    $('#amount').val(response)
+                    console.log(response);
                 }
             });
         })
@@ -268,13 +268,6 @@
                         );
                         return false;
                     }
-
-                    swal('Oops!', ' Not yet ready but stay tuned!', 'success');
-                    $('#buyBtn').html(
-                        `<input type="submit" value="Buy Now"
-                                class="border-start-0 btn btn-primary mb-2">`
-                    );
-                    return false;
 
                     // Submit form to server
                     const formData = new FormData($('#buyData')[0]);

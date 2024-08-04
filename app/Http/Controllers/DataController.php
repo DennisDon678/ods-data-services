@@ -6,6 +6,7 @@ use App\Models\Dataplans;
 use App\Models\plan_type_list;
 use App\Models\Preorder;
 use App\Models\Preordered;
+use App\Models\Profits;
 use App\Models\Transactions;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -19,7 +20,7 @@ class DataController extends Controller
     public function get_plan_types(Request $request)
     {
         if (isset($request->network_id)) {
-            $plan_types = plan_type_list::where('network_id', '=', $request->network_id)->where('status','=','active')->get();
+            $plan_types = plan_type_list::where('network_id', '=', $request->network_id)->where('status', '=', 'active')->get();
             return response()->json($plan_types);
         } else {
             return response()->json('Invalid network request');
@@ -40,7 +41,29 @@ class DataController extends Controller
     {
         if (isset($request->data_id)) {
             $data = Dataplans::where('data_id', '=', $request->data_id)->first();
-            return response()->json($data);
+            $profit = Profits::where('plan_type', '=', $data->plan_id)->first();
+            $string = $data->size;
+
+            // check the size
+            if (str_contains(strtoupper($data->size), 'GB')) {
+                $numbers = '';
+                for ($i = 0; $i < strlen($string); $i++) {
+                    if (is_numeric($string[$i])) {
+                        $numbers .= $string[$i];
+                    }
+                }
+                $profit = $profit->profit * $numbers / 10;
+            } else {
+                $numbers = '';
+                for ($i = 0; $i < strlen($string); $i++) {
+                    if (is_numeric($string[$i])) {
+                        $numbers .= $string[$i];
+                    }
+                }
+                $profit = $profit->profit * ($numbers / 10 / 1000);
+            }
+            $price = $data->price + $profit;
+            return response()->json($price);
         }
     }
 
@@ -49,8 +72,9 @@ class DataController extends Controller
         // Check Users Balance
         $user = User::find($request->user()->id);
         $plan = Dataplans::find($request->plan_id);
+        $profit = Profits::where('plan_type', '=', $plan->plan_id)->first();
 
-        if ($user->balance >= $plan->price) {
+        if ($user->balance >= ($plan->price + $profit->profit)) {
             return response()->json(0);
         } else {
             return response()->json(1);
@@ -107,7 +131,7 @@ class DataController extends Controller
                 $transaction = Transactions::create([
                     'user_id' => $request->user()->id,
                     'transaction_id' => $reference,
-                    'title' => 'MTN '.$plan->size.' Pre-Order',
+                    'title' => 'MTN ' . $plan->size . ' Pre-Order',
                     'type' => "preorder",
                     'amount' => $plan->price,
                     'status' => 'processing',

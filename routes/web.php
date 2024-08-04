@@ -203,4 +203,10 @@ Route::middleware('admin')->prefix('admin')->group(function () {
 
     Route::get('/mobile_gifting',[AdminController::class, 'mobile_gifting']);
     Route::get('/mobile_corporate',[AdminController::class, 'mobile_corporate']);
+
+    // Profits management
+    Route::get('/profits',[AdminController::class, 'profits']);
+    Route::post('/profit/edit',[AdminController::class, 'edit_profit']);
+    Route::get('/profit/delete',[AdminController::class, 'delete_profit']);
+    Route::post('/profit/add',[AdminController::class, 'add_profit']);
 });

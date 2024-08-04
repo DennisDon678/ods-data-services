@@ -8,6 +8,7 @@ use App\Models\Dataplans;
 use App\Models\Network_list;
 use App\Models\plan_type_list;
 use App\Models\Preorder;
+use App\Models\Profits;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -16,7 +17,10 @@ class AdminController extends Controller
 {
   public function admin_dashboard()
   {
-    return  view('admin.dashboard');
+    $balance = Http::withHeaders([
+      'Authorization' => 'Token ' . env('API_TOKEN')
+    ])->get(env('API_BASE_URL') . 'user')->json()['user']['wallet_balance'];
+    return  view('admin.dashboard',compact('balance'));
   }
 
   public function users()
@@ -648,5 +652,10 @@ class AdminController extends Controller
       }
     }
     return redirect()->back();
+  }
+
+  public function profits(){
+    $profits = Profits::all();
+    return view('admin.profit', compact('profits')); 
   }
 }

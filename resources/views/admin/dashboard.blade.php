@@ -53,7 +53,7 @@
 
                                     <!-- Heading -->
                                     <span class="h2 mb-0">
-                                        &#8358;24,500
+                                        &#8358;{{number_format($balance, 2)}}
                                     </span>
                                 </div>
                             </div> <!-- / .row -->
