@@ -10,6 +10,7 @@ use App\Models\plan_type_list;
 use App\Models\Preorder;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class AdminController extends Controller
 {
@@ -148,6 +149,20 @@ class AdminController extends Controller
     return redirect()->back();
   }
 
+  public function status(Request $request)
+  {
+    $data_type = plan_type_list::find($request->id);
+
+    if ($data_type->status == 'active') {
+      $data_type->status = 'inactive';
+    } else {
+      $data_type->status = 'active';
+    }
+
+    $data_type->save();
+    return redirect()->back();
+  }
+
   // Data plan management
   public function data_plans(Request $request)
   {
@@ -258,12 +273,14 @@ class AdminController extends Controller
   }
 
   //preorder management
-  public function preorders(){
+  public function preorders()
+  {
     $preorders = Preorder::all();
     return view('admin.preorders', compact('preorders'));
   }
 
-  public function edit_preorder(Request $request){
+  public function edit_preorder(Request $request)
+  {
     $preorder = Preorder::find($request->id);
 
     $preorder->size = $request->size;
@@ -274,15 +291,362 @@ class AdminController extends Controller
     return redirect()->back();
   }
 
-  public function add_preorder(Request $request){
+  public function add_preorder(Request $request)
+  {
     Preorder::create($request->except('_token'));
     return redirect()->back();
   }
 
-  public function delete_preorder(Request $request){
+  public function delete_preorder(Request $request)
+  {
     $preorder = Preorder::find($request->id);
     $preorder->delete();
     return redirect()->back();
   }
 
+  public function pull_mtn_sme()
+  {
+    // Pull from API response
+    $response = Http::withHeaders([
+      'Authorization' => 'Token ' . env('API_TOKEN'),
+      'Content-Type' => 'application/json',
+    ])->get(env('API_BASE_URL') . 'user')->json()['Dataplans']['MTN_PLAN']['ALL'];
+
+    foreach ($response as $sme) {
+      if ($sme['plan_type'] == 'SME') {
+        $plan = Dataplans::where('plan_id', '=', 1)->where('data_id', '=', $sme['dataplan_id'])->first();
+        if ($plan) {
+          $plan->price = $sme['plan_amount'];
+          $plan->validity = $sme['month_validate'];
+          $plan->size = $sme['plan'];
+          $plan->save();
+        } else {
+          Dataplans::create([
+            'data_id' => $sme['dataplan_id'],
+            'plan_id' => 1,
+            'size' => $sme['plan'],
+            'validity' => $sme['month_validate'],
+            'price' => $sme['plan_amount'],
+          ]);
+        }
+      }
+    }
+    return redirect()->back();
+  }
+
+  public function mtn_corporate()
+  {
+    // Pull from API response
+    $response = Http::withHeaders([
+      'Authorization' => 'Token ' . env('API_TOKEN'),
+      'Content-Type' => 'application/json',
+    ])->get(env('API_BASE_URL') . 'user')->json()['Dataplans']['MTN_PLAN']['ALL'];
+
+    foreach ($response as $sme) {
+      if ($sme['plan_type'] == 'CORPORATE GIFTING') {
+        $plan = Dataplans::where('plan_id', '=', 3)->where('data_id', '=', $sme['dataplan_id'])->first();
+        if ($plan) {
+          $plan->price = $sme['plan_amount'];
+          $plan->validity = $sme['month_validate'];
+          $plan->size = $sme['plan'];
+          $plan->save();
+        } else {
+          Dataplans::create([
+            'data_id' => $sme['dataplan_id'],
+            'plan_id' => 3,
+            'size' => $sme['plan'],
+            'validity' => $sme['month_validate'],
+            'price' => $sme['plan_amount'],
+          ]);
+        }
+      }
+    }
+    return redirect()->back();
+  }
+
+  public function mtn_gifting()
+  {
+    // Pull from API response
+    $response = Http::withHeaders([
+      'Authorization' => 'Token ' . env('API_TOKEN'),
+      'Content-Type' => 'application/json',
+    ])->get(env('API_BASE_URL') . 'user')->json()['Dataplans']['MTN_PLAN']['ALL'];
+
+    foreach ($response as $sme) {
+      if ($sme['plan_type'] == 'GIFTING') {
+        $plan = Dataplans::where('plan_id', '=', 2)->where('data_id', '=', $sme['dataplan_id'])->first();
+        if ($plan) {
+          $plan->price = $sme['plan_amount'];
+          $plan->validity = $sme['month_validate'];
+          $plan->size = $sme['plan'];
+          $plan->save();
+        } else {
+          Dataplans::create([
+            'data_id' => $sme['dataplan_id'],
+            'plan_id' => 2,
+            'size' => $sme['plan'],
+            'validity' => $sme['month_validate'],
+            'price' => $sme['plan_amount'],
+          ]);
+        }
+      }
+    }
+    return redirect()->back();
+  }
+
+  public function mtn_awoof()
+  {
+    // Pull from API response
+    $response = Http::withHeaders([
+      'Authorization' => 'Token ' . env('API_TOKEN'),
+      'Content-Type' => 'application/json',
+    ])->get(env('API_BASE_URL') . 'user')->json()['Dataplans']['MTN_PLAN']['ALL'];
+
+    foreach ($response as $sme) {
+      if ($sme['plan_type'] == 'DATA AWOOF') {
+        $plan = Dataplans::where('plan_id', '=', 13)->where('data_id', '=', $sme['dataplan_id'])->first();
+        // if ($plan == null) {
+        if ($plan) {
+          $plan->price = $sme['plan_amount'];
+          $plan->validity = $sme['month_validate'];
+          $plan->size = $sme['plan'];
+          $plan->save();
+        } else {
+          Dataplans::create([
+            'data_id' => $sme['dataplan_id'],
+            'plan_id' => 13,
+            'size' => $sme['plan'],
+            'validity' => $sme['month_validate'],
+            'price' => $sme['plan_amount'],
+          ]);
+        }
+        // }
+      }
+    }
+    return redirect()->back();
+  }
+
+  public function mtn_coupon()
+  {
+    // Pull from API response
+    $response = Http::withHeaders([
+      'Authorization' => 'Token ' . env('API_TOKEN'),
+      'Content-Type' => 'application/json',
+    ])->get(env('API_BASE_URL') . 'user')->json()['Dataplans']['MTN_PLAN']['ALL'];
+
+    foreach ($response as $sme) {
+      if ($sme['plan_type'] == 'DATA COUPONS') {
+        $plan = Dataplans::where('plan_id', '=', 12)->where('data_id', '=', $sme['dataplan_id'])->first();
+        // if ($plan == null) {
+        if ($plan) {
+          $plan->price = $sme['plan_amount'];
+          $plan->validity = $sme['month_validate'];
+          $plan->size = $sme['plan'];
+          $plan->save();
+        } else {
+          Dataplans::create([
+            'data_id' => $sme['dataplan_id'],
+            'plan_id' => 12,
+            'size' => $sme['plan'],
+            'validity' => $sme['month_validate'],
+            'price' => $sme['plan_amount'],
+          ]);
+        }
+        // }
+      }
+    }
+    return redirect()->back();
+  }
+
+  public function glo_corporate()
+  {
+    // Pull from API response
+    $response = Http::withHeaders([
+      'Authorization' => 'Token ' . env('API_TOKEN'),
+      'Content-Type' => 'application/json',
+    ])->get(env('API_BASE_URL') . 'user')->json()['Dataplans']['GLO_PLAN']['ALL'];
+
+    foreach ($response as $sme) {
+      if ($sme['plan_type'] == 'CORPORATE GIFTING') {
+        $plan = Dataplans::where('plan_id', '=', 10)->where('data_id', '=', $sme['dataplan_id'])->first();
+        // if ($plan == null) {
+        if ($plan) {
+          $plan->price = $sme['plan_amount'];
+          $plan->validity = $sme['month_validate'];
+          $plan->size = $sme['plan'];
+          $plan->save();
+        } else {
+          Dataplans::create([
+            'data_id' => $sme['dataplan_id'],
+            'plan_id' => 10,
+            'size' => $sme['plan'],
+            'validity' => $sme['month_validate'],
+            'price' => $sme['plan_amount'],
+          ]);
+        }
+        // }
+      }
+    }
+    return redirect()->back();
+  }
+
+  public function glo_gifting()
+  {
+    // Pull from API response
+    $response = Http::withHeaders([
+      'Authorization' => 'Token ' . env('API_TOKEN'),
+      'Content-Type' => 'application/json',
+    ])->get(env('API_BASE_URL') . 'user')->json()['Dataplans']['GLO_PLAN']['ALL'];
+
+    foreach ($response as $sme) {
+      if ($sme['plan_type'] == 'GIFTING') {
+        $plan = Dataplans::where('plan_id', '=', 9)->where('data_id', '=', $sme['dataplan_id'])->first();
+        // if ($plan == null) {
+        if ($plan) {
+          $plan->price = $sme['plan_amount'];
+          $plan->validity = $sme['month_validate'];
+          $plan->size = $sme['plan'];
+          $plan->save();
+        } else {
+          Dataplans::create([
+            'data_id' => $sme['dataplan_id'],
+            'plan_id' => 9,
+            'size' => $sme['plan'],
+            'validity' => $sme['month_validate'],
+            'price' => $sme['plan_amount'],
+          ]);
+        }
+        // }
+      }
+    }
+    return redirect()->back();
+  }
+
+  public function airtel_gifting()
+  {
+    // Pull from API response
+    $response = Http::withHeaders([
+      'Authorization' => 'Token ' . env('API_TOKEN'),
+      'Content-Type' => 'application/json',
+    ])->get(env('API_BASE_URL') . 'user')->json()['Dataplans']['AIRTEL_PLAN']['ALL'];
+
+    foreach ($response as $sme) {
+      if ($sme['plan_type'] == 'GIFTING') {
+        $plan = Dataplans::where('plan_id', '=', 6)->where('data_id', '=', $sme['dataplan_id'])->first();
+        // if ($plan == null) {
+        if ($plan) {
+          $plan->price = $sme['plan_amount'];
+          $plan->validity = $sme['month_validate'];
+          $plan->size = $sme['plan'];
+          $plan->save();
+        } else {
+          Dataplans::create([
+            'data_id' => $sme['dataplan_id'],
+            'plan_id' => 6,
+            'size' => $sme['plan'],
+            'validity' => $sme['month_validate'],
+            'price' => $sme['plan_amount'],
+          ]);
+        }
+        // }
+      }
+    }
+    return redirect()->back();
+  }
+
+  public function airtel_corporate()
+  {
+    // Pull from API response
+    $response = Http::withHeaders([
+      'Authorization' => 'Token ' . env('API_TOKEN'),
+      'Content-Type' => 'application/json',
+    ])->get(env('API_BASE_URL') . 'user')->json()['Dataplans']['AIRTEL_PLAN']['ALL'];
+
+    foreach ($response as $sme) {
+      if ($sme['plan_type'] == 'CORPORATE GIFTING') {
+        $plan = Dataplans::where('plan_id', '=', 8)->where('data_id', '=', $sme['dataplan_id'])->first();
+        // if ($plan == null) {
+        if ($plan) {
+          $plan->price = $sme['plan_amount'];
+          $plan->validity = $sme['month_validate'];
+          $plan->size = $sme['plan'];
+          $plan->save();
+        } else {
+          Dataplans::create([
+            'data_id' => $sme['dataplan_id'],
+            'plan_id' => 8,
+            'size' => $sme['plan'],
+            'validity' => $sme['month_validate'],
+            'price' => $sme['plan_amount'],
+          ]);
+        }
+        // }
+      }
+    }
+    return redirect()->back();
+  }
+
+  public function mobile_gifting()
+  {
+    // Pull from API response
+    $response = Http::withHeaders([
+      'Authorization' => 'Token ' . env('API_TOKEN'),
+      'Content-Type' => 'application/json',
+    ])->get(env('API_BASE_URL') . 'user')->json()['Dataplans']['9MOBILE_PLAN']['ALL'];
+
+    foreach ($response as $sme) {
+      if ($sme['plan_type'] == 'GIFTING') {
+        $plan = Dataplans::where('plan_id', '=', 7)->where('data_id', '=', $sme['dataplan_id'])->first();
+        // if ($plan == null) {
+        if ($plan) {
+          $plan->price = $sme['plan_amount'];
+          $plan->validity = $sme['month_validate'];
+          $plan->size = $sme['plan'];
+          $plan->save();
+        } else {
+          Dataplans::create([
+            'data_id' => $sme['dataplan_id'],
+            'plan_id' => 7,
+            'size' => $sme['plan'],
+            'validity' => $sme['month_validate'],
+            'price' => $sme['plan_amount'],
+          ]);
+        }
+        // }
+      }
+    }
+    return redirect()->back();
+  }
+
+  public function mobile_corporate()
+  {
+    // Pull from API response
+    $response = Http::withHeaders([
+      'Authorization' => 'Token ' . env('API_TOKEN'),
+      'Content-Type' => 'application/json',
+    ])->get(env('API_BASE_URL') . 'user')->json()['Dataplans']['9MOBILE_PLAN']['ALL'];
+
+    foreach ($response as $sme) {
+      if ($sme['plan_type'] == 'CORPORATE GIFTING') {
+        $plan = Dataplans::where('plan_id', '=', 11)->where('data_id', '=', $sme['dataplan_id'])->first();
+        // if ($plan == null) {
+        if ($plan) {
+          $plan->price = $sme['plan_amount'];
+          $plan->validity = $sme['month_validate'];
+          $plan->size = $sme['plan'];
+          $plan->save();
+        } else {
+          Dataplans::create([
+            'data_id' => $sme['dataplan_id'],
+            'plan_id' => 11,
+            'size' => $sme['plan'],
+            'validity' => $sme['month_validate'],
+            'price' => $sme['plan_amount'],
+          ]);
+        }
+        // }
+      }
+    }
+    return redirect()->back();
+  }
 }

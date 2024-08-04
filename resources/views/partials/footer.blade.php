@@ -31,7 +31,7 @@
                 <div>
                     <p class="mb-2 lh-lg"> Download Our App</p>
                     <div class="mb-1 mb-lg-2"> <a class="border-0 p-0 bg-transparent cursor-pointer rounded-1"
-                            href="mobile/login/index.htm"> <img class="img-fluid" src="assets/img/logos/App_Store.webp"
+                            href="/auth/sign-in"> <img class="img-fluid" src="assets/img/logos/App_Store.webp"
                                 alt="assets/img/logos/App_Store.webp"></a></div><a
                         class="border-0 p-0 bg-transparent cursor-pointer rounded-1"
                         href="/"> <img class="img-fluid"

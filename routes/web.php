@@ -6,6 +6,7 @@ use App\Http\Controllers\DataController;
 use App\Http\Controllers\TvController;
 use App\Http\Controllers\UserDashboardController;
 use App\Models\Admin;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +31,11 @@ Route::get('/privacy-policy', function () {
 
 Route::get('/account-deletion-policy', function () {
     return view('account');
+});
+
+Route::get('/developer/run/migrations', function () {
+    Artisan::call('migrate');
+    return 'All migrations run successfully';
 });
 
 Route::prefix('/auth')->group(function () {
@@ -152,6 +158,7 @@ Route::middleware('admin')->prefix('admin')->group(function () {
     Route::post('/data-type/edit',[AdminController::class, 'edit_data_type']);
     Route::get('/data-type/delete',[AdminController::class, 'delete_data_type']);
     Route::post('/data-type/add',[AdminController::class, 'add_data_type']);
+    Route::get('/data-type/status',[AdminController::class, 'status']);
 
     // Data plan management
     Route::get('/data-plans',[AdminController::class, 'data_plans']);
@@ -180,4 +187,20 @@ Route::middleware('admin')->prefix('admin')->group(function () {
     Route::get('/preorder/delete',[AdminController::class, 'delete_preorder']);
     Route::post('/preorder/add',[AdminController::class, 'add_preorder']);
     Route::post('/preorder/edit',[AdminController::class, 'edit_preorder']);
+
+    // Pull Data From API
+    Route::get('/pull_mtn_sme',[AdminController::class, 'pull_mtn_sme']);
+    Route::get('/mtn_corporate',[AdminController::class,'mtn_corporate']);
+    Route::get('/mtn_gifting',[AdminController::class,'mtn_gifting']);
+    Route::get('/mtn_awoof',[AdminController::class, 'mtn_awoof']);
+    Route::get('/mtn_coupon',[AdminController::class, 'mtn_coupon']);
+
+    Route::get('/glo_corporate',[AdminController::class,'glo_corporate']);
+    Route::get('/glo_gifting',[AdminController::class,'glo_gifting']);
+
+    Route::get('/airtel_gifting',[AdminController::class, 'airtel_gifting']);
+    Route::get('/airtel_corporate',[AdminController::class, 'airtel_corporate']);
+
+    Route::get('/mobile_gifting',[AdminController::class, 'mobile_gifting']);
+    Route::get('/mobile_corporate',[AdminController::class, 'mobile_corporate']);
 });

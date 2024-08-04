@@ -45,6 +45,63 @@
                         Plan</button>
                 </div>
             </div>
+            <div class="row card p-4 flex-row align-items-center gap-2">
+                <div class="col-auto">
+                    <div class="col-auto">
+                        <a class="btn btn-primary" href="/admin/pull_mtn_sme">Update MTN SME</a>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <div class="">
+                        <a class="btn btn-primary" href="/admin/mtn_corporate">Update MTN Corporate</a>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <div class="">
+                        <a class="btn btn-primary" href="/admin/mtn_gifting">Update MTN Gifting</a>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <div class="">
+                        <a class="btn btn-primary" href="/admin/mtn_awoof">Update MTN Awoof</a>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <div class="">
+                        <a class="btn btn-primary" href="/admin/mtn_coupon">Update MTN Coupon</a>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <div class="">
+                        <a class="btn btn-primary" href="/admin/glo_corporate">Update Glo Corporate</a>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <div class="">
+                        <a class="btn btn-primary" href="/admin/glo_gifting">Update Glo Gifting</a>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <div class="">
+                        <a class="btn btn-primary" href="/admin/airtel_gifting">Update Airtel Gifting</a>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <div class="">
+                        <a class="btn btn-primary" href="/admin/airtel_corporate">Update Airtel Corporate</a>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <div class="">
+                        <a class="btn btn-primary" href="/admin/mobile_gifting">Update 9MOBILE Gifting</a>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <div class="">
+                        <a class="btn btn-primary" href="/admin/mobile_corporate">Update 9MOBILE Corporate</a>
+                    </div>
+                </div>
+            </div>
             <!-- Card -->
             <div class="card">
                 <div class="card-body">
@@ -55,10 +112,11 @@
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
+                                    <th scope="col">ID</th>
                                     <th scope="col">Label</th>
                                     <th scope="col">Network ID</th>
                                     <th scope="col">Edit</th>
-                                    <th scope="col">Delete</th>
+                                    <th scope="col">Status</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -71,13 +129,15 @@
                                     @endphp
                                     <tr>
                                         <th scope="row">{{ $sn }}</th>
+                                        <td>{{ $network->id }}</td>
                                         <td>{{ strtoupper($network->plan_type) }}</td>
                                         <td>{{ strtoupper($net->label) }}</td>
                                         <td><button type="button" class="btn btn-primary"
-                                                data-bs-target="#edit-{{$network->id}}"
+                                                data-bs-target="#edit-{{ $network->id }}"
                                                 data-bs-toggle="modal">Edit</button></td>
-                                        <td><a href="/admin/data-type/delete?id={{ $network->id }}"
-                                                class="btn btn-danger">Delete</a></td>
+
+                                        <td><a href="/admin/data-type/status?id={{ $network->id }}"
+                                                class="btn btn-{{$network->status == 'active' ? "danger":"success"}}">{{$network->status == 'active' ? "Deactivate":"Activate"}}</a>
                                     </tr>
 
                                     @php
@@ -164,12 +224,13 @@
                                                 <div class="card-body">
 
                                                     <!-- Form -->
-                                                    <form id="creditForm" method="post" action="/admin/data-type/add">
+                                                    <form id="creditForm" method="post"
+                                                        action="/admin/data-type/add">
                                                         @csrf
                                                         <div class="mb-3 ">
                                                             <label for="">Label</label>
-                                                            <input class="form-control " type="text" name="label"
-                                                                placeholder="Enter Plan Name">
+                                                            <input class="form-control " type="text"
+                                                                name="label" placeholder="Enter Plan Name">
                                                         </div>
                                                         @php
                                                             $nets = App\Models\Network_list::all();
