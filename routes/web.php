@@ -97,6 +97,9 @@ Route::middleware('auth')->prefix('user')->group(function () {
     Route::get('/get_preorders_details',[DataController::class,'get_preorders_details']);
     Route::post('/submit_preorder',[DataController::class,'submit_preorders']);
 
+    // AJAX for Airtime
+    Route::post('/airtime/buy_airtime',[DataController::class,'buy_airtime']);
+
     // AJAX for TV
     Route::get('/tv/get_plans',[TvController::class,'get_plans']);
     Route::get('/tv/get_plan_info',[TvController::class,'get_plan_info']);
@@ -207,6 +210,4 @@ Route::middleware('admin')->prefix('admin')->group(function () {
     // Profits management
     Route::get('/profits',[AdminController::class, 'profits']);
     Route::post('/profit/edit',[AdminController::class, 'edit_profit']);
-    Route::get('/profit/delete',[AdminController::class, 'delete_profit']);
-    Route::post('/profit/add',[AdminController::class, 'add_profit']);
 });
