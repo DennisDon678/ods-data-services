@@ -89,8 +89,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <input type="submit" value="Buy" required="" id="buyBtn"
-                                        class=" border-start-0 btn btn-primary mb-2">
+                                    <button id="buyBtn" type="submit"
+                                        class=" border-start-0 btn btn-primary mb-2">Buy Now
+                                    </button>
 
                                 </div>
                             </div>
@@ -133,8 +134,7 @@
                     if (response != 0) {
                         swal('Alert!!', "Pin code is not correct", "error");
                         $('#buyBtn').html(
-                            `<input type="submit" value="Buy Now"
-                                class="border-start-0 btn btn-primary mb-2">`
+                            `Buy Now`
                         );
                         return false;
                     }
@@ -149,21 +149,18 @@
                         success: function(data) {
                             if (data == 0) {
                                 $('#buyBtn').html(
-                                    `<input type="submit" value="Buy Now" id="buyBtn"
-                                        class="border-start-0 btn btn-primary mb-2">`
+                                    `Buy Now`
                                 );
 
                                 swal('Alert!!', "Airtime Purchased Succesfully", "success");
                             } else if (data == 1) {
                                 $('#buyBtn').html(
-                                    `<input type="submit" value="Buy Now" id="buyBtn"
-                                        class="border-start-0 btn btn-primary mb-2">`
+                                    `Buy Now`
                                 );
                                 swal('Alert!!', "Insufficient Balance", "error");
                             } else {
                                 $('#buyBtn').html(
-                                    `<input type="submit" value="Buy Now" id="buyBtn"
-                                        class="border-start-0 btn btn-primary mb-2">`
+                                    `Buy Now`
                                 );
                                 swal('Alert!!', "An error occured please contact admin",
                                     "error");
