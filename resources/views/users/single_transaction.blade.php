@@ -59,6 +59,28 @@
                                         </div>
                                     </div>
                                     <hr>
+                                    @if($trans->size != null)
+                                    <div class="row mb-2">
+                                        <div class="col-6">
+                                            <h6>Plan Size</h6>
+                                        </div>
+                                        <div class="col-6 mx-auto">
+                                            {{$trans->size}}
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    @endif
+                                    @if($trans->number != null)
+                                    <div class="row mb-2">
+                                        <div class="col-6">
+                                            <h6>For</h6>
+                                        </div>
+                                        <div class="col-6 mx-auto">
+                                            {{$trans->number}}
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    @endif
                                     <div class="row mb-2">
                                         <div class="col-6">
                                             <h6>Receipt</h6>

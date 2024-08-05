@@ -42,26 +42,27 @@ class DataController extends Controller
         if (isset($request->data_id)) {
             $data = Dataplans::where('data_id', '=', $request->data_id)->first();
             $profit = Profits::where('plan_type', '=', $data->plan_id)->first();
-            $string = $data->size;
+            // $string = $data->size;
 
-            // check the size
-            if (str_contains(strtoupper($data->size), 'GB')) {
-                $numbers = '';
-                for ($i = 0; $i < strlen($string); $i++) {
-                    if (is_numeric($string[$i])) {
-                        $numbers .= $string[$i];
-                    }
-                }
-                $profit = $profit->profit * $numbers / 10;
-            } else {
-                $numbers = '';
-                for ($i = 0; $i < strlen($string); $i++) {
-                    if (is_numeric($string[$i])) {
-                        $numbers .= $string[$i];
-                    }
-                }
-                $profit = $profit->profit * ($numbers / 10 / 1000);
-            }
+            // // check the size
+            // if (str_contains(strtoupper($data->size), 'GB')) {
+            //     $numbers = '';
+            //     for ($i = 0; $i < strlen($string); $i++) {
+            //         if (is_numeric($string[$i])) {
+            //             $numbers .= $string[$i];
+            //         }
+            //     }
+            //     $profit = $profit->profit * $numbers / 10;
+            // } else {
+            //     $numbers = '';
+            //     for ($i = 0; $i < strlen($string); $i++) {
+            //         if (is_numeric($string[$i])) {
+            //             $numbers .= $string[$i];
+            //         }
+            //     }
+            //     $profit = $profit->profit * ($numbers / 10 / 1000);
+            // }
+            $profit = ($profit->profit/100)*$data->price;
             $price = $data->price + $profit;
             return response()->json($price);
         }
