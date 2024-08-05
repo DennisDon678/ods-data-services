@@ -101,15 +101,15 @@
                                         </div>
 
                                     </div>
-                                    {{-- <div class="swiper-slide">
+                                    <div class="swiper-slide">
                                         <div class="card border-0 mb-3">
                                             <div class="card-body" style="text-align:center;">
                                                 <h4>Pre-Order</h4>
-                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                                    data-bs-target="#preorderModal">Order Now</button>
+                                                <a href="/user/preorder-data" class="btn btn-primary">Order
+                                                    Now</a>
                                             </div>
                                         </div>
-                                    </div> --}}
+                                    </div>
                                     <div class="swiper-slide">
                                         <div class="card border-0 mb-3 ">
                                             <div class="card-body" style="text-align:center;">
@@ -119,7 +119,7 @@
                                         </div>
                                     </div>
 
-                                    {{-- 
+
                                     <div class="swiper-slide">
                                         <div class="card border-0 mb-3">
                                             <div class="card-body" style="text-align:center;">
@@ -128,7 +128,7 @@
                                                     data-bs-target="#airtime2cashModal">Convert</button>
                                             </div>
                                         </div>
-                                    </div> --}}
+                                    </div>
 
                                     <div class="swiper-slide">
                                         <div class="card border-0 mb-3">

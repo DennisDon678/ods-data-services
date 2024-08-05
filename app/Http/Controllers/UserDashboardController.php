@@ -216,4 +216,8 @@ class UserDashboardController extends Controller
     public function buy_electricity(Request $request){
         return view('users.forms.electricity');
     }
+
+    public function preorder_data(){
+        return view('users.forms.preorder');
+    }
 }

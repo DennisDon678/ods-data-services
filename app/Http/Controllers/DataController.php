@@ -180,6 +180,8 @@ class DataController extends Controller
                     'type' => "preorder",
                     'amount' => $plan->price,
                     'status' => 'processing',
+                    'size' => $plan->size,
+                    'number' => $request->number,
                 ]);
 
                 return response()->json(0);
