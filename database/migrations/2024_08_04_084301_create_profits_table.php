@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('profits', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('plan_type');
-            $table->string('profit');
-            $table->foreign('plan_type')->references('id')->on('plan_type_lists')->onDelete('cascade');
-            $table->timestamps();
-        });
+        // Schema::create('profits', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->unsignedBigInteger('plan_type');
+        //     $table->string('profit');
+        //     $table->foreign('plan_type')->references('id')->on('plan_type_lists')->onDelete('cascade');
+        //     $table->timestamps();
+        // });
     }
 
     /**
