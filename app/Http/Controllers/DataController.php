@@ -69,12 +69,56 @@ class DataController extends Controller
 
     public function buy_data(Request $request)
     {
+        // return response()->json($request->all());
         // Check Users Balance
         $user = User::find($request->user()->id);
         $plan = Dataplans::find($request->plan_id);
-        $profit = Profits::where('plan_type', '=', $plan->plan_id)->first();
 
-        if ($user->balance >= ($plan->price + $profit->profit)) {
+
+        if ($user->balance != $request->amount) {
+            $curl = curl_init();
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => env('API_BASE_URL') . 'data/',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => '{"network":' . $request->network_id . ',
+                    "mobile_number": "' . $request->mobile_number . '",
+                    "plan": ' . $request->plan_id . ',
+                    "Ported_number":true
+                    }',
+                CURLOPT_HTTPHEADER => array(
+                    'Authorization: Token ' . env('API_TOKEN'),
+                    'Content-Type: application/json'
+                ),
+            ));
+
+            $response = curl_exec($curl);
+            $response = json_decode($response, true);
+
+            curl_close($curl);
+            if (array_key_exists('error', $response)) {
+                return response()->json(2);
+            } else {
+                // debit User's account
+                $user->balance = $user->balance - $request->amount;
+                $user->save();
+                // create transaction
+                Transactions::create([
+                    'user_id' => $request->user()->id,
+                    'transaction_id' => $response['ident'],
+                    'title' => 'Data Purchase',
+                    'type' => "data",
+                    'amount' => $request->amount,
+                    'status' => $response['Status'],
+                    'number' => $response['mobile_number'],
+                    'size' => $response['plan_name'],
+                ]);
+            }
             return response()->json(0);
         } else {
             return response()->json(1);
@@ -156,7 +200,7 @@ class DataController extends Controller
             $curl = curl_init();
 
             curl_setopt_array($curl, array(
-                CURLOPT_URL => env('API_BASE_URL').'topup/',
+                CURLOPT_URL => env('API_BASE_URL') . 'topup/',
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_ENCODING => '',
                 CURLOPT_MAXREDIRS => 10,
@@ -166,12 +210,12 @@ class DataController extends Controller
                 CURLOPT_CUSTOMREQUEST => 'POST',
                 CURLOPT_POSTFIELDS => '{"network":' . $request->network . ',
                 "amount":' . $request->amount . ',
-                "mobile_number":"'.$request->phone.'",
+                "mobile_number":"' . $request->phone . '",
                 "Ported_number":true,
                 "airtime_type":"VTU"
                 }',
                 CURLOPT_HTTPHEADER => array(
-                    'Authorization: Token '.env('API_TOKEN'),
+                    'Authorization: Token ' . env('API_TOKEN'),
                     'Content-Type: application/json'
                 ),
             ));

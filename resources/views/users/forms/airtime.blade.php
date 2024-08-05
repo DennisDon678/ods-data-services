@@ -153,6 +153,9 @@
                                 );
 
                                 swal('Alert!!', "Airtime Purchased Succesfully", "success");
+                                setTimeout(function() {
+                                    location.replace('/user/dashboard')
+                                }, 1000)
                             } else if (data == 1) {
                                 $('#buyBtn').html(
                                     `Buy Now`
