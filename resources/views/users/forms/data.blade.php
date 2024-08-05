@@ -57,10 +57,15 @@
                                                         <select class="form-select border-0" id="network"
                                                             name="network_id" required="">
                                                             <option value="">Choose Your Network...</option>
-                                                            <option value="1">MTN</option>
-                                                            <option value="4">Airtel</option>
-                                                            <option value="2">GLO</option>
-                                                            <option value="3">9Mobile</option>
+                                                            @php
+                                                                $networks = App\Models\Network_list::all();
+                                                            @endphp
+                                                            @foreach ($networks as $network)
+                                                                @if (strtoupper($network->label) != 'SMILE')
+                                                                    <option value="{{ $network->network_id }}">
+                                                                        {{ $network->label }}</option>
+                                                                @endif
+                                                            @endforeach
                                                         </select>
                                                         <label for="network">Network</label>
                                                     </div>
@@ -121,7 +126,8 @@
                                             <div class="input-group input-group-lg">
                                                 <div class="form-floating">
                                                     <input type="number" placeholder="100" required=""
-                                                        class="form-control border-start-0" id="amount" readonly>
+                                                        class="form-control border-start-0" id="amount"
+                                                        name="amount" readonly>
                                                     <label>Enter Amount (&#8358;)</label>
                                                 </div>
                                             </div>
@@ -215,7 +221,7 @@
                             // console.log(data);
                             $('#plan').append(
                                 '<option value="' + data.data_id + '">' + data.size +
-                                ' for ' + data.validity+'.</option>'
+                                ' for ' + data.validity + '.</option>'
                             )
                             $('#amount').val('');
                         });
@@ -287,6 +293,12 @@
                                 }, 1000)
                             } else if (response == 1) {
                                 swal('Alert!!', "Insufficient Balance", "error");
+                                $('#buyBtn').html(
+                                    `<input type="submit" value="Buy Now"
+                                class="border-start-0 btn btn-primary mb-2">`
+                                );
+                            }else if(response == 2){
+                                swal('Alert!!', "An error occured please contact support", "error");
                                 $('#buyBtn').html(
                                     `<input type="submit" value="Buy Now"
                                 class="border-start-0 btn btn-primary mb-2">`
