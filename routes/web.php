@@ -86,6 +86,7 @@ Route::middleware('auth')->prefix('user')->group(function () {
     Route::get('/buy-airtime',[UserDashboardController::class, 'buy_airtime']);
     Route::get('/buy-cable-subscription',[UserDashboardController::class,'buy_cable_subscription']);
     Route::get('/buy-electricity',[UserDashboardController::class,'buy_electricity']);
+    Route::get('/preorder-data',[UserDashboardController::class, 'preorder_data']);
 
 
     // Ajax requests for data
