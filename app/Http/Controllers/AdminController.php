@@ -8,7 +8,9 @@ use App\Models\Dataplans;
 use App\Models\Network_list;
 use App\Models\plan_type_list;
 use App\Models\Preorder;
+use App\Models\Preordered;
 use App\Models\Profits;
+use App\Models\Transactions;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -663,6 +665,24 @@ class AdminController extends Controller
     $profit = Profits::find($request->id);
     $profit->profit = $request->profit;
     $profit->save();
+    return redirect()->back();
+  }
+
+  public function all_preorder(){
+    $preorders = Preordered::paginate(20);
+    return view('admin.preordered', compact('preorders'));
+  }
+
+  public function approve_preorder(Request $request){
+    $preorder = Preordered::find($request->id);
+
+    $transaction = Transactions::where('transaction_id','=',$preorder->reference)->first();
+
+    $transaction->status = 'successfull';
+    $transaction->save();
+
+    $preorder->delete();
+
     return redirect()->back();
   }
 }

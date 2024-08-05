@@ -54,6 +54,15 @@
                                 <i class="fe fe-users"></i> Users Management
                             </a>
                         </li>
+                        @php
+                            
+                            $count = count(App\Models\Preordered::all());
+                        @endphp
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/preorder/all">
+                                <i class="fe fe-book-open"></i> Available Preorders ({{$count }})
+                            </a>
+                        </li>
 
                         <li class="nav-item">
                             <a class="nav-link" href="#sidebarAuth" data-bs-toggle="collapse" role="button"

@@ -185,8 +185,8 @@ Route::middleware('admin')->prefix('admin')->group(function () {
 
     // Preorder management
     Route::get('/preorders',[AdminController::class, 'preorders']);
-    Route::get('/preorder/view/{id}',[AdminController::class, 'view_preorder']);
-    Route::post('/preorder/approve',[AdminController::class, 'approve_preorder']);
+    Route::get('/preorder/all',[AdminController::class, 'all_preorder']);
+    Route::get('/preorder/approve',[AdminController::class, 'approve_preorder']);
     Route::post('/preorder/deny',[AdminController::class, 'deny_preorder']);
     Route::get('/preorder/delete',[AdminController::class, 'delete_preorder']);
     Route::post('/preorder/add',[AdminController::class, 'add_preorder']);
