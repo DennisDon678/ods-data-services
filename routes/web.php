@@ -126,6 +126,9 @@ Route::middleware('auth')->prefix('user')->group(function () {
     Route::get('/a-to-c',[UserDashboardController::class,'a_to_cash']);
     Route::get('/airtime-to-cash', [UserDashboardController::class,'airtime_to_cash']);
     Route::post('/airtime_to_cash_convert', [UserDashboardController::class,'airtime_to_cash_convert']);
+
+    // Vendors routes
+    Route::get('/become-a-vendor', [UserDashboardController::class,'become_a_vendor']);
 });
 
 
