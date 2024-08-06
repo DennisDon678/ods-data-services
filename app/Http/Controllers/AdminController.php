@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Airtime_to_cash;
 use App\Models\Cable_list;
 use App\Models\Cable_plan;
 use App\Models\Dataplans;
@@ -22,7 +23,7 @@ class AdminController extends Controller
     $balance = Http::withHeaders([
       'Authorization' => 'Token ' . env('API_TOKEN')
     ])->get(env('API_BASE_URL') . 'user')->json()['user']['wallet_balance'];
-    return  view('admin.dashboard',compact('balance'));
+    return  view('admin.dashboard', compact('balance'));
   }
 
   public function users()
@@ -656,33 +657,90 @@ class AdminController extends Controller
     return redirect()->back();
   }
 
-  public function profits(){
+  public function profits()
+  {
     $profits = Profits::all();
-    return view('admin.profit', compact('profits')); 
+    return view('admin.profit', compact('profits'));
   }
 
-  public function edit_profit(Request $request){
+  public function edit_profit(Request $request)
+  {
     $profit = Profits::find($request->id);
     $profit->profit = $request->profit;
     $profit->save();
     return redirect()->back();
   }
 
-  public function all_preorder(){
+  public function all_preorder()
+  {
     $preorders = Preordered::paginate(20);
     return view('admin.preordered', compact('preorders'));
   }
 
-  public function approve_preorder(Request $request){
+  public function approve_preorder(Request $request)
+  {
     $preorder = Preordered::find($request->id);
 
-    $transaction = Transactions::where('transaction_id','=',$preorder->reference)->first();
+    if($preorder){
+      $transaction = Transactions::where('transaction_id', '=', $preorder->reference)->first();
 
-    $transaction->status = 'successfull';
-    $transaction->save();
+      $transaction->status = 'successfull';
+      $transaction->save();
 
-    $preorder->delete();
+      $preorder->delete();
 
+    }
     return redirect()->back();
+  }
+
+  public function airtime_to_cash()
+  {
+    $atocs = Airtime_to_cash::paginate(20);
+    return view('admin.airtime_to_cash', compact('atocs'));
+  }
+
+  public function view_airtime_to_cash(Request $request)
+  {
+    $ato = Airtime_to_cash::find($request->id);
+    return view('admin.view_airtime_to_cash', compact('ato'));
+  }
+
+  public function approve_airtime_to_cash(Request $request)
+  {
+    $ato = Airtime_to_cash::find($request->id);
+
+    if($ato){
+      if ($ato->account_name == '') {
+        // find User 
+        $user = User::find($ato->user_id);
+
+        $user->balance = $user->balance + ($ato->amount * 80 / 100);
+        $user->save();
+      }
+
+      // finc transaction 
+      $trans = Transactions::where('transaction_id', '=', $ato->transaction_id)->first();
+      $trans->status = "Successfull";
+      $trans->save();
+
+      $ato->delete();
+
+    }
+    return redirect('/admin/airtime_to_cash');
+  }
+
+  public function reject_airtime_to_cash(Request $request)
+  {
+    $ato = Airtime_to_cash::find($request->id);
+    if($ato){
+      // finc transaction 
+      $trans = Transactions::where('transaction_id', '=', $ato->transaction_id)->first();
+      $trans->status = "Rejected";
+      $trans->save();
+
+
+      $ato->delete();
+    }
+    return redirect('/admin/airtime_to_cash');
   }
 }

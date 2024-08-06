@@ -174,9 +174,9 @@ class UserDashboardController extends Controller
             'user_id' => $request->user()->id,
             'to' => $request->to,
             'from' => $request->from,
-            'bank_name' => $request->bankName,
-            'account_number' => $request->accountNumber,
-            'account_name' => $request->accountName,
+            'bank_name' => $request->a2cBank,
+            'account_number' => $request->a2cAccountNumber,
+            'account_name' => $request->a2cAccountName,
             'transaction_id' => $transactionId,
             'networks' => $request->networks,
         ]);
@@ -219,5 +219,9 @@ class UserDashboardController extends Controller
 
     public function preorder_data(){
         return view('users.forms.preorder');
+    }
+
+    public function a_to_cash(){
+        return view('users.forms.a2c');
     }
 }
