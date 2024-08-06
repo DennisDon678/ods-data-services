@@ -218,4 +218,8 @@ Route::middleware('admin')->prefix('admin')->group(function () {
     Route::get('/airtime_to_cash/view',[AdminController::class, 'view_airtime_to_cash']);
     Route::get('/airtime_to_cash/approve',[AdminController::class, 'approve_airtime_to_cash']);
     Route::get('/airtime_to_cash/reject',[AdminController::class, 'reject_airtime_to_cash']);
+
+    //config
+    Route::get('/config/airtime_to_cash',[AdminController::class, 'config_airtime_to_cash']);
+    Route::post('/config/airtime_to_cash',[AdminController::class, 'update_config_airtime_to_cash']);
 });

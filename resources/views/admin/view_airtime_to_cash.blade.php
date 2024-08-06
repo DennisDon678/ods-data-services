@@ -24,7 +24,7 @@
 
                             <!-- Title -->
                             <h1 class="header-title">
-                                User
+                                Airtime to Cash
                             </h1>
 
                         </div>

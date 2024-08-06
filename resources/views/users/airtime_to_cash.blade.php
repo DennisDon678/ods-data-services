@@ -30,6 +30,9 @@
                                 </div>
                             </div>
                         </div>
+                        @php
+                            $config = App\Models\AirtimetoCashConfig::first();
+                        @endphp
                         <div class="card-body px-4">
                             <div class="">
                                 <div class="upper-part text-center mb-5">
@@ -45,7 +48,7 @@
                                             <h6>Send To</h6>
                                         </div>
                                         <div class="col-6 mx-auto" id="to">
-                                            09032431003
+                                            {{$config->to}}
                                         </div>
                                     </div>
                                     <hr>
@@ -73,6 +76,15 @@
                                         </div>
                                         <div class="col-6 bold mx-auto" id="amount">
                                             &#8358;{{ number_format($req->convAmount, 2) }}
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row mb-2">
+                                        <div class="col-6">
+                                            <h6>You will receive</h6>
+                                        </div>
+                                        <div class="col-6 bold mx-auto" id="amount">
+                                            &#8358;{{ number_format($req->convAmount*($config->percent/100), 2) }} ({{$config->percent}}%)
                                         </div>
                                     </div>
                                     <hr>

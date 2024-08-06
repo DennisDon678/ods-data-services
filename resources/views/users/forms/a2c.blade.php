@@ -34,9 +34,6 @@
                                                         name="network2" required="">
                                                         <option value="">Choose Your Network...</option>
                                                         <option value="MTN">MTN</option>
-                                                        <option value="Airtel">Airtel</option>
-                                                        <option value="GLO">GLO</option>
-                                                        <option value="9Mobile">9Mobile</option>
                                                     </select>
                                                     <label for="country2">Choose your Network</label>
                                                 </div>
