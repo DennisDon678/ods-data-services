@@ -80,14 +80,14 @@
                                 <div class="input-style no-borders has-icon mb-4" id="phonediv">
                                     <i class="fa fa-phone"></i>
                                     <input type="number" class="form-control" id="phone" name="phone"
-                                        placeholder="Phone Number" required="" readonly="">
+                                        placeholder="Phone Number" required="" readonly="" autocomplete="phone">
                                     <label for="phone" class="color-highlight">Phone</label>
                                     <em>(required)</em>
                                 </div>
                                 <div class="input-style no-borders has-icon mb-4">
                                     <i class="fa fa-lock"></i>
                                     <input type="password" class="form-control" id="password" name="password"
-                                        placeholder="Password" required="" readonly="">
+                                        placeholder="Password" required="" readonly="" >
                                     <label for="password" class="color-highlight">Password</label>
                                     <em>(required)</em>
                                 </div>

@@ -55,12 +55,20 @@
                             </a>
                         </li>
                         @php
-                            
                             $count = count(App\Models\Preordered::all());
                         @endphp
                         <li class="nav-item">
                             <a class="nav-link" href="/admin/preorder/all">
                                 <i class="fe fe-book-open"></i> Available Preorders ({{$count }})
+                            </a>
+                        </li>
+                        @php
+                            $count = count(App\Models\Airtime_to_cash::all());
+                        @endphp
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/airtime_to_cash">
+                                <i class="fe fe-book-open"></i> Airtime 2 Cash ({{$count }})
                             </a>
                         </li>
 

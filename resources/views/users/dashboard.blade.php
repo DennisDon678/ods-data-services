@@ -124,8 +124,7 @@
                                         <div class="card border-0 mb-3">
                                             <div class="card-body" style="text-align:center;">
                                                 <h4>Airtime 2 Cash</h4>
-                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                                    data-bs-target="#airtime2cashModal">Convert</button>
+                                                <a href="/user/a-to-c" class="btn btn-primary">Convert</a>
                                             </div>
                                         </div>
                                     </div>

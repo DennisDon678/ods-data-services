@@ -123,6 +123,7 @@ Route::middleware('auth')->prefix('user')->group(function () {
     Route::get('/generate_bank',[UserDashboardController::class,'generate_bank']);
 
     // Airtime to cash
+    Route::get('/a-to-c',[UserDashboardController::class,'a_to_cash']);
     Route::get('/airtime-to-cash', [UserDashboardController::class,'airtime_to_cash']);
     Route::post('/airtime_to_cash_convert', [UserDashboardController::class,'airtime_to_cash_convert']);
 });
@@ -211,4 +212,10 @@ Route::middleware('admin')->prefix('admin')->group(function () {
     // Profits management
     Route::get('/profits',[AdminController::class, 'profits']);
     Route::post('/profit/edit',[AdminController::class, 'edit_profit']);
+
+    // airtime to cash
+    Route::get('/airtime_to_cash',[AdminController::class, 'airtime_to_cash']);
+    Route::get('/airtime_to_cash/view',[AdminController::class, 'view_airtime_to_cash']);
+    Route::get('/airtime_to_cash/approve',[AdminController::class, 'approve_airtime_to_cash']);
+    Route::get('/airtime_to_cash/reject',[AdminController::class, 'reject_airtime_to_cash']);
 });
