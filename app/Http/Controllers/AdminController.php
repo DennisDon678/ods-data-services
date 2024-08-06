@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Airtime_to_cash;
+use App\Models\AirtimetoCashConfig;
 use App\Models\Cable_list;
 use App\Models\Cable_plan;
 use App\Models\Dataplans;
@@ -681,14 +682,13 @@ class AdminController extends Controller
   {
     $preorder = Preordered::find($request->id);
 
-    if($preorder){
+    if ($preorder) {
       $transaction = Transactions::where('transaction_id', '=', $preorder->reference)->first();
 
       $transaction->status = 'successfull';
       $transaction->save();
 
       $preorder->delete();
-
     }
     return redirect()->back();
   }
@@ -709,12 +709,13 @@ class AdminController extends Controller
   {
     $ato = Airtime_to_cash::find($request->id);
 
-    if($ato){
+    if ($ato) {
       if ($ato->account_name == '') {
         // find User 
         $user = User::find($ato->user_id);
+        $percent = AirtimetoCashConfig::first();
 
-        $user->balance = $user->balance + ($ato->amount * 80 / 100);
+        $user->balance = $user->balance + ($ato->amount *($percent->percent / 100) );
         $user->save();
       }
 
@@ -724,7 +725,6 @@ class AdminController extends Controller
       $trans->save();
 
       $ato->delete();
-
     }
     return redirect('/admin/airtime_to_cash');
   }
@@ -732,7 +732,7 @@ class AdminController extends Controller
   public function reject_airtime_to_cash(Request $request)
   {
     $ato = Airtime_to_cash::find($request->id);
-    if($ato){
+    if ($ato) {
       // finc transaction 
       $trans = Transactions::where('transaction_id', '=', $ato->transaction_id)->first();
       $trans->status = "Rejected";
@@ -742,5 +742,20 @@ class AdminController extends Controller
       $ato->delete();
     }
     return redirect('/admin/airtime_to_cash');
+  }
+
+  public function config_airtime_to_cash()
+  {
+    $ato_config = AirtimetoCashConfig::first();
+    return view('admin.config_airtime_to_cash', compact('ato_config'));
+  }
+
+  public function update_config_airtime_to_cash(Request $request)
+  {
+    $ato_config = AirtimetoCashConfig::first();
+    $ato_config->to = $request->to;
+    $ato_config->percent = $request->percent;
+    $ato_config->save();
+    return redirect()->back();
   }
 }

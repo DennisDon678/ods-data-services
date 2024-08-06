@@ -142,6 +142,11 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="/admin/config/airtime_to_cash" >
+                                <i class="fe fe-clipboard"></i> Airtime to Cash Config
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="#sidebarComponents" data-bs-toggle="collapse" role="button"
                                 aria-expanded="false" aria-controls="sidebarComponents">
                                 <i class="fe fe-book-open"></i> Components
