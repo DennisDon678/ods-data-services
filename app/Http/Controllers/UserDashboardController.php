@@ -228,4 +228,46 @@ class UserDashboardController extends Controller
     public function become_a_vendor(){
         return view('users.vendor');
     }
+
+    public function pay_vendor_fee(Request $request)
+    {
+        $user = User::find($request->id);
+
+        // if balance is upto 2000
+        if($user->balance >= 2000){
+            $fee = 2000;
+            $user->balance = $user->balance - $fee;
+            $user->save();
+
+            // create a transaction
+            Transactions::create([
+                'user_id' => $request->id,
+                'title' => 'Vendor Fee',
+                'type' => 'withdrawal',
+                'amount' => $fee,
+               'status' => 'Successful',
+            ]);
+
+            if($user->referred_by){
+                // give 50% commission to the referrer
+                $referral_fee = $fee * 0.5;
+                $referral = User::find($user->referred_by);
+                $referral->balance = $referral->balance + $referral_fee;
+                $referral->save();
+
+                // create a transaction
+                Transactions::create([
+                    'user_id' => $user->referred_by,
+                    'title' => 'Referral Commission',
+                    'type' => 'deposit',
+                    'amount' => $referral_fee,
+                   'status' => 'Successful',
+                ]);
+            }
+
+            return response()->json(0);
+        } else {
+            return response()->json(1);
+        }
+    }
 }

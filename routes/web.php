@@ -130,6 +130,7 @@ Route::middleware('auth')->prefix('user')->group(function () {
 
     // Vendors routes
     Route::get('/become-a-vendor', [UserDashboardController::class,'become_a_vendor']);
+    Route::get('/pay-vendor-fee',[UserDashboardController::class,'pay_vendor_fee']);
 });
 
 
