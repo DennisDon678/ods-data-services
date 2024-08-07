@@ -42,7 +42,7 @@
                                             </figure>
                                         </div>
                                         <div class="col align-self-center ps-0">
-                                            <h6 class="mb-0"><span class="username">{{explode(' ',Auth::user()->name)[0]}}</span></h6>
+                                            <h6 class="mb-0"><span class="username">{{explode(' ',Auth::user()->name)[0]}} {{Auth::user()->is_vendor == true?"(Vendor)":""}}</span></h6>
                                             <p class="text-muted small">Balance: &#8358;{{number_format(Auth::user()->balance,2)}}</p>
                                         </div>
                                     </div>
