@@ -261,6 +261,7 @@ class UserDashboardController extends Controller
                 // create a transaction
                 Transactions::create([
                     'user_id' => $user->referred_by,
+                    'transaction_id' => uniqid(),
                     'title' => 'Referral Commission',
                     'type' => 'deposit',
                     'amount' => $referral_fee,

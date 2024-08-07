@@ -174,7 +174,7 @@
 
                                     <!-- Heading -->
                                     <span class="h2 mb-0">
-                                        2:37
+                                        {{count(App\Models\User::where('is_vendor','=',true)->get())}}
                                     </span>
 
                                 </div>
