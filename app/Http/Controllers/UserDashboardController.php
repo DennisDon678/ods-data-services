@@ -237,6 +237,7 @@ class UserDashboardController extends Controller
         if($user->balance >= 2000){
             $fee = 2000;
             $user->balance = $user->balance - $fee;
+            $user->is_active = true;
             $user->save();
 
             // create a transaction
