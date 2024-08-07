@@ -82,12 +82,14 @@
             <div class="row mb-4">
                 <div class="col-12 px-0">
                     <ul class="nav nav-pills">
+                        @if(Auth::user()->is_vendor == false)
                         <li class="nav-item">
                             <a class="nav-link active" href="/user/become-a-vendor">
                                 <div class="avatar avatar-40 icon"><i class="bi bi-arrow-up-circle"></i></div>
                                 <div class="col">Become a Vendor</div>
                             </a>
                         </li>
+                        @endif
                         <li class="nav-item">
                             <a class="nav-link active" href="/user/referrals">
                                 <div class="avatar avatar-40 icon"><i class="bi bi-people"></i></div>
