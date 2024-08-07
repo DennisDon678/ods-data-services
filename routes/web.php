@@ -227,4 +227,6 @@ Route::middleware('admin')->prefix('admin')->group(function () {
     //config
     Route::get('/config/airtime_to_cash',[AdminController::class, 'config_airtime_to_cash']);
     Route::post('/config/airtime_to_cash',[AdminController::class, 'update_config_airtime_to_cash']);
+    Route::get('/config/vendors',[AdminController::class, 'config_vendors']);
+    Route::post('/config/vendors',[AdminController::class, 'update_config_vendors']);
 });

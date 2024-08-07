@@ -14,6 +14,7 @@ use App\Models\Preordered;
 use App\Models\Profits;
 use App\Models\Transactions;
 use App\Models\User;
+use App\Models\Vendor_config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -756,6 +757,23 @@ class AdminController extends Controller
     $ato_config->to = $request->to;
     $ato_config->percent = $request->percent;
     $ato_config->save();
+    return redirect()->back();
+  }
+
+  public function config_vendors(Request $request){
+    $vendor_config = Vendor_config::first();
+
+    return view('admin.vendor_config', compact('vendor_config'));
+  }
+
+  public function update_config_vendors(Request $request){
+    $vendor_config = Vendor_config::first();
+
+    $vendor_config->onetime_fee = $request->onetime_fee;
+    $vendor_config->discount = $request->discount;
+
+    $vendor_config->save();
+
     return redirect()->back();
   }
 }
