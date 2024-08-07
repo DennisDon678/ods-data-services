@@ -9,6 +9,7 @@ use App\Models\Preordered;
 use App\Models\Profits;
 use App\Models\Transactions;
 use App\Models\User;
+use App\Models\Vendor_config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -63,7 +64,14 @@ class DataController extends Controller
             //     $profit = $profit->profit * ($numbers / 10 / 1000);
             // }
             $profit = ($profit->profit/100)*$data->price;
-            $price = $data->price + $profit;
+            if(Auth::user()->is_vendor){
+                $vendor_config = Vendor_config::first();
+
+                $price = ($data->price + $profit) - (($data->price + $profit)* ($vendor_config->discount/100));
+            }else{
+                 $price = $data->price + $profit;
+            }
+           
             return response()->json($price);
         }
     }
