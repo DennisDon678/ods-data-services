@@ -81,6 +81,17 @@
                             $('#state').val('');
 
                             return false;
+                        }else if (response == 0) {
+                            swal("Alert!!", "Upgrade to Vendor was successful", "success");
+                            setTimeout(() => {
+                            location.replace('/user/dashboard');
+                            }, 1000);
+                        }
+                        else {
+                            swal("Alert!!", "", "error");
+                            $('.payBtn').html(
+                                'Pay Vendor Onetime Fee'
+                            );
                         }
                     }
                 });
