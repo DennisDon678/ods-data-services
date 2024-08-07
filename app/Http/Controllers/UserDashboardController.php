@@ -8,6 +8,7 @@ use App\Models\Notification;
 use App\Models\Reserved_bank;
 use App\Models\Transactions;
 use App\Models\User;
+use App\Models\Vendor_config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -233,10 +234,11 @@ class UserDashboardController extends Controller
     public function pay_vendor_fee(Request $request)
     {
         $user = User::find($request->id);
+        $vendor_config = Vendor_config::first();
 
         // if balance is upto 2000
-        if($user->balance >= 2000){
-            $fee = 2000;
+        if($user->balance >= $vendor_config->onetime_fee){
+            $fee = $vendor_config->onetime_fee;
             $user->balance = $user->balance - $fee;
             $user->is_vendor = true;
             $user->save();

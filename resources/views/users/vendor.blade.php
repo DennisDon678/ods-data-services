@@ -40,8 +40,8 @@
                             <p class="h4">How do I become a Vendor?</p>
                             <ol>
                                 <li>Be A registered ODS User.</li>
-                                <li>Fund Your Wallet with a minimum of 2000.</li>
-                                <li>Pay Vendor Onetime Fee (2000).</li>
+                                <li>Fund Your Wallet with a minimum of {{App\Models\Vendor_config::first()->onetime_fee}}.</li>
+                                <li>Pay Vendor Onetime Fee ({{App\Models\Vendor_config::first()->onetime_fee}}).</li>
                             </ol>
                             <p>Congratulations, You are now an ODS Vendor!!!</p>
 
