@@ -19,7 +19,7 @@
                                 <div class="row">
                                     <div class="col-auto align-self-center">
                                         <figure class="avatar avatar-30 rounded-circle coverimg vm">
-                                            <img src="/dashboard/assets/img/user-1.jpg" alt="" id="userphotoonboarding2">
+                                            <img src="/dashboard/assets/img/profile.png" alt="" id="userphotoonboarding2">
                                         </figure>
                                     </div>
                                     <div class="col ps-0 align-self-center d-none d-lg-block">
@@ -34,11 +34,11 @@
                                 </div>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end w-300" aria-labelledby="userprofiledd">
-                                <div class="dropdown-info bg-radial-gradient-theme">
+                                <div class="dropdown-info text-light" style="background-color: #0a062b !important;">
                                     <div class="row">
                                         <div class="col-auto">
                                             <figure class="avatar avatar-50 rounded-circle coverimg vm">
-                                                <img src="/dashboard/assets/img/user-1.jpg" alt="" id="userphotoonboarding3">
+                                                <img src="/dashboard/assets/img/profile_.png"  alt="" id="userphotoonboarding3">
                                             </figure>
                                         </div>
                                         <div class="col align-self-center ps-0">

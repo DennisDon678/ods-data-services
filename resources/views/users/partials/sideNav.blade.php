@@ -19,7 +19,7 @@
                 <div class="col-12">
                     <div class="avatar avatar-100 rounded-circle shadow-sm mb-3 bg-white">
                         <figure class="avatar avatar-90 rounded-circle coverimg">
-                            <img src="/dashboard/assets/img/user-1.jpg" alt="" id="userphotoonboarding">
+                            <img src="/dashboard/assets/img/profile.png" alt="" id="userphotoonboarding">
                         </figure>
                     </div>
                 </div>
@@ -82,6 +82,12 @@
             <div class="row mb-4">
                 <div class="col-12 px-0">
                     <ul class="nav nav-pills">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/user/become-a-vendor">
+                                <div class="avatar avatar-40 icon"><i class="bi bi-arrow-up-circle"></i></div>
+                                <div class="col">Become a Vendor</div>
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link active" href="/user/referrals">
                                 <div class="avatar avatar-40 icon"><i class="bi bi-people"></i></div>

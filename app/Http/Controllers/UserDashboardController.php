@@ -224,4 +224,8 @@ class UserDashboardController extends Controller
     public function a_to_cash(){
         return view('users.forms.a2c');
     }
+
+    public function become_a_vendor(){
+        return view('users.vendor');
+    }
 }
