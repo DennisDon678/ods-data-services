@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use PDO;
 
+
 class UserDashboardController extends Controller
 {
     //
@@ -237,12 +238,13 @@ class UserDashboardController extends Controller
         if($user->balance >= 2000){
             $fee = 2000;
             $user->balance = $user->balance - $fee;
-            $user->is_active = true;
+            $user->is_vendor = true;
             $user->save();
 
             // create a transaction
             Transactions::create([
                 'user_id' => $request->id,
+                'transaction_id' => uniqid(),
                 'title' => 'Vendor Fee',
                 'type' => 'withdrawal',
                 'amount' => $fee,
