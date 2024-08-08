@@ -111,6 +111,8 @@ Route::middleware('auth')->prefix('user')->group(function () {
     // Wallets AJAX
     Route::post('/fund-wallet/create',[UserDashboardController::class,'create_deposit']);
 
+    Route::get('/fund-wallet',[UserDashboardController::class,'fund_wallet']);
+
     // Transaction
     Route::get('/transactions',[UserDashboardController::class,'transactions']);
     Route::get('/transaction/view/{id}',[UserDashboardController::class,'view_transaction']);

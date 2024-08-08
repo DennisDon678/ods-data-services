@@ -19,6 +19,10 @@ use PDO;
 class UserDashboardController extends Controller
 {
     //
+
+    public function fund_wallet(){
+        return view('users.forms.funding');
+    }
     public function create_deposit(Request $request)
     {
 
