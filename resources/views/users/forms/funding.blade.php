@@ -61,10 +61,13 @@
                                     @if ($account)
                                         <div class="col-12">
                                             <div class="accountinfo">
-                                                <h5>Account Number: <em class="text-muted">{{ $account->account_number }}</em>,
+                                                <h5>Account Number: <em
+                                                        class="text-muted">{{ $account->account_number }}</em>,
                                                 </h5>
-                                                <h6 class="">Account Name: <em class="text-muted">{{ $account->account_name }}</em>, </h6>
-                                                <h6>Bank Name: <em class="text-muted">{{ $account->bank_name }}</em></h6>
+                                                <h6 class="">Account Name: <em
+                                                        class="text-muted">{{ $account->account_name }}</em>, </h6>
+                                                <h6>Bank Name: <em class="text-muted">{{ $account->bank_name }}</em>
+                                                </h6>
                                             </div>
                                         </div>
                                     @else
@@ -122,25 +125,73 @@
 
                                 <div class="modal-body">
                                     @php
-                                        $account = App\Models\Reserved_bank::where(
-                                            'user_id',
-                                            '=',
-                                            Auth::user()->id,
-                                        )->first();
+                                        $accounts = App\Models\Manual_funding::get();
+                                        $sn = 1;
                                     @endphp
 
-                                    @if ($account)
+                                    @forelse ($accounts as $account)
                                         <div class="col-12">
                                             <div class="accountinfo">
-                                                <h5>Account Number: <em class="text-muted">{{ $account->account_number }}</em>,
+                                                <h5>Account Number: <em
+                                                        class="text-muted">{{ $account->account_number }}</em>,
                                                 </h5>
-                                                <h6 class="">Account Name: <em class="text-muted">{{ $account->account_name }}</em>, </h6>
-                                                <h6>Bank Name: <em class="text-muted">{{ $account->bank_name }}</em></h6>
+                                                <h6 class="">Account Name: <em
+                                                        class="text-muted">{{ $account->account_name }}</em>, </h6>
+                                                <h6>Bank Name: <em class="text-muted">{{ $account->bank_name }}</em>
+                                                </h6>
                                             </div>
                                         </div>
-                                    @else
+                                        <hr>
+
+                                        @php
+                                            $sn = $sn + 1;
+                                        @endphp
+                                    @empty
                                         <div class="col-12">
-                                            <Button class="btn btn-primary" id="generateBank">Generate Account</Button>
+                                            No Methods listed Here.
+                                        </div>
+                                    @endforelse
+
+                                    @if (count($accounts) > 0)
+                                        <h5 class="mt-3 text-success">Fill out the details to submit Funding Request.</h5>
+                                        <div class="alt">
+                                            <div class="mb-2">
+                                                <div class="form-group mb-3 position-relative check-valid">
+                                                    <div class="input-group input-group-lg">
+                                                        <div class="form-floating">
+                                                            <input type="number" placeholder="100" id="fundamount"
+                                                                required="" class="form-control border-start-0">
+                                                            <label>Enter Amount (&#8358;)</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="mb-2">
+                                                <div class="form-group mb-3 position-relative check-valid">
+                                                    <div class="input-group input-group-lg">
+                                                        <div class="form-floating">
+                                                            <input type="text" placeholder="100" id="fundamount"
+                                                                required="" class="form-control border-start-0">
+                                                            <label>Enter Sender's Account Name</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="mb-2">
+                                                <div class="form-group mb-3 position-relative check-valid">
+                                                    <div class="input-group input-group-lg">
+                                                        <div class="form-floating">
+                                                            <input type="text" placeholder="100" id="fundamount"
+                                                                required="" class="form-control border-start-0">
+                                                            <label>Enter Sender's Bank Name</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="payWithCard">
+                                                <button class="btn btn-primary" id="paywithcard">Submit Request
+                                                    </button>
+                                            </div>
                                         </div>
                                     @endif
                                 </div>
