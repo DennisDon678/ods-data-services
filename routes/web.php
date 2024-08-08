@@ -232,4 +232,4 @@ Route::middleware('admin')->prefix('admin')->group(function () {
     Route::post('/config/vendors',[AdminController::class, 'update_config_vendors']);
 });
 
-Route::post('monify/webhook',[AppController::class,'monify_webhook']);
+Route::post('/monify/webhook',[AppController::class,'monify_webhook']);
