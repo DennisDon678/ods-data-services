@@ -86,6 +86,7 @@ class UserDashboardController extends Controller
             "currencyCode" => "NGN",
             "contractCode" => env('MONIFY_CONTRACT'),
             "customerEmail" => Auth::user()->email,
+            "customerName" => Auth::user()->name,
             "getAllAvailableBanks" => false,
             "preferredBanks" => ['035'],
         ])->json();
