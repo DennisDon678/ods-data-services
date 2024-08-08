@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AppController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DataController;
 use App\Http\Controllers\TvController;
@@ -230,3 +231,5 @@ Route::middleware('admin')->prefix('admin')->group(function () {
     Route::get('/config/vendors',[AdminController::class, 'config_vendors']);
     Route::post('/config/vendors',[AdminController::class, 'update_config_vendors']);
 });
+
+Route::post('monify/webhook',[AppController::class,'monify_webhook']);
