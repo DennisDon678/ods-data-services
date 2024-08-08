@@ -1,137 +1,244 @@
-<div class="modal fade" id="fundModal" tabindex="-1" role="dialog" data-bs-backdrop="static" aria-hidden="true">
-    <div class="row  justify-content-center mb-2 modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h6 class="modal-title" id="exampleModalLabel">Fund Your Wallet</h6>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<!doctype html>
+<html lang="en">
+
+@include('users.partials.head')
+
+<body class="d-flex flex-column h-100 sidebar-pushcontent sidebar-filled" data-sidebarstyle="sidebar-pushcontent">
+
+    @include('users.partials.preloader')
+
+    @include('users.partials.headNav')
+
+    @include('users.partials.sideNav')
+
+    <!-- Begin page content -->
+    <main class="main mainheight">
+        {{-- <div class="container-fluid mb-4">
+            <div class="row align-items-center page-title">
+                <div class="col-12 col-md mb-2 mb-sm-0">
+                    <h5 class="mb-0">Wallet Funding</h5>
+                </div>
+                
             </div>
-            <div class="col-12 col-lg-12 mb-2 border">
+        </div> --}}
 
-                <div class="modal-body">
-                        @php
-                            $account = App\Models\Reserved_bank::where('user_id', '=', Auth::user()->id)->first();
-                        @endphp
+        <!-- content -->
+        <div class="container mt-4">
+            <ul class="nav nav-tabs justify-content-center nav-adminux " id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="personal-tab" data-bs-toggle="tab" data-bs-target="#automated"
+                        type="button" role="tab" aria-controls="personal" aria-selected="true">Automated</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#manual"
+                        type="button" role="tab" aria-controls="profile" aria-selected="false">Manual</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="payment-tab" data-bs-toggle="tab" data-bs-target="#card" type="button"
+                        role="tab" aria-controls="payment" aria-selected="false">Card</button>
+                </li>
 
-                        @if ($account)
-                            <div class="col-12">
-                                <div class="accountinfo">
-                                    <h5>{{$account->account_number}}, <h6 class="text-muted">{{$account->account_name}}, {{$account->bank_name}}</h6></h5>
+            </ul>
+            <div class="tab-content py-3" id="myTabContent">
+                <div class="tab-pane fade show active" id="automated" role="tabpanel" aria-labelledby="personal-tab">
+                    <div class="p-2 mb-2 ">
+                        <div class="card">
+
+                            <div class="card-header">
+                                <h6 class="title" id="exampleModalLabel">Automated Bank</h6>
+                            </div>
+                            <div class="col-12 col-lg-12 mb-2 p-2">
+
+                                <div class="modal-body">
+                                    @php
+                                        $account = App\Models\Reserved_bank::where(
+                                            'user_id',
+                                            '=',
+                                            Auth::user()->id,
+                                        )->first();
+                                    @endphp
+
+                                    @if ($account)
+                                        <div class="col-12">
+                                            <div class="accountinfo">
+                                                <h5>Account Number: <em class="text-muted">{{ $account->account_number }}</em>,
+                                                </h5>
+                                                <h6 class="">Account Name: <em class="text-muted">{{ $account->account_name }}</em>, </h6>
+                                                <h6>Bank Name: <em class="text-muted">{{ $account->bank_name }}</em></h6>
+                                            </div>
+                                        </div>
+                                    @else
+                                        <div class="col-12">
+                                            <Button class="btn btn-primary" id="generateBank">Generate Account</Button>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
-                        @else
-                            <div class="col-12">
-                                <Button class="btn btn-primary" id="generateBank">Generate Account</Button>
-                            </div>
-                        @endif
+                        </div>
                     </div>
-                    <hr>
-                    <h6 class="text-center">OR</h6>
-                    <hr>
-                    <div class="alt">
-                        <div class="mb-2">
-                            <div class="form-group mb-3 position-relative check-valid">
-                                <div class="input-group input-group-lg">
-                                    <div class="form-floating">
-                                        <input type="number" placeholder="100" id="fundamount" required=""
-                                            class="form-control border-start-0">
-                                        <label>Enter Amount (&#8358;)</label>
+                </div>
+                <div class="tab-pane fade" id="card" role="tabpanel" aria-labelledby="personal-tab">
+                    <div class="">
+                        <div class="card">
+
+                            <div class="card-header">
+                                <h6 class="title" id="exampleModalLabel">Pay With Card or USSD</h6>
+                            </div>
+                            <div class="col-12 col-lg-12 mb-2 p-2">
+
+                                <div class="modal-body">
+                                    <div class="alt">
+                                        <div class="mb-2">
+                                            <div class="form-group mb-3 position-relative check-valid">
+                                                <div class="input-group input-group-lg">
+                                                    <div class="form-floating">
+                                                        <input type="number" placeholder="100" id="fundamount"
+                                                            required="" class="form-control border-start-0">
+                                                        <label>Enter Amount (&#8358;)</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="payWithCard">
+                                            <button class="btn btn-primary" id="paywithcard"
+                                                onclick="payWithMonnify()">Pay
+                                                With
+                                                Card</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="payWithCard">
-                            <button class="btn btn-primary" id="paywithcard" onclick="payWithMonnify()">Pay With
-                                Card</button>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="manual" role="tabpanel" aria-labelledby="personal-tab">
+                    <div class="p-2 mb-2 ">
+                        <div class="card">
+
+                            <div class="card-header">
+                                <h6 class="title" id="exampleModalLabel">Manual Funding</h6>
+                            </div>
+                            <div class="col-12 col-lg-12 mb-2 p-2">
+
+                                <div class="modal-body">
+                                    @php
+                                        $account = App\Models\Reserved_bank::where(
+                                            'user_id',
+                                            '=',
+                                            Auth::user()->id,
+                                        )->first();
+                                    @endphp
+
+                                    @if ($account)
+                                        <div class="col-12">
+                                            <div class="accountinfo">
+                                                <h5>Account Number: <em class="text-muted">{{ $account->account_number }}</em>,
+                                                </h5>
+                                                <h6 class="">Account Name: <em class="text-muted">{{ $account->account_name }}</em>, </h6>
+                                                <h6>Bank Name: <em class="text-muted">{{ $account->bank_name }}</em></h6>
+                                            </div>
+                                        </div>
+                                    @else
+                                        <div class="col-12">
+                                            <Button class="btn btn-primary" id="generateBank">Generate Account</Button>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
-    </div>
-</div>
+    </main>
 
-<script type="text/javascript" src="https://sdk.monnify.com/plugin/monnify.js"></script>
-<script src="/sweetalert%402.1.2/dist/sweetalert.min.js"></script>
-<script src="/jquery-3.6.0.min.js"></script>
-<script>
-    function payWithMonnify() {
-        const amount = $('#fundamount').val();
-        // console.log(amount);
-        MonnifySDK.initialize({
-            amount: amount,
-            currency: "NGN",
-            reference: new String((new Date()).getTime()),
-            customerFullName: "{{ Auth::user()->name }}",
-            customerEmail: "{{ Auth::user()->email }}",
-            apiKey: "{{ env('MONIFY_KEY') }}",
-            contractCode: "{{ env('MONIFY_CONTRACT') }}",
-            paymentDescription: "Wallet Funding",
+    <script type="text/javascript" src="https://sdk.monnify.com/plugin/monnify.js"></script>
+    <script src="/sweetalert%402.1.2/dist/sweetalert.min.js"></script>
+    <script src="/jquery-3.6.0.min.js"></script>
+    <script>
+        function payWithMonnify() {
+            const amount = $('#fundamount').val();
+            // console.log(amount);
+            MonnifySDK.initialize({
+                amount: amount,
+                currency: "NGN",
+                reference: new String((new Date()).getTime()),
+                customerFullName: "{{ Auth::user()->name }}",
+                customerEmail: "{{ Auth::user()->email }}",
+                apiKey: "{{ env('MONIFY_KEY') }}",
+                contractCode: "{{ env('MONIFY_CONTRACT') }}",
+                paymentDescription: "Wallet Funding",
 
-            onLoadStart: () => {
-                console.log("loading has started");
-            },
-            onLoadComplete: () => {
-                console.log("SDK is UP");
-            },
-            onComplete: function(response) {
-                //Implement what happens when the transaction is completed.
-                if (response.status == "SUCCESS") {
-                    const reference = response.transactionReference
-                    const amount = response.authorizedAmount;
-                    const status = response.status
+                onLoadStart: () => {
+                    console.log("loading has started");
+                },
+                onLoadComplete: () => {
+                    console.log("SDK is UP");
+                },
+                onComplete: function(response) {
+                    //Implement what happens when the transaction is completed.
+                    if (response.status == "SUCCESS") {
+                        const reference = response.transactionReference
+                        const amount = response.authorizedAmount;
+                        const status = response.status
 
 
-                    $.ajax({
-                        type: "post",
-                        url: "/user/fund-wallet/create",
-                        data: {
-                            _token: "{{ csrf_token() }}",
-                            reference: reference,
-                            amount: amount,
-                            status: status,
-                        },
-                        success: function(response) {
-                            console.log(response)
-                        }
-                    });
+                        $.ajax({
+                            type: "post",
+                            url: "/user/fund-wallet/create",
+                            data: {
+                                _token: "{{ csrf_token() }}",
+                                reference: reference,
+                                amount: amount,
+                                status: status,
+                            },
+                            success: function(response) {
+                                console.log(response)
+                            }
+                        });
+                    }
+                },
+                onClose: function(data) {
+                    //Implement what should happen when the modal is closed here
+                    console.log(data);
+                    if (data.status == "SUCCESS") {
+                        swal("Alert!", "You have successfully funded your wallet", "success")
+
+                        // reload page
+                        setTimeout(function() {
+                            location.replace('/user/dashboard')
+                        }, 1000)
+                    } else {
+                        swal("Alert!", "You have canceled this transaction", "error")
+                    }
                 }
-            },
-            onClose: function(data) {
-                //Implement what should happen when the modal is closed here
-                console.log(data);
-                if (data.status == "SUCCESS") {
-                    swal("Alert!", "You have successfully funded your wallet", "success")
-
-                    // reload page
-                    setTimeout(function() {
-                        location.replace('/user/dashboard')
-                    }, 1000)
-                } else {
-                    swal("Alert!", "You have canceled this transaction", "error")
-                }
-            }
-        });
-    }
+            });
+        }
 
 
-    // Generate bank
-    $('#generateBank').on('click', function() {
-        $('#generateBank').html(
-            '<i class="fa fa-spinner fa-spin text-warning" aria-hidden="true"></i> Generating Bank Please wait .'
+        // Generate bank
+        $('#generateBank').on('click', function() {
+            $('#generateBank').html(
+                '<i class="fa fa-spinner fa-spin text-warning" aria-hidden="true"></i> Generating Bank Please wait .'
             );
-        $.ajax({
-            type: "get",
-            url: "/user/generate_bank",
-            success: function(response) {
-                if (response == 0) {
-                    swal("Alart!","Bank created successfully, wait while we refresh your profile.", "success")
+            $.ajax({
+                type: "get",
+                url: "/user/generate_bank",
+                success: function(response) {
+                    if (response == 0) {
+                        swal("Alart!", "Bank created successfully, wait while we refresh your profile.",
+                            "success")
 
-                    setTimeout(()=>{
-                        location.replace('/user/dashboard')
-                    },2000)
+                        setTimeout(() => {
+                            location.replace('/user/dashboard')
+                        }, 2000)
+                    }
                 }
-            }
+            });
         });
-    });
-</script>
+    </script>
+    @include('users.partials.mobileNav')
+    @include('users.partials.scripts')
+</body>
+
+</html>

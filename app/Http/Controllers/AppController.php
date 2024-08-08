@@ -38,7 +38,7 @@ class AppController extends Controller
                         'user_id' => $info->product->reference,
                         'transaction_id' => $info->transactionReference,
                         'amount' => $info->settlementAmount,
-                        'status' => 'successfull',
+                        'status' => 'success',
                         'title' => "Wallet Funding",
                         'type' => "deposit",
                     ]);

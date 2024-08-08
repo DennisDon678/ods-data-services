@@ -22,11 +22,11 @@
                 </button>
             </li>
             <li class="nav-item centerbutton">
-                <button class="nav-link" id="fundWallet" data-bs-toggle="modal" data-bs-target="#fundModal">
+                <a class="nav-link" id="fundWallet" href="/user/fund-wallet">
                     <span class="" style="background-color: #0a062b !important;">
                         <i class="bi bi-plus-circle size-22"></i>
                     </span>
-                </button>
+                </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/user/notifications">
@@ -52,7 +52,7 @@
 {{-- @include('users.forms.airtime') --}}
 {{-- @include('users.forms.data') --}}
 {{-- @include('users.forms.tv') --}}
-@include('users.forms.funding')
+{{-- @include('users.forms.funding') --}}
 @include('users.forms.services')
 {{-- @include('users.forms.preorder') --}}
 {{-- @include('users.forms.a2c') --}}
