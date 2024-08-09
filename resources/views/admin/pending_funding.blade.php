@@ -24,7 +24,7 @@
 
                             <!-- Title -->
                             <h1 class="header-title">
-                                pendinged Data List
+                                pending Manual Funding List
                             </h1>
 
                         </div>
