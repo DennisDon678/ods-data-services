@@ -285,7 +285,6 @@
                         contentType: false,
                         processData: false,
                         success: function(response) {
-                            console.log(response);
                             if (response == 0) {
                                 swal('Alert!!', "Data Purchased Succesfully", "success");
                                 setTimeout(function() {

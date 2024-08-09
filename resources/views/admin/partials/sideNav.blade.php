@@ -71,6 +71,15 @@
                                 <i class="fe fe-book-open"></i> Airtime 2 Cash ({{$count }})
                             </a>
                         </li>
+                        @php
+                            $count = count(App\Models\Pending_manual_fund::all());
+                        @endphp
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/airtime_to_cash">
+                                <i class="fe fe-dollar-sign"></i> Pending Funding ({{$count }})
+                            </a>
+                        </li>
 
                         <li class="nav-item">
                             <a class="nav-link" href="#sidebarAuth" data-bs-toggle="collapse" role="button"
