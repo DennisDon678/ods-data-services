@@ -69,6 +69,7 @@
                                                 <h6>Bank Name: <em class="text-muted">{{ $account->bank_name }}</em>
                                                 </h6>
                                             </div>
+                                            <small>Charges applies</small>
                                         </div>
                                     @else
                                         <div class="col-12">
