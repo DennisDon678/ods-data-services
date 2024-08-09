@@ -237,6 +237,9 @@ Route::middleware('admin')->prefix('admin')->group(function () {
     Route::post('/config/funding/edit',[AdminController::class, 'edit_config_funding']);
     Route::post('/config/funding', [AdminController::class, 'add_config_funding']);
     Route::get('/config/funding/delete',[AdminController::class, 'delete_config_funding']);
+    Route::get('/pending_funding',[AdminController::class,'pending_funding']);
+    Route::get('/pending_funding/approve',[AdminController::class,'approve_pending_funding']);
+    Route::get('/pending_funding/reject',[AdminController::class,'reject_pending_funding']);
 });
 
 Route::post('/monify/webhook',[AppController::class,'monify_webhook']);

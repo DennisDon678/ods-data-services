@@ -76,7 +76,7 @@
                         @endphp
 
                         <li class="nav-item">
-                            <a class="nav-link" href="/admin/airtime_to_cash">
+                            <a class="nav-link" href="/admin/pending_funding">
                                 <i class="fe fe-dollar-sign"></i> Pending Funding ({{$count }})
                             </a>
                         </li>
