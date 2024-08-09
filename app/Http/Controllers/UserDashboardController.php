@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Airtime_to_cash;
 use App\Models\Contacts;
 use App\Models\Notification;
+use App\Models\Pending_manual_fund;
 use App\Models\Reserved_bank;
 use App\Models\Transactions;
 use App\Models\User;
@@ -280,5 +281,11 @@ class UserDashboardController extends Controller
         } else {
             return response()->json(1);
         }
+    }
+
+    public function add_manual_reqeust(Request $request){
+        Pending_manual_fund::create($request->except('_token'));
+
+        return response()->json(0);
     }
 }

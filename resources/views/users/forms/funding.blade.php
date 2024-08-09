@@ -154,46 +154,54 @@
                                     @endforelse
 
                                     @if (count($accounts) > 0)
-                                        <h5 class="mt-3 text-success">Fill out the details to submit Funding Request.</h5>
-                                        <div class="alt">
-                                            <div class="mb-2">
-                                                <div class="form-group mb-3 position-relative check-valid">
-                                                    <div class="input-group input-group-lg">
-                                                        <div class="form-floating">
-                                                            <input type="number" placeholder="100" id="fundamount"
-                                                                required="" class="form-control border-start-0">
-                                                            <label>Enter Amount (&#8358;)</label>
+                                        <h5 class="mt-3 text-success">Fill out the details to submit Funding Request.
+                                        </h5>
+                                        <form action="" id="funding">
+                                            @csrf
+                                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                            <div class="alt">
+                                                <div class="mb-2">
+                                                    <div class="form-group mb-3 position-relative check-valid">
+                                                        <div class="input-group input-group-lg">
+                                                            <div class="form-floating">
+                                                                <input type="number" placeholder="100"
+                                                                    id="fundamount" name="amount" required=""
+                                                                    class="form-control border-start-0">
+                                                                <label>Enter Amount (&#8358;)</label>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="mb-2">
-                                                <div class="form-group mb-3 position-relative check-valid">
-                                                    <div class="input-group input-group-lg">
-                                                        <div class="form-floating">
-                                                            <input type="text" placeholder="100" id="fundamount"
-                                                                required="" class="form-control border-start-0">
-                                                            <label>Enter Sender's Account Name</label>
+                                                <div class="mb-2">
+                                                    <div class="form-group mb-3 position-relative check-valid">
+                                                        <div class="input-group input-group-lg">
+                                                            <div class="form-floating">
+                                                                <input type="text" placeholder="100"
+                                                                    id="fundamount" name="sender_name" required=""
+                                                                    class="form-control border-start-0">
+                                                                <label>Enter Sender's Account Name</label>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="mb-2">
-                                                <div class="form-group mb-3 position-relative check-valid">
-                                                    <div class="input-group input-group-lg">
-                                                        <div class="form-floating">
-                                                            <input type="text" placeholder="100" id="fundamount"
-                                                                required="" class="form-control border-start-0">
-                                                            <label>Enter Sender's Bank Name</label>
+                                                <div class="mb-2">
+                                                    <div class="form-group mb-3 position-relative check-valid">
+                                                        <div class="input-group input-group-lg">
+                                                            <div class="form-floating">
+                                                                <input type="text" placeholder="100"
+                                                                    id="fundamount" name="sender_bank" required=""
+                                                                    class="form-control border-start-0">
+                                                                <label>Enter Sender's Bank Name</label>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="payWithCard">
-                                                <button class="btn btn-primary" id="paywithcard">Submit Request
+                                                <div class="payWithCard">
+                                                    <button class="btn btn-primary" type="submit" id="submitManual">Submit Request
                                                     </button>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </form>
                                     @endif
                                 </div>
                             </div>
@@ -288,6 +296,40 @@
                 }
             });
         });
+
+        $('#funding').on('submit', (e) => {
+            e.preventDefault();
+            $('#submitManual').html(
+                '<i class="fa fa-spinner fa-spin text-warning" aria-hidden="true"></i> Submitting Please wait .'
+            );
+
+            $.ajax({
+                type: "POST",
+                url: "/user/fund-wallet",
+                data: new FormData($('#funding')[0]),
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    if (response == 0) {
+                        swal('Alert!!', "Request Submitted Succesfully", "success");
+                        setTimeout(function() {
+                            location.replace('/user/dashboard')
+                        }, 1000)
+                    } else if (response == 1) {
+                        swal('Alert!!', "Insufficient Balance", "error");
+                        $('#submitManual').html(
+                            `Submit Request`
+                        );
+                    } else if (response == 2) {
+                        swal('Alert!!', "An error occured please contact support", "error");
+                        $('#submitManual').html(
+                            `Submit Request`
+                        );
+                    }
+                }
+            });
+        })
     </script>
     @include('users.partials.mobileNav')
     @include('users.partials.scripts')

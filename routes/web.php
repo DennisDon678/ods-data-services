@@ -112,6 +112,7 @@ Route::middleware('auth')->prefix('user')->group(function () {
     Route::post('/fund-wallet/create',[UserDashboardController::class,'create_deposit']);
 
     Route::get('/fund-wallet',[UserDashboardController::class,'fund_wallet']);
+    Route::post('/fund-wallet', [UserDashboardController::class, 'add_manual_reqeust']);
 
     // Transaction
     Route::get('/transactions',[UserDashboardController::class,'transactions']);
