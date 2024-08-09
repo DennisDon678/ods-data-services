@@ -9,6 +9,7 @@ use App\Models\Cable_plan;
 use App\Models\Dataplans;
 use App\Models\Manual_funding;
 use App\Models\Network_list;
+use App\Models\Pending_manual_fund;
 use App\Models\plan_type_list;
 use App\Models\Preorder;
 use App\Models\Preordered;
@@ -804,6 +805,56 @@ class AdminController extends Controller
   public function delete_config_funding(Request $request){
     $method = Manual_funding::find($request->id);
     $method->delete();
+
+    return redirect()->back();
+  }
+
+  public function pending_funding(){
+    $pendings = Pending_manual_fund::all();
+
+    return view('admin.pending_funding',compact('pendings'));
+  }
+
+  public function approve_pending_funding(Request $request){
+    $pending = Pending_manual_fund::find($request->id);
+
+    if($pending){
+      $user = User::find($pending->user_id);
+      $user->balance = $user->balance + $pending->amount;
+      $user->save();
+
+      $pending->delete();
+
+      // Create Transaction
+      Transactions::create([
+        'user_id' => $user->id,
+        'transaction_id' => uniqid(),
+        'amount' => $pending->amount,
+        'type' => 'deposit',
+        'status' => 'success',
+        'title' => 'wallet Funding'
+      ]);
+    }
+
+    return redirect()->back();
+  }
+
+  public function reject_pending_funding(Request $request){
+    $pending = Pending_manual_fund::find($request->id);
+
+    if($pending){
+      $pending->delete();
+
+      // create Transaction
+      Transactions::create([
+        'user_id' => $pending->user_id,
+        'transaction_id' => uniqid(),
+        'amount' => $pending->amount,
+        'type' => 'deposit',
+        'status' => 'rejected',
+        'title' => 'wallet Funding'
+      ]);
+    }
 
     return redirect()->back();
   }
