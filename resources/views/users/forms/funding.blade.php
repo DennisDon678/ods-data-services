@@ -62,10 +62,10 @@
                                         <div class="col-12">
                                             <div class="accountinfo">
                                                 <h5>Account Number: <em
-                                                        class="text-muted">{{ $account->account_number }}</em>,
+                                                        class="text-muted">{{ $account->account_number }}</em>
                                                 </h5>
                                                 <h6 class="">Account Name: <em
-                                                        class="text-muted">{{ $account->account_name }}</em>, </h6>
+                                                        class="text-muted">{{ $account->account_name }}</em> </h6>
                                                 <h6>Bank Name: <em class="text-muted">{{ $account->bank_name }}</em>
                                                 </h6>
                                             </div>
@@ -134,10 +134,10 @@
                                         <div class="col-12">
                                             <div class="accountinfo">
                                                 <h5>Account Number: <em
-                                                        class="text-muted">{{ $account->account_number }}</em>,
+                                                        class="text-muted">{{ $account->account_number }}</em>
                                                 </h5>
                                                 <h6 class="">Account Name: <em
-                                                        class="text-muted">{{ $account->account_name }}</em>, </h6>
+                                                        class="text-muted">{{ $account->account_name }}</em> </h6>
                                                 <h6>Bank Name: <em class="text-muted">{{ $account->bank_name }}</em>
                                                 </h6>
                                             </div>
