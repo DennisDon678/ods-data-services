@@ -7,6 +7,7 @@ use App\Models\AirtimetoCashConfig;
 use App\Models\Cable_list;
 use App\Models\Cable_plan;
 use App\Models\Dataplans;
+use App\Models\Manual_funding;
 use App\Models\Network_list;
 use App\Models\plan_type_list;
 use App\Models\Preorder;
@@ -773,6 +774,36 @@ class AdminController extends Controller
     $vendor_config->discount = $request->discount;
 
     $vendor_config->save();
+
+    return redirect()->back();
+  }
+
+  public function config_funding(){
+    $methods = Manual_funding::all();
+    return view('admin.config_funding',compact('methods'));
+  }
+
+  public function edit_config_funding(Request $request){
+    $method = Manual_funding::find($request->id);
+
+    $method->account_name = $request->account_name;
+    $method->account_number = $request->account_number;
+    $method->bank_name = $request->bank_name;
+
+    $method->save();
+
+    return redirect()->back();
+  }
+
+  public function add_config_funding(Request $request){
+    Manual_funding::create($request->except('_token'));
+
+    return redirect()->back();
+  }
+
+  public function delete_config_funding(Request $request){
+    $method = Manual_funding::find($request->id);
+    $method->delete();
 
     return redirect()->back();
   }

@@ -151,11 +151,9 @@
                                 <i class="fe fe-award"></i> Vendors Config
                             </a>
                         </li>
-                        
                         <li class="nav-item">
-                            <a class="nav-link " href="docs/changelog.html">
-                                <i class="fe fe-git-branch"></i> Changelog <span
-                                    class="badge bg-primary ms-auto">v2.3.0</span>
+                            <a class="nav-link" href="/admin/config/funding" >
+                                <i class="fe fe-briefcase"></i> Manual Funding Config
                             </a>
                         </li>
                     </ul>

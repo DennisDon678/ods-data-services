@@ -232,6 +232,10 @@ Route::middleware('admin')->prefix('admin')->group(function () {
     Route::post('/config/airtime_to_cash',[AdminController::class, 'update_config_airtime_to_cash']);
     Route::get('/config/vendors',[AdminController::class, 'config_vendors']);
     Route::post('/config/vendors',[AdminController::class, 'update_config_vendors']);
+    Route::get('/config/funding',[AdminController::class, 'config_funding']);
+    Route::post('/config/funding/edit',[AdminController::class, 'edit_config_funding']);
+    Route::post('/config/funding', [AdminController::class, 'add_config_funding']);
+    Route::get('/config/funding/delete',[AdminController::class, 'delete_config_funding']);
 });
 
 Route::post('/monify/webhook',[AppController::class,'monify_webhook']);
