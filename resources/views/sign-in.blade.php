@@ -80,14 +80,14 @@
                                 <div class="input-style no-borders has-icon mb-4" id="phonediv">
                                     <i class="fa fa-user"></i>
                                     <input type="text" class="form-control" id="phone" name="phone"
-                                        placeholder="Username" required="" readonly="">
+                                        placeholder="Username" required="" >
                                     <label for="phone" class="color-highlight">Username</label>
                                     <em>(required)</em>
                                 </div>
                                 <div class="input-style no-borders has-icon mb-4">
                                     <i class="fa fa-lock"></i>
                                     <input type="password" class="form-control" id="password" name="password"
-                                        placeholder="Password" required="" readonly="" >
+                                        placeholder="Password" required=""  >
                                     <label for="password" class="color-highlight">Password</label>
                                     <em>(required)</em>
                                 </div>
@@ -138,13 +138,13 @@
             //Save Phone Number
             checkIfPhoneNumberSaved();
 
-            //Enable Form Input
-            $("#phone").click(function() {
-                $(this).removeAttr("readonly");
-            });
-            $("#password").click(function() {
-                $(this).removeAttr("readonly");
-            });
+            // //Enable Form Input
+            // $("#phone").click(function() {
+            //     $(this).removeAttr("readonly");
+            // });
+            // $("#password").click(function() {
+            //     $(this).removeAttr("readonly");
+            // });
 
             //Registration Form
             $('#login-form').submit(function(e) {
