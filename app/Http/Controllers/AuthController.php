@@ -25,6 +25,10 @@ class AuthController extends Controller
             return response()->json(3);
         }
 
+        if(User::where('username', '=', $request->username)->first()) {
+            return response()->json(4);
+        }
+
         // Register user
         $user = User::create([
             'name' => $request->firstname . ' ' . $request->lastname,
@@ -49,7 +53,7 @@ class AuthController extends Controller
 
     public function sign_in(Request $request)
     {
-        $mail = User::where('phone', $request->phone)->first();
+        $mail = User::where('username','=', $request->phone)->first();
 
         if (!$mail) {
             return response()->json(1);

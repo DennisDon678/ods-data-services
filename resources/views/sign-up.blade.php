@@ -81,7 +81,8 @@
 
                         <div class="text-center">
                             <div class="pb-3 pt-3">
-                                <a href="/"><img src="/assets/img/logos/logo.png" class="img-fluid" width="200"></a>
+                                <a href="/"><img src="/assets/img/logos/logo.png" class="img-fluid"
+                                        width="200"></a>
                             </div>
                         </div>
 
@@ -118,6 +119,13 @@
                                         <input type="email" class="form-control" id="email" name="email"
                                             placeholder="Email" readonly="">
                                         <label for="email" class="color-highlight">Email</label>
+                                        <em>(required)</em>
+                                    </div>
+                                    <div class="input-style  no-borders has-icon mb-4">
+                                        <i class="fa fa-user"></i>
+                                        <input type="text" class="form-control" id="username" name="username"
+                                            placeholder="username" readonly="">
+                                        <label for="email" class="color-highlight">username</label>
                                         <em>(required)</em>
                                     </div>
 
@@ -191,8 +199,9 @@
 
                                     <div class="input-style  no-borders has-icon mb-4">
                                         <i class="fa fa-lock"></i>
-                                        <input type="password" class="form-control" id="cpassword" name="password_confirmation"
-                                            placeholder="Confirm Password" required="" readonly/="">
+                                        <input type="password" class="form-control" id="cpassword"
+                                            name="password_confirmation" placeholder="Confirm Password"
+                                            required="" readonly/="">
                                         <label for="cpassword" class="color-highlight">Confirm Password</label>
                                         <em>(required)</em>
                                     </div>
@@ -230,9 +239,8 @@
                                 </div>
 
                                 <div class="col-12 text-center font-15 mt-3">
-                                    <a class="text-green"
-                                        href=""><b>New
-                                            to {{env('APP_NAME')}}?</b> • Watch Video Tutorials</a>
+                                    <a class="text-green" href=""><b>New
+                                            to {{ env('APP_NAME') }}?</b> • Watch Video Tutorials</a>
                                 </div>
 
                             </div>
@@ -263,6 +271,9 @@
             $("#email").click(function() {
                 $(this).removeAttr("readonly");
             });
+            $("#username").click(function() {
+                $(this).removeAttr("readonly");
+            });
             $("#phone").click(function() {
                 $(this).removeAttr("readonly");
             });
@@ -289,6 +300,9 @@
                 }
                 if ($("#email").val() == "" || $("#email").val() == " ") {
                     $msg = "Please Enter Email.";
+                }
+                if ($("#username").val() == "" || $("#username").val() == " ") {
+                    $msg = "Please Enter username.";
                 }
                 if ($("#phone").val() == "" || $("#phone").val() == " ") {
                     $msg = "Please Enter Phone Number.";
@@ -381,6 +395,10 @@
                             $("#regDiv").show();
                         } else if (resp == 3) {
                             swal('Alert!!', "Phone Number Already Exist.", "error");
+                            $("#nextregDiv").hide();
+                            $("#regDiv").show();
+                        } else if (resp == 4) {
+                            swal('Alert!!', "Username Already Exist.", "error");
                             $("#nextregDiv").hide();
                             $("#regDiv").show();
                         } else {

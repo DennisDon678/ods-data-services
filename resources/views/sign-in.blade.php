@@ -78,10 +78,10 @@
                             @csrf
                             <div class="px-2">
                                 <div class="input-style no-borders has-icon mb-4" id="phonediv">
-                                    <i class="fa fa-phone"></i>
-                                    <input type="number" class="form-control" id="phone" name="phone"
-                                        placeholder="Phone Number" required="" readonly="" autocomplete="phone">
-                                    <label for="phone" class="color-highlight">Phone</label>
+                                    <i class="fa fa-user"></i>
+                                    <input type="text" class="form-control" id="phone" name="phone"
+                                        placeholder="Username" required="" readonly="">
+                                    <label for="phone" class="color-highlight">Username</label>
                                     <em>(required)</em>
                                 </div>
                                 <div class="input-style no-borders has-icon mb-4">
