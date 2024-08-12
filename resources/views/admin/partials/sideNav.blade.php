@@ -176,62 +176,23 @@
                         </li>
                     </ul>
 
+                    <!-- Divider -->
+                    <hr class="navbar-divider my-3">
+
+                    <!-- Heading -->
+                    <h6 class="navbar-heading">
+                        Personal settings
+                    </h6>
+                    <ul class="navbar-nav mb-md-4">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/profits">
+                                <i class="fe fe-user"></i> Your Profile
+                            </a>
+                        </li>
+                    </ul>
+
                     <!-- Push content down -->
                     <div class="mt-auto"></div>
-
-                    <!-- Customize -->
-                    <div class="mb-4" id="popoverDemo" title="Make Dashkit Your Own!"
-                        data-bs-content="Switch the demo to Dark Mode or adjust the navigation layout, icons, and colors!">
-                        <a class="btn w-100 btn-primary" data-bs-toggle="offcanvas" href="#offcanvasDemo"
-                            aria-controls="offcanvasDemo">
-                            <i class="fe fe-sliders me-2"></i> Customize
-                        </a>
-                    </div>
-                    <div id="popoverDemoContainer" data-bs-theme="dark"></div>
-
-                    <!-- User (md) -->
-                    <div class="navbar-user d-none d-md-flex" id="sidebarUser">
-
-                        <!-- Icon -->
-                        <a class="navbar-user-link" data-bs-toggle="offcanvas" href="#sidebarOffcanvasActivity"
-                            aria-controls="sidebarOffcanvasActivity">
-                            <span class="icon">
-                                <i class="fe fe-bell"></i>
-                            </span>
-                        </a>
-
-                        <!-- Dropup -->
-                        <div class="dropup">
-
-                            <!-- Toggle -->
-                            <a href="#" id="sidebarIconCopy" class="dropdown-toggle" role="button"
-                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <div class="avatar avatar-sm avatar-online">
-                                    <img src="/admin/assets/img/avatars/profiles/avatar-1.jpg"
-                                        class="avatar-img rounded-circle" alt="...">
-                                </div>
-                            </a>
-
-                            <!-- Menu -->
-                            <div class="dropdown-menu" aria-labelledby="sidebarIconCopy">
-                                <a href="profile-posts.html" class="dropdown-item">Profile</a>
-                                <a href="account-general.html" class="dropdown-item">Settings</a>
-                                <hr class="dropdown-divider">
-                                <a href="sign-in.html" class="dropdown-item">Logout</a>
-                            </div>
-
-                        </div>
-
-                        <!-- Icon -->
-                        <a class="navbar-user-link" data-bs-toggle="offcanvas" href="#sidebarOffcanvasSearch"
-                            aria-controls="sidebarOffcanvasSearch">
-                            <span class="icon">
-                                <i class="fe fe-search"></i>
-                            </span>
-                        </a>
-
-                    </div>
-
                 </div> <!-- / .navbar-collapse -->
 
             </div>
