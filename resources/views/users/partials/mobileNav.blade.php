@@ -17,7 +17,7 @@
                 <button class="nav-link" id="services" data-bs-toggle="modal" data-bs-target="#servicesModal">
                     <span>
                         <i class="nav-icon bi bi-binoculars"></i>
-                        <span class="nav-text">Sevices</span>
+                        <span class="nav-text">Services</span>
                     </span>
                 </button>
             </li>
