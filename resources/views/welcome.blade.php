@@ -92,8 +92,7 @@
                                     </div>
                                     <div>
                                         <h5 class="fs-8 fw-bold lh-lg mb-1"> Earn More as Vendor</h5>
-                                        <p class="lh-xl mb-0">Resellers will purchase airtime and data at your set rate
-                                            and your profits deposited into your account.</p>
+                                        <p class="lh-xl mb-0">Vendors will purchase Airtime, Data and other Utilities at a very discounted price.</p>
                                     </div>
                                 </div>
                             </div>
@@ -548,7 +547,7 @@
                                                 wallet?</button></h2>
                                         <div class="accordion-collapse collapse" id="collapse2"
                                             data-bs-parent="#accordion">
-                                            <div class="accordion-body lh-xl pt-0 pb-x1">You can fund your account by transferring money to your automatic virtual account or Manually manually by using the manual option displayed on your dashboard.</div>
+                                            <div class="accordion-body lh-xl pt-0 pb-x1">You can fund your account by transferring money to your automatic virtual account or manually by using the manual option displayed on your dashboard.</div>
                                         </div>
                                     </div>
                                     
