@@ -248,7 +248,7 @@
                                             <p class="text-white text-opacity-50 lh-xl mb-0">At {{ env('APP_NAME') }}
                                                 Our customers
                                                 are premium to us, hence satisfying them is our topmost priority. Our
-                                                customer service is just a click away. Were Online 24/7..</p>
+                                                customer service is just a click away. We are Online 24/7..</p>
                                         </div>
                                     </div>  
                                 </div>
@@ -287,7 +287,7 @@
                                                                     src="goocr.png" alt=""></div>
                                                             <div class="text-center text-lg-start">
                                                                 <p class="fs-8 mb-2 lh-lg line-clamp-3 text-1100">
-                                                                    “{{ env('APP_NAME') }} is hands-down the best plan
+                                                                    “{{ env('APP_NAME') }} is hands-down the best place
                                                                     to purchase
                                                                     your data and pay for utility bills. They sell at
                                                                     discount and their service is top-notch.”</p>
@@ -323,7 +323,7 @@
                                                                     src="goocr.png" alt=""></div>
                                                             <div class="text-center text-lg-start">
                                                                 <p class="fs-8 mb-2 lh-lg line-clamp-3 text-1100">
-                                                                    “{{ env('APP_NAME') }} is hands-down the best plan
+                                                                    “{{ env('APP_NAME') }} is hands-down the best place
                                                                     to purchase
                                                                     your data and pay for utility bills. They sell at
                                                                     discount and their service is top-notch.”</p>
