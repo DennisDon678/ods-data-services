@@ -165,6 +165,17 @@
     {{--  --}}
     @include('users.partials.mobileNav')
     @include('users.partials.scripts')
+    <script src="/sweetalert%402.1.2/dist/sweetalert.min.js"></script>
+
+    @php
+        $notice = App\Models\User_notification::first();
+        
+    @endphp
+    @if($notice->title != '')
+        <script>
+            swal('{{ $notice->title }}','{{ $notice->message }}','{{ $notice->type}}');
+        </script>
+    @endif
 </body>
 
 </html>

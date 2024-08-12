@@ -13,9 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-            // $table->string('username')->after('name')->unique();
+        Schema::create('user_notifications', function (Blueprint $table) {
+            $table->id();
+            $table->string('title')->nullable();
+            $table->string('message')->nullable();
+            $table->string('type')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -26,8 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('user_notifications');
     }
 };

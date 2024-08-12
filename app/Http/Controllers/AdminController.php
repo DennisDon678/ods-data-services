@@ -16,6 +16,7 @@ use App\Models\Preordered;
 use App\Models\Profits;
 use App\Models\Transactions;
 use App\Models\User;
+use App\Models\User_notification;
 use App\Models\Vendor_config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -855,6 +856,22 @@ class AdminController extends Controller
         'title' => 'wallet Funding'
       ]);
     }
+
+    return redirect()->back();
+  }
+
+  public function notification(){
+    $notification = User_notification::first();
+    return view('admin.notification',compact('notification'));
+  }
+
+  public function update_notification(Request $request){
+    $notification = User_notification::first();
+
+    $notification->title = $request->title;
+    $notification->message = $request->message;
+    $notification->type = $request->type;
+    $notification->save();
 
     return redirect()->back();
   }
