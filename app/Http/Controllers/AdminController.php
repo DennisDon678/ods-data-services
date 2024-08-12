@@ -6,6 +6,7 @@ use App\Models\Airtime_to_cash;
 use App\Models\AirtimetoCashConfig;
 use App\Models\Cable_list;
 use App\Models\Cable_plan;
+use App\Models\Contact_config;
 use App\Models\Dataplans;
 use App\Models\Manual_funding;
 use App\Models\Network_list;
@@ -872,6 +873,22 @@ class AdminController extends Controller
     $notification->message = $request->message;
     $notification->type = $request->type;
     $notification->save();
+
+    return redirect()->back();
+  }
+
+  public function contact_config(){
+    $contact = Contact_config::first();
+
+    return view('admin.contact',compact('contact'));
+  }
+
+  public function update_contact_config(Request $request){
+    $contact = Contact_config::first();
+
+    $contact->email = $request->email;
+    $contact->whatsapp = $request->whatsapp;
+    $contact->save();
 
     return redirect()->back();
   }

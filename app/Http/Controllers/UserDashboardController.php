@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Airtime_to_cash;
+use App\Models\Contact_config;
 use App\Models\Contacts;
 use App\Models\Notification;
 use App\Models\Pending_manual_fund;
@@ -160,9 +161,9 @@ class UserDashboardController extends Controller
 
     public function contact()
     {
-        $contacts = Contacts::all();
+        $contact = Contact_config::first();
 
-        return view('users.contact',compact('contacts'));
+        return view('users.contact',compact('contact'));
     }
 
 
