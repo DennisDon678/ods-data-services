@@ -36,35 +36,6 @@
                                     {{ strtoupper(explode(' ', Auth::user()->name)[0]) }}</h5>
                                 <h3 class="fw-medium">&#8358;{{ number_format(Auth::user()->balance, 2) }}</h3>
                             </div>
-
-                            {{-- <div class="row">
-                                <div class="col-6">
-                                    <div class="row align-items-center">
-                                        <div class="col-auto">
-                                            <div class="avatar avatar-40 rounded-circle bg-green">
-                                                <i class="bi bi-arrow-down-left"></i>
-                                            </div>
-                                        </div>
-                                        <div class="col ps-0">
-                                            <p class="small text-muted mb-1">Income</p>
-                                            <p class="">1525 <small>k</small></p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6 text-end border-left-dashed">
-                                    <div class="row align-items-center">
-                                        <div class="col pe-0">
-                                            <p class="small text-muted mb-1">Expense</p>
-                                            <p class="">1321 <small>k</small></p>
-                                        </div>
-                                        <div class="col-auto">
-                                            <div class="avatar avatar-40 rounded-circle bg-red">
-                                                <i class="bi bi-arrow-up-right"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> --}}
                         </div>
                     </div>
                 </div>

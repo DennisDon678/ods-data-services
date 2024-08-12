@@ -244,6 +244,10 @@ Route::middleware('admin')->prefix('admin')->group(function () {
     // Notification
     Route::get('/notification',[AdminController::class,'notification']); 
     Route::post('/notification',[AdminController::class,'update_notification']); 
+
+    // Contact
+    Route::get('/config/contact',[AdminController::class,'contact_config']);
+    Route::post('/config/contact',[AdminController::class,'update_contact_config']);
 });
 
 Route::post('/monify/webhook',[AppController::class,'monify_webhook']);

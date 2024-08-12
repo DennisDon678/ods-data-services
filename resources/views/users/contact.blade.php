@@ -28,7 +28,7 @@
                                         </div>
                                         <div class="col align-self-center mb-2">
                                             <h6 class="fw-medium mb-0">Contact Us</h6>
-                                            <p class="text-secondary small">All Notifications</p>
+                                            <p class="text-secondary small"></p>
                                         </div>
                                     </div>
                                 </div>
@@ -37,37 +37,56 @@
                         <div class="card-body px-4">
                             <table class="table table-borderless">
                                 <tbody class="">
-                                    @forelse ($contacts as $tran)
-                                        <tr class="">
-                                            <td>
-                                                <div class="row align-items-center p-4 border rounded">
-                                                    <div class="col-8 ps-0">
-                                                        <a href="/user/transaction/view/{{ $tran->id }}">
+                                    <tr class="">
+                                        <td>
+                                            <div class="row align-items-center p-4 border rounded">
+                                                <div class="col-8 ps-0">
+                                                    <a href="mailto:{{ $contact->email }}">
 
-                                                            <h6 class="mb-0 bold">{{ strtoupper($tran->title) }}</h6>
-                                                            <p class="text-secondary small">
-                                                                {{ $tran->detail }}</p>
-                                                        </a>
+                                                        <h6 class="mb-0 bold">
+                                                            {{ strtoupper('contact us through email') }}</h6>
+                                                        <p class="text-secondary small">
+                                                            {{ $contact->email }}</p>
+                                                    </a>
 
-                                                    </div>
-
-                                                    <div class="col-4">
-                                                       @if ($tran->type == 'email')
-                                                           <a href="mailto:{{$tran->detail}}" >
-                                                            <i class="bi bi-envelope h2 text-success"></i>
-                                                           </a>
-                                                       @elseif ($tran->type == 'whatsapp')
-                                                       <a href="https://api.whatsapp.com/send?phone={{$tran->detail}}" target="" >
-                                                        <i class="bi bi-whatsapp h2 text-success"></i>
-                                                       </a>
-                                                       @endif
-                                                    </div>
                                                 </div>
-                                            </td>
-                                        </tr>
-                                    @empty
-                                        Nothing to show here!
-                                    @endforelse
+
+                                                <div class="col-4">
+
+                                                    <a href="mailto:{{ $contact->email }}">
+                                                        <i class="bi bi-envelope h2 text-success"></i>
+                                                    </a>
+
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr class="">
+                                        <td>
+                                            <div class="row align-items-center p-4 border rounded">
+                                                <div class="col-8 ps-0">
+                                                    <a href="https://api.whatsapp.com/send?phone={{ $contact->whatsapp }}" target="_blank">
+
+                                                        <h6 class="mb-0 bold">{{ strtoupper('Contact us on whatsapp') }}
+                                                        </h6>
+                                                        <p class="text-secondary small">
+                                                            +{{ $contact->whatsapp }}</p>
+                                                    </a>
+
+                                                </div>
+
+                                                <div class="col-4">
+                                                    
+                                                        <a href="https://api.whatsapp.com/send?phone={{ $contact->whatsapp }}"
+                                                            target="">
+                                                            <i class="bi bi-whatsapp h2 text-success"></i>
+                                                        </a>
+                                                   
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>

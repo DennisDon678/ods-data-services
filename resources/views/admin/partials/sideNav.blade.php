@@ -169,6 +169,11 @@
                                 <i class="fe fe-briefcase"></i> Manual Funding Config
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/config/contact">
+                                <i class="fe fe-message-square"></i> Contact Config
+                            </a>
+                        </li>
                     </ul>
 
                     <!-- Push content down -->
