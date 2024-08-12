@@ -106,7 +106,7 @@
 
                             </div>
 
-
+                            <small>Set the title to empty or all of the fields to disable.</small>
                         <h4>Actions</h4>
                         <!-- Divider -->
                         <hr class=" mb-5">
@@ -116,7 +116,7 @@
 
                                 <!-- Heading -->
                                 <h4>
-                                    Update Configuration
+                                    Update Notification
                                 </h4>
 
                             </div>
