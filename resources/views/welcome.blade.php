@@ -395,7 +395,7 @@
                                         <ul class="list-unstyled fs-8 lh-xl fw-light text-1100 ls-1">
                                             @foreach ($sme as $sme)
                                                 <li class="py-x1 px-1 border-top"> {{ $sme->size }} -
-                                                    ₦{{ $sme->price + ($profit->profit/100 * $sme->price) }} ({{ $sme->validity }} Days) </li>
+                                                    ₦{{ $sme->price + ($profit->profit/100 * $sme->price) }} ({{ $sme->validity }} ) </li>
                                             @endforeach
                                             <li class="mt-1 d-grid"> <button
                                                     class="btn btn-secondary btn-lg lh-xl">Check More</button></li>
@@ -413,7 +413,7 @@
                                             @if ($sme != null)
                                                 @foreach ($sme as $sme)
                                                     <li class="py-x1 px-1 border-top"> {{ $sme->size }} -
-                                                        ₦{{ $sme->price + ($profit->profit/100 * $sme->price) }} ({{ $sme->validity }} Days) </li>
+                                                        ₦{{ $sme->price + ($profit->profit/100 * $sme->price) }} ({{ $sme->validity }} ) </li>
                                                 @endforeach
                                             @endif
                                             <li class="mt-1 d-grid"> <button
@@ -446,7 +446,7 @@
                                             @if ($sme != null)
                                                 @foreach ($sme as $sme)
                                                     <li class="py-x1 px-1 border-top"> {{ $sme->size }} -
-                                                        ₦{{ $sme->price + ($profit->profit/100 * $sme->price)}} ({{ $sme->validity }} Days) </li>
+                                                        ₦{{ $sme->price + ($profit->profit/100 * $sme->price)}} ({{ $sme->validity }} ) </li>
                                                 @endforeach
                                             @endif
                                             <li class="mt-1 d-grid"> <button
@@ -464,7 +464,7 @@
                                             @if ($sme != null)
                                                 @foreach ($sme as $sme)
                                                     <li class="py-x1 px-1 border-top"> {{ $sme->size }} -
-                                                        ₦{{ $sme->price + ($profit->profit/100 * $sme->price)}} ({{ $sme->validity }} Days) </li>
+                                                        ₦{{ $sme->price + ($profit->profit/100 * $sme->price)}} ({{ $sme->validity }} ) </li>
                                                 @endforeach
                                             @endif
                                             <li class="mt-1 d-grid"> <button
@@ -536,7 +536,7 @@
                                         <div class="accordion-collapse collapse show" id="collapse1"
                                             data-bs-parent="#accordion">
                                             <div class="accordion-body lh-xl pt-0 pb-x1">Every data plan on the
-                                                platform lasts for 30 days unless stated otherwise.</div>
+                                                platform lasts for 30  unless stated otherwise.</div>
                                         </div>
                                     </div>
                                     <div class="accordion-item">
