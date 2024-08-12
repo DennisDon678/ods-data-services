@@ -59,7 +59,7 @@
                         @endphp
                         <li class="nav-item">
                             <a class="nav-link" href="/admin/preorder/all">
-                                <i class="fe fe-book-open"></i> Available Preorders ({{$count }})
+                                <i class="fe fe-book-open"></i> Available Preorders ({{ $count }})
                             </a>
                         </li>
                         @php
@@ -68,7 +68,7 @@
 
                         <li class="nav-item">
                             <a class="nav-link" href="/admin/airtime_to_cash">
-                                <i class="fe fe-book-open"></i> Airtime 2 Cash ({{$count }})
+                                <i class="fe fe-book-open"></i> Airtime 2 Cash ({{ $count }})
                             </a>
                         </li>
                         @php
@@ -77,7 +77,7 @@
 
                         <li class="nav-item">
                             <a class="nav-link" href="/admin/pending_funding">
-                                <i class="fe fe-dollar-sign"></i> Pending Funding ({{$count }})
+                                <i class="fe fe-dollar-sign"></i> Pending Funding ({{ $count }})
                             </a>
                         </li>
 
@@ -132,7 +132,11 @@
                                 </ul>
                             </div>
                         </li>
-
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/notification">
+                                <i class="fe fe-bell"></i>Users Notification
+                            </a>
+                        </li>
                     </ul>
 
                     <!-- Divider -->
@@ -146,22 +150,22 @@
                     <!-- Navigation -->
                     <ul class="navbar-nav mb-md-4">
                         <li class="nav-item">
-                            <a class="nav-link" href="/admin/profits" >
+                            <a class="nav-link" href="/admin/profits">
                                 <i class="fe fe-clipboard"></i> Profit Config
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/admin/config/airtime_to_cash" >
+                            <a class="nav-link" href="/admin/config/airtime_to_cash">
                                 <i class="fe fe-clipboard"></i> Airtime to Cash Config
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/admin/config/vendors" >
+                            <a class="nav-link" href="/admin/config/vendors">
                                 <i class="fe fe-award"></i> Vendors Config
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/admin/config/funding" >
+                            <a class="nav-link" href="/admin/config/funding">
                                 <i class="fe fe-briefcase"></i> Manual Funding Config
                             </a>
                         </li>

@@ -240,6 +240,10 @@ Route::middleware('admin')->prefix('admin')->group(function () {
     Route::get('/pending_funding',[AdminController::class,'pending_funding']);
     Route::get('/pending_funding/approve',[AdminController::class,'approve_pending_funding']);
     Route::get('/pending_funding/reject',[AdminController::class,'reject_pending_funding']);
+
+    // Notification
+    Route::get('/notification',[AdminController::class,'notification']); 
+    Route::post('/notification',[AdminController::class,'update_notification']); 
 });
 
 Route::post('/monify/webhook',[AppController::class,'monify_webhook']);
