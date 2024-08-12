@@ -107,8 +107,7 @@
                         <div class="col-12 col-lg-6 col-xl-7">
                             <div class="row justify-content-center justify-content-lg-start">
                                 <div class="col-sm-10 col-md-8 col-lg-11">
-                                    <h2 class="fs-4 fs-lg-3 fw-bold mb-2 text-center text-lg-start"> Steps to Become
-                                        API Vendor.</h2>
+                                    <h2 class="fs-4 fs-lg-3 fw-bold mb-2 text-center text-lg-start"> Steps to Become Vendor.</h2>
                                     <p class="fs-8 mb-4 mb-lg-5 lh-lg text-center text-lg-start fw-normal">Proceed to
                                         registration page and register with your correct details, then verify your email
                                         and proceed to your dashboard.</p>
@@ -118,13 +117,11 @@
                                         <h5 class="fs-8 fw-bold lh-lg mb-1">Become a Vendor </h5>
                                         <p class="b-0 lh-xl">Register and Fund your account and from your dashboard,
                                             click upgrade account then pay the required sum of money. The amount paid is
-                                            non-refundable. Get API Instantly.</p>
+                                            non-refundable.</p>
                                     </div>
                                     <div>
-                                        <h5 class="fs-8 fw-bold lh-lg mb-1"> Set Your Prices</h5>
-                                        <p class="lh-xl mb-0">Get your data prices for every data plan/airtime plan on
-                                            our platform Proceed to giving people your link to register and they can
-                                            start purchasing from us with your own prices.</p>
+                                        <h5 class="fs-8 fw-bold lh-lg mb-1"> Get Discounted Prices</h5>
+                                        <p class="lh-xl mb-0">All product will have a discount after your have upgraded to a vendor.</p>
                                     </div>
                                 </div>
                             </div>
@@ -171,7 +168,7 @@
                                     </div>
                                     <div class="py-1 py-lg-0 px-lg-5 w-75 w-sm-50 w-lg-100 timeline-content">
                                         <h6 class="fs-8 fw-bold text-lg-center lh-lg mb-2">Fund your wallet</h6>
-                                        <p class="text-lg-center lh-xl mb-0">Fund your {{ env('APP_NAME') }}.mwb.ng
+                                        <p class="text-lg-center lh-xl mb-0">Fund your {{ env('APP_NAME') }}
                                             wallet using
                                             any of our automated means of payment. <span class="text-nowrap">from bank.
                                             </span></p>
@@ -253,32 +250,7 @@
                                                 are premium to us, hence satisfying them is our topmost priority. Our
                                                 customer service is just a click away. Were Online 24/7..</p>
                                         </div>
-                                    </div>
-                                    <div class="col-12 col-md-6 col-lg-4 d-flex align-items-start gap-2"><img
-                                            src="assets/img/icons/video_meeting.svg" alt="">
-                                        <div>
-                                            <h5 class="fs-8 text-white lh-lg fw-bold">Video Meeting</h5>
-                                            <p class="text-white text-opacity-50 lh-xl mb-0">Conduct video meetings and
-                                                keep records for further use with its cloud storage.</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-md-6 col-lg-4 d-flex align-items-start gap-2"><img
-                                            src="assets/img/icons/opening-times.svg" alt="">
-                                        <div>
-                                            <h5 class="fs-8 text-white lh-lg fw-bold">Time Tracking</h5>
-                                            <p class="text-white text-opacity-50 lh-xl mb-0">Track time to ensure
-                                                meeting all the deadlines and never lag behind managing multiple
-                                                projects.</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-md-6 col-lg-4 d-flex align-items-start gap-2"><img
-                                            src="assets/img/icons/card-favorite.svg" alt="">
-                                        <div>
-                                            <h5 class="fs-8 text-white lh-lg fw-bold">Payment System</h5>
-                                            <p class="text-white text-opacity-50 lh-xl mb-0">With its easy payment
-                                                system create invoices and get paid all at the same place.</p>
-                                        </div>
-                                    </div>
+                                    </div>  
                                 </div>
                             </div>
                         </div>
@@ -417,12 +389,13 @@
                                         class="p-x1 text-center price-card-1 bg-transparent border mb-3 mb-md-0 rounded-2 pricing-card">
                                         @php
                                             $sme = App\Models\Dataplans::where('plan_id', '=', 1)->get();
+                                            $profit = App\Models\Profits::where('plan_type', '=', 1)->first();
                                         @endphp
                                         <p class="fs-10 text-uppercase mb-3 fw-bold text-primary ls-2"> MTN</p>
                                         <ul class="list-unstyled fs-8 lh-xl fw-light text-1100 ls-1">
                                             @foreach ($sme as $sme)
                                                 <li class="py-x1 px-1 border-top"> {{ $sme->size }} -
-                                                    ₦{{ $sme->price }} ({{ $sme->validity }} Days) </li>
+                                                    ₦{{ $sme->price + ($profit->profit/100 * $sme->price) }} ({{ $sme->validity }} Days) </li>
                                             @endforeach
                                             <li class="mt-1 d-grid"> <button
                                                     class="btn btn-secondary btn-lg lh-xl">Check More</button></li>
@@ -431,6 +404,8 @@
                                     <div class="p-x1 text-center bg-white border shadow-sm rounded-2 pricing-card">
                                         @php
                                             $sme = App\Models\Dataplans::where('plan_id', '=', 8)->get();
+                                            $profit = App\Models\Profits::where('plan_type', '=', 1)->first();
+
                                         @endphp
                                         <p class="fs-10 text-uppercase mb-3 fw-bold text-primary ls-2"> Airtel</p>
 
@@ -438,7 +413,7 @@
                                             @if ($sme != null)
                                                 @foreach ($sme as $sme)
                                                     <li class="py-x1 px-1 border-top"> {{ $sme->size }} -
-                                                        ₦{{ $sme->price }} ({{ $sme->validity }} Days) </li>
+                                                        ₦{{ $sme->price + ($profit->profit/100 * $sme->price) }} ({{ $sme->validity }} Days) </li>
                                                 @endforeach
                                             @endif
                                             <li class="mt-1 d-grid"> <button
@@ -462,6 +437,8 @@
                                         class="p-x1 text-center price-card-1 bg-transparent border mb-3 mb-md-0 rounded-2 pricing-card">
                                         @php
                                             $sme = App\Models\Dataplans::where('plan_id', '=', 8)->get();
+                                            $profit = App\Models\Profits::where('plan_type', '=', 1)->first();
+
                                         @endphp
                                         <p class="fs-10 text-uppercase mb-3 fw-bold text-primary ls-2"> GLO</p>
 
@@ -469,7 +446,7 @@
                                             @if ($sme != null)
                                                 @foreach ($sme as $sme)
                                                     <li class="py-x1 px-1 border-top"> {{ $sme->size }} -
-                                                        ₦{{ $sme->price }} ({{ $sme->validity }} Days) </li>
+                                                        ₦{{ $sme->price + ($profit->profit/100 * $sme->price)}} ({{ $sme->validity }} Days) </li>
                                                 @endforeach
                                             @endif
                                             <li class="mt-1 d-grid"> <button
@@ -480,12 +457,14 @@
                                         <p class="fs-10 text-uppercase mb-3 fw-bold text-primary ls-2"> 9Moblie</p>
                                         @php
                                             $sme = App\Models\Dataplans::where('plan_id', '=', 11)->get();
+                                            $profit = App\Models\Profits::where('plan_type', '=', 1)->first();
+
                                         @endphp
                                         <ul class="list-unstyled fs-8 lh-xl fw-light text-1100 ls-1">
                                             @if ($sme != null)
                                                 @foreach ($sme as $sme)
                                                     <li class="py-x1 px-1 border-top"> {{ $sme->size }} -
-                                                        ₦{{ $sme->price }} ({{ $sme->validity }} Days) </li>
+                                                        ₦{{ $sme->price + ($profit->profit/100 * $sme->price)}} ({{ $sme->validity }} Days) </li>
                                                 @endforeach
                                             @endif
                                             <li class="mt-1 d-grid"> <button
@@ -535,7 +514,7 @@
                                                 </div>
                                             </div>
                                             <div>
-                                                <h5 class="fs-8 fw-bold lh-lg mb-1 text-white">24/7 Hour Support</h5>
+                                                <h5 class="fs-8 fw-bold lh-lg mb-1 text-white">24/7 Support</h5>
                                                 <p class="lh-xl text-white text-opacity-70 mb-0">Get support from our
                                                     efficient customer support team, 24/7, all year round. Our mobile
                                                     app will soon be available for download on Google Playstore free.
@@ -569,23 +548,10 @@
                                                 wallet?</button></h2>
                                         <div class="accordion-collapse collapse" id="collapse2"
                                             data-bs-parent="#accordion">
-                                            <div class="accordion-body lh-xl pt-0 pb-x1">You can fund your account by
-                                                transferring money to your automatic virtual account.</div>
+                                            <div class="accordion-body lh-xl pt-0 pb-x1">You can fund your account by transferring money to your automatic virtual account or Manually manually by using the manual option displayed on your dashboard.</div>
                                         </div>
                                     </div>
-                                    <div class="accordion-item">
-                                        <h2 class="accordion-header" id="heading3"><button
-                                                class="accordion-button fs-8 lh-lg fw-bold pt-x1 pb-2 collapsed"
-                                                type="button" data-bs-toggle="collapse" data-bs-target="#collapse3"
-                                                aria-expand="false" aria-controls="collapse3"
-                                                data-accordion-button="data-accordion-button">Who is a
-                                                reseller?</button></h2>
-                                        <div class="accordion-collapse collapse" id="collapse3"
-                                            data-bs-parent="#accordion">
-                                            <div class="accordion-body lh-xl pt-0 pb-x1">A reseller is anybody that
-                                                just registers on the platform to buy data or airtime.</div>
-                                        </div>
-                                    </div>
+                                    
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="heading4"><button
                                                 class="accordion-button fs-8 lh-lg fw-bold pt-x1 pb-2 collapsed"
@@ -596,8 +562,7 @@
                                         <div class="accordion-collapse collapse" id="collapse4"
                                             data-bs-parent="#accordion">
                                             <div class="accordion-body lh-xl pt-0 pb-x1">A vendor is an upgraded
-                                                reseller that buys data cheaper and are able to set prices for their
-                                                reseller.</div>
+                                                ODS member that buys data cheaper than the regular.</div>
                                         </div>
                                     </div>
                                     <div class="accordion-item">
@@ -609,8 +574,8 @@
                                                 airtime cheaper?</button></h2>
                                         <div class="accordion-collapse collapse" id="collapse5"
                                             data-bs-parent="#accordion">
-                                            <div class="accordion-body lh-xl pt-0 pb-x1">Yes. Prices are cheaper for
-                                                vendors. So they can easily set their own prices.</div>
+                                            <div class="accordion-body lh-xl pt-0 pb-x1">Yes. Prices are cheaper for vendors. 
+They get all the services at a discounted price.</div>
                                         </div>
                                     </div>
                                 </div>

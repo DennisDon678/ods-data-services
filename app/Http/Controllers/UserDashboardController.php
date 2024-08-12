@@ -87,7 +87,7 @@ class UserDashboardController extends Controller
             'Authorization' => 'Bearer ' . $token
         ])->post(env('MONIFY_URL') . '/api/v2/bank-transfer/reserved-accounts', [
             "accountReference" => Auth::user()->id,
-            "accountName" => explode(' ', Auth::user()->name)[0],
+            "accountName" => Auth::user()->name,
             "currencyCode" => "NGN",
             "contractCode" => env('MONIFY_CONTRACT'),
             "customerEmail" => Auth::user()->email,
