@@ -19,7 +19,7 @@
                 <div class="card">
 
                     <div class="card-header">
-                        <h6 class="title" id="exampleModalLabel">Pre-Order Data</h6>
+                        <h6 class="title" id="exampleModalLabel">Airtime to Cash</h6>
                     </div>
                     <div class="col-12 col-lg-12 mb-2 p-2">
                         <form action="/user/airtime-to-cash" id="convertForm">.
@@ -87,10 +87,7 @@
                                                         <select class="form-select border-0" id="a2cBank"
                                                             name="a2cBank">
                                                             <option value="">Choose Your Bank...</option>
-                                                            <option value="MTN">MTN</option>
-                                                            <option value="Airtel">Airtel</option>
-                                                            <option value="GLO">GLO</option>
-                                                            <option value="9Mobile">9Mobile</option>
+                                                           
                                                         </select>
                                                         <label for="country2">Choose your Bank</label>
                                                     </div>
@@ -143,6 +140,16 @@
     <script src="/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
         crossorigin="anonymous"></script>
     <script>
+        $.ajax({
+            type: "get",
+            url: "https://nigerianbanks.xyz/",
+            
+            success: function (response) {
+                response.forEach(bank => {
+                    $('#a2cBank').append(`<option value="${bank.name}"><img src=${bank.logo} />${bank.name}</option>`)
+                });
+            }
+        });
         $('#converOption').on('click', () => {
             const dis = $('.banks').css('display');
             if (dis == 'none') {
