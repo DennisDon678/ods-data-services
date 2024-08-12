@@ -207,10 +207,10 @@
 
                                     <div class="input-style  no-borders has-icon mb-4">
                                         <i class="fa fa-user-plus"></i>
-                                        <input type="text" value="" class="form-control" id="referal"
-                                            name="referal" placeholder="Referal">
+                                        <input type="text" class="form-control" id="referal"
+                                            name="referal" placeholder="Referal" value="{{isset($_GET['referral-id'])?$_GET['referral-id']:""}}">
                                         <label for="referal" class="color-highlight">Referral</label>
-                                        <em>(required)</em>
+                                        <em>(optional)</em>
                                     </div>
 
                                     <button type="submit" id="submit-btn" style="width: 100%;"
