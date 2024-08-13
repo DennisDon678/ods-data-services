@@ -11,6 +11,7 @@ use App\Models\Contact_config;
 use App\Models\Dataplans;
 use App\Models\Manual_funding;
 use App\Models\Network_list;
+use App\Models\Notification;
 use App\Models\Pending_manual_fund;
 use App\Models\plan_type_list;
 use App\Models\Preorder;
@@ -56,6 +57,23 @@ class AdminController extends Controller
     $user->balance = $user->balance + $request->creditAmount;
     $user->save();
 
+    Transactions::create([
+      'user_id' => $user->id,
+      'transaction_id' => uniqid(),
+      'title' => 'Admin Wallet Funding',
+      'type' => 'deposit',
+      'amount' => $request->creditAmount,
+      'status' => 'Success',
+    ]);
+
+    // create notification and save to database
+    Notification::create([
+      'user_id' => $user->id,
+      'title' => "Admin Wallet Funding",
+      'description' => "Your account was credited with NGN" . $request->creditAmount . ".",
+      'status' => 0
+    ]);
+
     return redirect()->back()->with('message', "You have credit the user's balance");
   }
 
@@ -65,6 +83,23 @@ class AdminController extends Controller
 
     $user->balance = $user->balance - $request->debitAmount;
     $user->save();
+
+    Transactions::create([
+      'user_id' => $user->id,
+      'transaction_id' => uniqid(),
+      'title' => 'Admin Wallet Debit',
+      'type' => 'debit',
+      'amount' => $request->debitAmount,
+      'status' => 'Success',
+    ]);
+
+    // create notification and save to database
+    Notification::create([
+      'user_id' => $user->id,
+      'title' => "Admin Wallet Debit",
+      'description' => "Your account was debited with NGN" . $request->debitAmount . ".",
+      'status' => 0
+    ]);
 
     return redirect()->back()->with('message', "You have debited the user's balance");
   }
@@ -689,12 +724,20 @@ class AdminController extends Controller
   public function approve_preorder(Request $request)
   {
     $preorder = Preordered::find($request->id);
+    $user = User::find($preorder->user_id);
 
     if ($preorder) {
       $transaction = Transactions::where('transaction_id', '=', $preorder->reference)->first();
 
-      $transaction->status = 'successfull';
+      $transaction->status = 'success';
       $transaction->save();
+
+      Notification::create([
+        'user_id' => $user->id,
+        'title' => "Preorder Approved",
+        'description' => "Your Data preorder has been approved and delivered.",
+        'status' => 0
+      ]);
 
       $preorder->delete();
     }
@@ -732,6 +775,12 @@ class AdminController extends Controller
       $trans->status = "Successfull";
       $trans->save();
 
+      Notification::create([
+        'user_id' => $user->id,
+        'title' => "A2C Approved",
+        'description' => "Your airtime to cash conversion has been approved.",
+        'status' => 0
+      ]);
       $ato->delete();
     }
     return redirect('/admin/airtime_to_cash');
@@ -740,12 +789,18 @@ class AdminController extends Controller
   public function reject_airtime_to_cash(Request $request)
   {
     $ato = Airtime_to_cash::find($request->id);
+    $user = User::find($ato->user_id);
     if ($ato) {
       // finc transaction 
       $trans = Transactions::where('transaction_id', '=', $ato->transaction_id)->first();
       $trans->status = "Rejected";
       $trans->save();
-
+      Notification::create([
+        'user_id' => $user->id,
+        'title' => "A2C Rejected",
+        'description' => "Your airtime to cash conversion was rejected.",
+        'status' => 0
+      ]);
 
       $ato->delete();
     }

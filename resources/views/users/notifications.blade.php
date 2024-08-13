@@ -40,25 +40,17 @@
                                     @forelse ($notifications as $tran)
                                         <tr class="">
                                             <td>
-                                                <a href="/user/transaction/view/{{ $tran->id }}">
-                                                    <div class="row align-items-center p-4 border rounded">
-                                                        <div class="col-6 ps-0">
-                                                            <h6 class="mb-0 bold">{{ strtoupper($tran->title) }}</h6>
-                                                            <p class="text-secondary small">
-                                                                {{ $tran->description }}</p>
-                                                        </div>
-
-                                                        <div class="col-6">
-                                                            <a
-                                                                class="{{ $tran->status == 0 ? 'text-success' : 'text-gray' }}">
-                                                                Mark As Read</a>
-                                                        </div>
+                                                <div class="row align-items-center p-4 border rounded">
+                                                    <div class="col-12 ps-0">
+                                                        <h6 class="mb-0 bold">{{ strtoupper($tran->title) }}</h6>
+                                                        <p class="text-secondary small">
+                                                            {{ $tran->description }}</p>
                                                     </div>
-                                                </a>
+                                                </div>
                                             </td>
                                         </tr>
                                     @empty
-                                    Nothing to show here!
+                                        Nothing to show here!
                                     @endforelse
                                 </tbody>
                             </table>

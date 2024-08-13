@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notification;
 use App\Models\Transactions;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -41,6 +42,13 @@ class AppController extends Controller
                         'status' => 'success',
                         'title' => "Wallet Funding",
                         'type' => "deposit",
+                    ]);
+
+                    Notification::create([
+                        'user_id' => $user->id,
+                        'title' => "Automated Wallet Funding",
+                        'description' => "We have received your deposit of NGN ".number_format($info->settlementAmount,2),
+                        'status' => 0
                     ]);
                 }
             }

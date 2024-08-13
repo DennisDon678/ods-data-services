@@ -28,10 +28,21 @@
                     </span>
                 </a>
             </li>
+            @php
+                $count = App\Models\Notification::where('user_id', '=', Auth::user()->id)
+                    ->where('status', '=', 0)
+                    ->count();
+            @endphp
             <li class="nav-item">
                 <a class="nav-link" href="/user/notifications">
                     <span>
-                        <i class="nav-icon bi bi-bell"></i>
+                        <div class="not">
+                            <i class="nav-icon bi bi-bell"></i>
+                            @if ($count > 0)
+                                <i class="bi bi-dot text-danger h2 ml-0" style="margin-left: -10px !important;"></i>
+                            @endif
+                        </div>
+
                         <span class="nav-text">Notification</span>
                     </span>
                 </a>

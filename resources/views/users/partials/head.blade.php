@@ -8,7 +8,7 @@
 
     <!-- manifest meta -->
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="/mobile/assets/scripts/_manifest.json">
 
     <!-- Favicons -->
     <link rel="apple-touch-icon" href="/assets/img/logos/spiner.jpg" sizes="180x180">
