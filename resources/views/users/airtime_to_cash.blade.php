@@ -170,6 +170,7 @@
 
     <script type="text/javascript" src="https://sdk.monnify.com/plugin/monnify.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/printThis/1.15.0/printThis.min.js"></script>
+    <script src="/sweetalert@2.1.2/dist/sweetalert.min.js"></script>
 
     <script>
         const print = document.getElementById('print');
@@ -206,7 +207,6 @@
                     settlement: settlement
                 },
                 success: function(response) {
-                    console.log(response);
                     $('#submitBtn').html('Submit Order');
                     if (response == 0) {
                         swal('Alert!!', "Order submitted Successfully.", "success");
