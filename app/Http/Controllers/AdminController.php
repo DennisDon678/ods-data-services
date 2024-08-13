@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use App\Models\Airtime_to_cash;
 use App\Models\AirtimetoCashConfig;
 use App\Models\Cable_list;
@@ -20,6 +21,8 @@ use App\Models\User;
 use App\Models\User_notification;
 use App\Models\Vendor_config;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 
 class AdminController extends Controller
@@ -720,7 +723,7 @@ class AdminController extends Controller
         $user = User::find($ato->user_id);
         $percent = AirtimetoCashConfig::first();
 
-        $user->balance = $user->balance + ($ato->amount *($percent->percent / 100) );
+        $user->balance = $user->balance + ($ato->amount * ($percent->percent / 100));
         $user->save();
       }
 
@@ -764,13 +767,15 @@ class AdminController extends Controller
     return redirect()->back();
   }
 
-  public function config_vendors(Request $request){
+  public function config_vendors(Request $request)
+  {
     $vendor_config = Vendor_config::first();
 
     return view('admin.vendor_config', compact('vendor_config'));
   }
 
-  public function update_config_vendors(Request $request){
+  public function update_config_vendors(Request $request)
+  {
     $vendor_config = Vendor_config::first();
 
     $vendor_config->onetime_fee = $request->onetime_fee;
@@ -781,12 +786,14 @@ class AdminController extends Controller
     return redirect()->back();
   }
 
-  public function config_funding(){
+  public function config_funding()
+  {
     $methods = Manual_funding::all();
-    return view('admin.config_funding',compact('methods'));
+    return view('admin.config_funding', compact('methods'));
   }
 
-  public function edit_config_funding(Request $request){
+  public function edit_config_funding(Request $request)
+  {
     $method = Manual_funding::find($request->id);
 
     $method->account_name = $request->account_name;
@@ -798,29 +805,33 @@ class AdminController extends Controller
     return redirect()->back();
   }
 
-  public function add_config_funding(Request $request){
+  public function add_config_funding(Request $request)
+  {
     Manual_funding::create($request->except('_token'));
 
     return redirect()->back();
   }
 
-  public function delete_config_funding(Request $request){
+  public function delete_config_funding(Request $request)
+  {
     $method = Manual_funding::find($request->id);
     $method->delete();
 
     return redirect()->back();
   }
 
-  public function pending_funding(){
+  public function pending_funding()
+  {
     $pendings = Pending_manual_fund::all();
 
-    return view('admin.pending_funding',compact('pendings'));
+    return view('admin.pending_funding', compact('pendings'));
   }
 
-  public function approve_pending_funding(Request $request){
+  public function approve_pending_funding(Request $request)
+  {
     $pending = Pending_manual_fund::find($request->id);
 
-    if($pending){
+    if ($pending) {
       $user = User::find($pending->user_id);
       $user->balance = $user->balance + $pending->amount;
       $user->save();
@@ -841,10 +852,11 @@ class AdminController extends Controller
     return redirect()->back();
   }
 
-  public function reject_pending_funding(Request $request){
+  public function reject_pending_funding(Request $request)
+  {
     $pending = Pending_manual_fund::find($request->id);
 
-    if($pending){
+    if ($pending) {
       $pending->delete();
 
       // create Transaction
@@ -861,12 +873,14 @@ class AdminController extends Controller
     return redirect()->back();
   }
 
-  public function notification(){
+  public function notification()
+  {
     $notification = User_notification::first();
-    return view('admin.notification',compact('notification'));
+    return view('admin.notification', compact('notification'));
   }
 
-  public function update_notification(Request $request){
+  public function update_notification(Request $request)
+  {
     $notification = User_notification::first();
 
     $notification->title = $request->title;
@@ -877,18 +891,46 @@ class AdminController extends Controller
     return redirect()->back();
   }
 
-  public function contact_config(){
+  public function contact_config()
+  {
     $contact = Contact_config::first();
 
-    return view('admin.contact',compact('contact'));
+    return view('admin.contact', compact('contact'));
   }
 
-  public function update_contact_config(Request $request){
+  public function update_contact_config(Request $request)
+  {
     $contact = Contact_config::first();
 
     $contact->email = $request->email;
     $contact->whatsapp = $request->whatsapp;
     $contact->save();
+
+    return redirect()->back();
+  }
+
+  public function profile(Request $request)
+  {
+    $user = Auth::guard('admin')->user();
+    return view('admin.profile', compact('user'));
+  }
+
+  public function update_profile(Request $request)
+  {
+ 
+    $user = Admin::first();
+    
+    if ($request->type == 'info') {
+      $user->name = $request->name;
+      $user->email = $request->email;
+    } else {
+      if (!password_verify($request->old_password, $user->password)) {
+        return redirect()->back()->with('error', 'Old Password is incorrect');
+      }
+      $user->password = Hash::make($request->password);
+    }
+
+    $user->save();
 
     return redirect()->back();
   }
