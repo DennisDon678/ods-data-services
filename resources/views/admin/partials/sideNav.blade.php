@@ -185,7 +185,7 @@
                     </h6>
                     <ul class="navbar-nav mb-md-4">
                         <li class="nav-item">
-                            <a class="nav-link" href="/admin/profits">
+                            <a class="nav-link" href="/admin/profile">
                                 <i class="fe fe-user"></i> Your Profile
                             </a>
                         </li>

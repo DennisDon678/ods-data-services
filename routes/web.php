@@ -248,6 +248,8 @@ Route::middleware('admin')->prefix('admin')->group(function () {
     // Contact
     Route::get('/config/contact',[AdminController::class,'contact_config']);
     Route::post('/config/contact',[AdminController::class,'update_contact_config']);
+    Route::get('/profile',[AdminController::class,'profile']);
+    Route::post('/profile',[AdminController::class,'update_profile']);
 });
 
 Route::post('/monify/webhook',[AppController::class,'monify_webhook']);
