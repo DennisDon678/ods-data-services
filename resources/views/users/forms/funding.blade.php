@@ -197,7 +197,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="payWithCard">
-                                                    <button class="btn btn-primary" type="submit" id="submitManual">Submit Request
+                                                    <button class="btn btn-primary" type="submit"
+                                                        id="submitManual">Submit Request
                                                     </button>
                                                 </div>
                                             </div>
@@ -293,9 +294,14 @@
                             location.replace('/user/dashboard')
                         }, 2000)
                     }
-                    if(response  == 2){
-                         swal("Alart!", "This Service is currently unavailable try again in some minutes.",
+                    if (response == 2) {
+                        $('#generateBank').html(
+                            'Generating Account'
+                        );
+                        swal("Alart!",
+                            "This Service is currently unavailable try again in some minutes.",
                             "error")
+
                     }
                 }
             });
