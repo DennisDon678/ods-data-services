@@ -293,6 +293,10 @@
                             location.replace('/user/dashboard')
                         }, 2000)
                     }
+                    if(response  == 2){
+                         swal("Alart!", "This Service is currently unavailable try again in some minutes.",
+                            "error")
+                    }
                 }
             });
         });

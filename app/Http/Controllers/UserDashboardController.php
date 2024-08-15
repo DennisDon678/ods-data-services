@@ -22,7 +22,8 @@ class UserDashboardController extends Controller
 {
     //
 
-    public function fund_wallet(){
+    public function fund_wallet()
+    {
         return view('users.forms.funding');
     }
     public function create_deposit(Request $request)
@@ -98,23 +99,27 @@ class UserDashboardController extends Controller
         ])->json();
         // Save to database
         return response($account);
-        $create = Reserved_bank::create([
-            'user_id' => Auth::user()->id,
-            'account_number' => $account['responseBody']['accounts'][0]['accountNumber'],
-            'account_name' => $account['responseBody']['accountName'],
-            'bank_name' => $account['responseBody']['accounts'][0]['bankName'],
-        ]);
-        if ($create) {
-            // Create notification
-            $notification = Notification::create([
+        if ($account['requestSuccessful'] == true) {
+            $create = Reserved_bank::create([
                 'user_id' => Auth::user()->id,
-                'title' => 'Bank Account Created',
-                'description' => 'Your bank account has been successfully created.',
-                'status' => 0
+                'account_number' => $account['responseBody']['accounts'][0]['accountNumber'],
+                'account_name' => $account['responseBody']['accountName'],
+                'bank_name' => $account['responseBody']['accounts'][0]['bankName'],
             ]);
-            return response()->json(0);
-        } else {
-            return response()->json(1);
+            if ($create) {
+                // Create notification
+                $notification = Notification::create([
+                    'user_id' => Auth::user()->id,
+                    'title' => 'Bank Account Created',
+                    'description' => 'Your bank account has been successfully created.',
+                    'status' => 0
+                ]);
+                return response()->json(0);
+            } else {
+                return response()->json(1);
+            }
+        }else{
+            return response()->json(2);
         }
     }
 
@@ -164,19 +169,21 @@ class UserDashboardController extends Controller
     {
         $contact = Contact_config::first();
 
-        return view('users.contact',compact('contact'));
+        return view('users.contact', compact('contact'));
     }
 
 
-    public function airtime_to_cash(Request $request){
+    public function airtime_to_cash(Request $request)
+    {
         $req = (object) $request->all();
         // dd($req);
         return view('users.airtime_to_cash', compact('req'));
     }
 
-    public function airtime_to_cash_convert(Request $request){
-        
-        $amount = (int)filter_var($request->amount, FILTER_SANITIZE_NUMBER_INT)/100;
+    public function airtime_to_cash_convert(Request $request)
+    {
+
+        $amount = (int)filter_var($request->amount, FILTER_SANITIZE_NUMBER_INT) / 100;
         $transactionId = uniqid();
 
         $cash = Airtime_to_cash::create([
@@ -200,42 +207,50 @@ class UserDashboardController extends Controller
             'status' => strtolower('processing'),
         ]);
 
-        if($trans && $cash){
+        if ($trans && $cash) {
             return response()->json(0);
-        }else{
+        } else {
             return response()->json(1);
         }
     }
 
-    public function referrals(){
+    public function referrals()
+    {
         return view('users.referrals');
     }
 
-    public function buy_mobile_data(Request $request){
+    public function buy_mobile_data(Request $request)
+    {
         return view('users.forms.data');
     }
 
-    public function buy_airtime(Request $request){
+    public function buy_airtime(Request $request)
+    {
         return view('users.forms.airtime');
     }
 
-    public function buy_cable_subscription(Request $request){
+    public function buy_cable_subscription(Request $request)
+    {
         return view('users.forms.tv');
     }
 
-    public function buy_electricity(Request $request){
+    public function buy_electricity(Request $request)
+    {
         return view('users.forms.electricity');
     }
 
-    public function preorder_data(){
+    public function preorder_data()
+    {
         return view('users.forms.preorder');
     }
 
-    public function a_to_cash(){
+    public function a_to_cash()
+    {
         return view('users.forms.a2c');
     }
 
-    public function become_a_vendor(){
+    public function become_a_vendor()
+    {
         return view('users.vendor');
     }
 
@@ -245,7 +260,7 @@ class UserDashboardController extends Controller
         $vendor_config = Vendor_config::first();
 
         // if balance is upto 2000
-        if($user->balance >= $vendor_config->onetime_fee){
+        if ($user->balance >= $vendor_config->onetime_fee) {
             $fee = $vendor_config->onetime_fee;
             $user->balance = $user->balance - $fee;
             $user->is_vendor = true;
@@ -258,10 +273,10 @@ class UserDashboardController extends Controller
                 'title' => 'Vendor Fee',
                 'type' => 'withdrawal',
                 'amount' => $fee,
-               'status' => 'Successful',
+                'status' => 'Successful',
             ]);
 
-            if($user->referred_by){
+            if ($user->referred_by) {
                 // give 50% commission to the referrer
                 $referral_fee = $fee * 0.5;
                 $referral = User::find($user->referred_by);
@@ -275,7 +290,7 @@ class UserDashboardController extends Controller
                     'title' => 'Referral Commission',
                     'type' => 'deposit',
                     'amount' => $referral_fee,
-                   'status' => 'Successful',
+                    'status' => 'Successful',
                 ]);
             }
 
@@ -285,7 +300,8 @@ class UserDashboardController extends Controller
         }
     }
 
-    public function add_manual_reqeust(Request $request){
+    public function add_manual_reqeust(Request $request)
+    {
         Pending_manual_fund::create($request->except('_token'));
 
         return response()->json(0);
