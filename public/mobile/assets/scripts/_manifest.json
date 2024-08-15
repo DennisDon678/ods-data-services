@@ -8,7 +8,7 @@
 "scope" : "/",
 "display" : "fullscreen",
 "start_url" : "/user/dashboard/",
-"short_name" : "ODS",
+"short_name" : "Olives Data Services",
 "description" : "",
 "orientation" : "portrait",
 "background_color": "#000000",
