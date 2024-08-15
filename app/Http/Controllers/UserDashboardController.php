@@ -97,6 +97,7 @@ class UserDashboardController extends Controller
             "preferredBanks" => ['50515'],
         ])->json();
         // Save to database
+        return response($account);
         $create = Reserved_bank::create([
             'user_id' => Auth::user()->id,
             'account_number' => $account['responseBody']['accounts'][0]['accountNumber'],
