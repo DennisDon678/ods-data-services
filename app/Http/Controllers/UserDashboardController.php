@@ -95,7 +95,7 @@ class UserDashboardController extends Controller
             "customerEmail" => Auth::user()->email,
             "customerName" => Auth::user()->name,
             "getAllAvailableBanks" => false,
-            "preferredBanks" => ['50515'],
+            "preferredBanks" => ['232'],
         ])->json();
         // Save to database
         if ($account['requestSuccessful'] == true) {
