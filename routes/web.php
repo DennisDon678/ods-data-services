@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AppController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DataController;
+use App\Http\Controllers\DataManagerController;
 use App\Http\Controllers\TvController;
 use App\Http\Controllers\UserDashboardController;
 use App\Models\Admin;
@@ -250,6 +251,10 @@ Route::middleware('admin')->prefix('admin')->group(function () {
     Route::post('/config/contact',[AdminController::class,'update_contact_config']);
     Route::get('/profile',[AdminController::class,'profile']);
     Route::post('/profile',[AdminController::class,'update_profile']);
+
+    // Generate Plans
+    Route::get('/generate_data_plan_types',[DataManagerController::class,'generate_data_plan_types']);
+    Route::get('/generate_data_plans',[DataManagerController::class,'generate_data_plan']);
 });
 
 Route::post('/monify/webhook',[AppController::class,'monify_webhook']);
