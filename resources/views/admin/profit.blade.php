@@ -104,7 +104,7 @@
                                                             <div class="mb-3 ">
                                                                 <label for="">Amount
                                                                 <input class="form-control "
-                                                                    value="{{ $network->profit }}" type="number"
+                                                                    value="{{ $network->profit }}" type="text"
                                                                     name="profit" placeholder="Enter Amount">
                                                             </div>
                                                             <div class="">
