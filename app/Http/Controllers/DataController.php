@@ -151,7 +151,14 @@ class DataController extends Controller
         $plan = Preorder::find($request->data_id);
 
         if ($plan) {
-            return response()->json($plan);
+            if (Auth::user()->is_vendor) {
+                $vendor_config = Vendor_config::first();
+
+                $price =$plan->price - ($plan->price * ($vendor_config->discount / 100));
+            } else {
+                $price = $plan->price;
+            }
+            return response()->json($price);
         } else {
             return response()->json(1);
         }
