@@ -76,7 +76,7 @@
                                     </label>
 
                                     <!-- Input -->
-                                    <input type="number" value="{{ $vendor_config->discount }}"  name="discount"
+                                    <input type="text" value="{{ $vendor_config->discount }}"  name="discount"
                                         class="form-control">
 
                                 </div>
