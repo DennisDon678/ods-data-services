@@ -40,9 +40,12 @@
 
             <div class="card">
                 <div class="card-body">
-                    <h5>Add Data Plan</h5>
-                    <button class="btn btn-primary" data-bs-target="#addNew" data-bs-toggle="modal">Add New
-                        Plan</button>
+                    <h5>Update Cable Plan</h5>
+                    <div class="col-auto">
+                        <div class="col-auto">
+                            <a class="btn btn-primary" href="/admin/generate_cable_plans">Update Update Cable Plan</a>
+                        </div>
+                    </div>
                 </div>
             </div>
 
