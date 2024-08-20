@@ -182,7 +182,7 @@
                         $('#preOrderPlan').val('');
                         return false;
                     }
-                    $('#amountPreOrder').val(response.price)
+                    $('#amountPreOrder').val(response)
                     // console.log(response);
                 }
             });
