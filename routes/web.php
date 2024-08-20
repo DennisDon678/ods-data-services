@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AppController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CableManagerController;
 use App\Http\Controllers\DataController;
 use App\Http\Controllers\DataManagerController;
 use App\Http\Controllers\TvController;
@@ -255,6 +256,10 @@ Route::middleware('admin')->prefix('admin')->group(function () {
     // Generate Plans
     Route::get('/generate_data_plan_types',[DataManagerController::class,'generate_data_plan_types']);
     Route::get('/generate_data_plans',[DataManagerController::class,'generate_data_plan']);
+
+    // Generate Cable Plans
+    Route::get('/generate_cable_plan_types',[CableManagerController::class,'generate_cable_plan_types']);
+    Route::get('/generate_cable_plans',[CableManagerController::class,'generate_cable_plan']);
 });
 
 Route::post('/monify/webhook',[AppController::class,'monify_webhook']);
