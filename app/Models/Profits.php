@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Profits extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+            'plan_type',
+            'profit',
+    ];
 }
