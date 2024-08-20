@@ -14,20 +14,23 @@
                     },
                 },
             },
+            @php
+                $first = Carbon\Carbon::now()->firstOfMonth();
+                $last = Carbon\Carbon::now()->lastOfMonth();
+                $number_of_days = $first->diffInDays($last);
+                // dd($number_of_days)
+                $labels = [];
+
+                for($i = 1; $i <= $number_of_days; $i++){
+                    array_push($labels,$i);
+                }
+            @endphp
             data: {
-                labels: [
-                    "Oct 1",
-                    "Oct 3",
-                    "Oct 6",
-                    "Oct 9",
-                    "Oct 12",
-                    "Oct 5",
-                    "Oct 18",
-                    "Oct 21",
-                    "Oct 24",
-                    "Oct 27",
-                    "Oct 30",
-                ],
+                labels:[ @foreach ($labels as $label)
+                    {!! end($labels)==$label?"'".$label."'":"'".$label."'," !!}
+                @endforeach
+            ],
+
                 datasets: [{
                     label: "All",
                     data: [
