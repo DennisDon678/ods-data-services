@@ -63,7 +63,7 @@ class DataController extends Controller
             //     }
             //     $profit = $profit->profit * ($numbers / 10 / 1000);
             // }
-            $profit = ($profit->profit/100)*$data->price;
+            $profit =  ($profit->profit/100)*$data->price;
             if(Auth::user()->is_vendor){
                 $vendor_config = Vendor_config::first();
 
@@ -72,7 +72,7 @@ class DataController extends Controller
                  $price = $data->price + $profit;
             }
            
-            return response()->json($price);
+            return response()->json( (int)$price);
         }
     }
 
