@@ -66,7 +66,7 @@
                                         <th scope="row">{{ $sn }}</th>
                                         <td>{{ strtoupper($net->label) }}</td>
                                         <td>{{ strtoupper($plan->plan_type) }}</td>
-                                        <td>{{ number_format((int)$network->profit) }}%</td>
+                                        <td>{{ $network->profit }}%</td>
                                         <td><button type="button" class="btn btn-primary" data-bs-target="#edit-{{$network->id}}"
                                                 data-bs-toggle="modal">Edit</button></td>
                                         
