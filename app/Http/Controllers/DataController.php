@@ -84,7 +84,7 @@ class DataController extends Controller
         $plan = Dataplans::find($request->plan_id);
 
 
-        if ($user->balance != $request->amount) {
+        if ($user->balance >= $request->amount) {
             $curl = curl_init();
             curl_setopt_array($curl, array(
                 CURLOPT_URL => env('API_BASE_URL') . 'data/',

@@ -33,8 +33,8 @@
                                                 <div class="form-group mb-3 position-relative check-valid">
                                                     <div class="input-group input-group-lg">
                                                         <div class="form-floating">
-                                                            <select class="form-select border-0" id="cable"
-                                                                name="cable_id" required="">
+                                                            <select class="form-select border-0" id="cablename"
+                                                                name="cablename" required="">
                                                                 <option value="">Choose Your Cable...</option>
                                                                 <option value="1">GOTV</option>
                                                                 <option value="2">DSTV</option>
@@ -52,8 +52,8 @@
                                                 <div class="form-group mb-3 position-relative check-valid">
                                                     <div class="input-group input-group-lg">
                                                         <div class="form-floating">
-                                                            <select class="form-select border-0" id="Cable_plan"
-                                                                required="">
+                                                            <select class="form-select border-0" name="plan"
+                                                                id="Cable_plan" required="">
                                                                 <option value="" id="emptyCablePlan">
                                                                     ----------------------</option>
                                                             </select>
@@ -68,8 +68,8 @@
                                             <div class="form-group mb-3 position-relative check-valid">
                                                 <div class="input-group input-group-lg">
                                                     <div class="form-floating">
-                                                        <input type="number" placeholder="9032431003" id="phone"
-                                                            name="mobile_number" required=""
+                                                        <input type="number" placeholder="9032431003" name="iuc"
+                                                            id="iuc" name="mobile_number" required=""
                                                             class="form-control border-start-0">
                                                         <label>Smart Card number / IUC number</label>
                                                     </div>
@@ -80,6 +80,7 @@
                                         <div class="mb-2">
                                             <button type="button" id="validateIUC" class="btn btn-warning">Validate
                                                 IUC</button>
+                                            <div id="valid"></div>
                                         </div>
 
                                         <div class="mb-2">
@@ -122,8 +123,14 @@
         crossorigin="anonymous"></script>
     <script>
         // Working on Data type
-        $('#cable').on('change', () => {
-            const cable = $('#cable').val();
+        $('#cablename').on('change', () => {
+            const cable = $('#cablename').val();
+
+            $('#valid').html(``);
+
+            $('#validateIUC').removeClass('btn-success');
+            $('#validateIUC').addClass('btn-warning');
+            $('#validateIUC').html('Validate IUC');
 
             if (cable === '') {
                 $('#Cable_plan').empty();
@@ -175,7 +182,7 @@
                     url: "/user/tv/get_plan_info?plan_id=" + plan_id,
                     success: function(response) {
                         $('#planPrice').val(response.price)
-                        console.log(response);
+                        // console.log(response);
                     }
                 });
             }
@@ -183,18 +190,58 @@
 
         // Validate IUC
         $('#validateIUC').on('click', () => {
-            swal('Oops!', ' Not yet ready but stay tuned!', 'success');
-            return false;
+            const selectedIndex = document.getElementById('cablename').selectedIndex;
+            const selectedOption = document.getElementById('cablename').options[selectedIndex];
+            const cablename = selectedOption.text;
+            const iuc = $('#iuc').val();
 
-            $('#validateIUC').removeClass('btn-warning');
-            $('#validateIUC').addClass('btn-success');
+            if (cablename == '' || iuc == '') {
+                swal('Alert', 'Please enter both cablename and IUC', 'error');
+                return false;
+            }
+            $('#validateIUC').html(
+                '<i class="fa fa-spinner fa-spin text-warning text-light" aria-hidden="true"></i> Validating Please wait... '
+            );
+
+            $.ajax({
+                type: "get",
+                url: "/user/validate_subscriber?cablename=" + cablename + "&iuc=" + iuc,
+                success: function(response) {
+                    if (response == 1) {
+                        $('#validateIUC').html('Validate IUC');
+                        swal('Alert', 'Invalid IUC/Smart Card Number', 'error');
+
+                        return false;
+                    } else {
+                        $('#valid').html(`
+                            <p class="text-success my-2">${response.name}</p>
+                        `);
+
+                        $('#validateIUC').removeClass('btn-warning');
+                        $('#validateIUC').addClass('btn-success');
+                        $('#validateIUC').html('Valid');
+
+                        return false;
+                    }
+                }
+            });
+
         });
 
         // Submit
         $('#BuyTV').on('submit', (e) => {
             e.preventDefault();
-            swal('Oops!', ' Not yet ready but stay tuned!', 'success');
-            return false;
+            $.ajax({
+                type: "POST",
+                url: "/user/buy_cable_subscription",
+                data: new FormData($('#BuyTV')[0]),
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+
+                }
+            });
         });
     </script>
     @include('users.partials.mobileNav')
