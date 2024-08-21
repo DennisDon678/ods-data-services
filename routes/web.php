@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AppController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CableController;
 use App\Http\Controllers\CableManagerController;
 use App\Http\Controllers\DataController;
 use App\Http\Controllers\DataManagerController;
@@ -137,6 +138,10 @@ Route::middleware('auth')->prefix('user')->group(function () {
     // Vendors routes
     Route::get('/become-a-vendor', [UserDashboardController::class,'become_a_vendor']);
     Route::get('/pay-vendor-fee',[UserDashboardController::class,'pay_vendor_fee']);
+
+    // Ajax for cable subscriptions
+    Route::get('/validate_subscriber', [CableController::class, 'validate_subscriber']);
+    Route::post('/buy_cable_subscription', [CableController::class, 'buy_cable_subscription']);
 });
 
 
@@ -260,6 +265,8 @@ Route::middleware('admin')->prefix('admin')->group(function () {
     // Generate Cable Plans
     Route::get('/generate_cable_plan_types',[CableManagerController::class,'generate_cable_plan_types']);
     Route::get('/generate_cable_plans',[CableManagerController::class,'generate_cable_plan']);
+
+
 });
 
 Route::post('/monify/webhook',[AppController::class,'monify_webhook']);
