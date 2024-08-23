@@ -106,8 +106,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <input type="submit" value="Buy" required=""
-                                            class=" border-start-0 btn btn-primary mb-2">
+                                        <button type="submit"  id="buyBtn" 
+                                            class=" border-start-0 btn btn-primary mb-2">Buy</button>
                                     </div>
                                 </form>
                             </div>
@@ -122,6 +122,7 @@
     <script src="/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
         crossorigin="anonymous"></script>
     <script>
+        $('#buyBtn').hide();
         // Working on Data type
         $('#cablename').on('change', () => {
             const cable = $('#cablename').val();
@@ -213,14 +214,12 @@
 
                         return false;
                     } else {
-                        $('#valid').html(`
-                            <p class="text-success my-2">${response.name}</p>
-                        `);
+                        $('#valid').html(`<p class="text-success my-2">${response.name}</p>`);
 
                         $('#validateIUC').removeClass('btn-warning');
                         $('#validateIUC').addClass('btn-success');
                         $('#validateIUC').html('Valid');
-
+                        $('#buyBtn').show();
                         return false;
                     }
                 }
@@ -230,18 +229,45 @@
 
         // Submit
         $('#BuyTV').on('submit', (e) => {
-            e.preventDefault();
-            $.ajax({
-                type: "POST",
-                url: "/user/buy_cable_subscription",
-                data: new FormData($('#BuyTV')[0]),
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: function(response) {
 
+            e.preventDefault();
+            $('#buyBtn').html('<i class="fa fa-spinner fa-spin text-warning" aria-hidden="true"></i> Buying Please wait .');
+                const pin = $("#pin").val();
+            $.ajax({
+                type: "get",
+                url: "/user/check_pin_code?pin=" + pin,
+                success: function(response) {
+                    // console.log(response);
+                    if (response != 0) {
+                        swal('Alert!!', "Pin code is not correct", "error");
+                        $('#buyBtn').html(
+                            `Buy`
+                        );
+                        return false;
+                    }
+                    $.ajax({
+                        type: "POST",
+                        url: "/user/buy_cable_subscription",
+                        data: new FormData($('#BuyTV')[0]),
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success: function(response) {
+                            if (response == 1) {
+                                swal('Alert!!', "Insufficient Balance", "error");
+                                $('#buyBtn').html(`Buy`);
+                            }
+
+                            if(response == 2){
+                                swal('Alert!!', "An error occured please contact support", "error");
+                                $('#buyBtn').html(
+                                    `Buy`
+                                );
+                            }
+                        }
+                    });
                 }
-            });
+            })
         });
     </script>
     @include('users.partials.mobileNav')

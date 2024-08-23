@@ -63,16 +63,16 @@ class DataController extends Controller
             //     }
             //     $profit = $profit->profit * ($numbers / 10 / 1000);
             // }
-            $profit =  ($profit->profit/100)*$data->price;
-            if(Auth::user()->is_vendor){
+            $profit =  ($profit->profit / 100) * $data->price;
+            if (Auth::user()->is_vendor) {
                 $vendor_config = Vendor_config::first();
 
-                $price = ($data->price + $profit) - (($data->price + $profit)* ($vendor_config->discount/100));
-            }else{
-                 $price = $data->price + $profit;
+                $price = ($data->price + $profit) - (($data->price + $profit) * ($vendor_config->discount / 100));
+            } else {
+                $price = $data->price + $profit;
             }
-           
-            return response()->json( (int)$price);
+
+            return response()->json((int)$price);
         }
     }
 
@@ -113,22 +113,40 @@ class DataController extends Controller
             if (array_key_exists('error', $response)) {
                 return response()->json(2);
             } else {
-                // debit User's account
-                $user->balance = $user->balance - $request->amount;
-                $user->save();
-                // create transaction
-                Transactions::create([
-                    'user_id' => $request->user()->id,
-                    'transaction_id' => $response['ident'],
-                    'title' => 'Data Purchase',
-                    'type' => "data",
-                    'amount' => $request->amount,
-                    'status' => $response['Status'],
-                    'number' => $response['mobile_number'],
-                    'size' => $response['plan_name'],
-                ]);
+
+                if ($response['status'] == 'success') {
+                    // debit User's account
+                    $user->balance = $user->balance - $request->amount;
+                    $user->save();
+                    // create transaction
+                    Transactions::create([
+                        'user_id' => $request->user()->id,
+                        'transaction_id' => $response['ident'],
+                        'title' => 'Data Purchase',
+                        'type' => "data",
+                        'amount' => $request->amount,
+                        'status' => $response['Status'],
+                        'number' => $response['mobile_number'],
+                        'size' => $response['plan_name'],
+                    ]);
+
+                    return response()->json(0);
+                } else {
+                    // create transaction
+                    Transactions::create([
+                        'user_id' => $request->user()->id,
+                        'transaction_id' => $response['ident'],
+                        'title' => 'Data Purchase',
+                        'type' => "data",
+                        'amount' => $request->amount,
+                        'status' => $response['Status'],
+                        'number' => $response['mobile_number'],
+                        'size' => $response['plan_name'],
+                    ]);
+
+                    return response()->json(3);
+                }
             }
-            return response()->json(0);
         } else {
             return response()->json(1);
         }
@@ -154,7 +172,7 @@ class DataController extends Controller
             if (Auth::user()->is_vendor) {
                 $vendor_config = Vendor_config::first();
 
-                $price =$plan->price - ($plan->price * ($vendor_config->discount / 100));
+                $price = $plan->price - ($plan->price * ($vendor_config->discount / 100));
             } else {
                 $price = $plan->price;
             }
