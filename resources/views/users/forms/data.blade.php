@@ -302,6 +302,12 @@
                                     `<input type="submit" value="Buy Now"
                                 class="border-start-0 btn btn-primary mb-2">`
                                 );
+                            }else if(response == 3){
+                                 swal('Alert!!', "Transaction Failed, check that the number is correct and try again.", "error");
+                                $('#buyBtn').html(
+                                    `<input type="submit" value="Buy Now"
+                                class="border-start-0 btn btn-primary mb-2">`
+                                );
                             }
                         }
                     });
