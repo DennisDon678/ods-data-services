@@ -46,7 +46,7 @@
                                         </div>
                                         <div
                                             class="col-6 mx-auto {{ strtoupper($trans->status) == 'SUCCESS' ? 'text-success' : '' }} {{ strtoupper($trans->status) == 'SUCCESSFUL' ? 'text-success' : 'text-warning' }}">
-                                            {{ strtoupper($trans->status) }}
+                                            {{ strtoupper($trans->status) }} 
                                         </div>
                                     </div>
                                     <hr>
