@@ -114,7 +114,7 @@ class DataController extends Controller
                 return response()->json(2);
             } else {
 
-                if ($response['Status'] == 'success') {
+                if ($response['Status'] == 'successful') {
                     // debit User's account
                     $user->balance = $user->balance - $request->amount;
                     $user->save();

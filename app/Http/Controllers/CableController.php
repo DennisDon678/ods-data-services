@@ -56,7 +56,7 @@ class CableController extends Controller
             if (array_key_exists('error', $response)) {
                 return response()->json(2);
             } else {
-                if ($response['Status']) {
+                if ($response['Status']=='successful') {
                     $user->balance = $user->balance - $request->amount;
                     $user->save();
 
