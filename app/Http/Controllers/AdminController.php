@@ -729,7 +729,7 @@ class AdminController extends Controller
     if ($preorder) {
       $transaction = Transactions::where('transaction_id', '=', $preorder->reference)->first();
 
-      $transaction->status = 'success';
+      $transaction->status = 'successful';
       $transaction->save();
 
       Notification::create([
