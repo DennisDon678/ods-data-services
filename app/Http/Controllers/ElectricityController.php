@@ -22,5 +22,8 @@ class ElectricityController extends Controller
         }
     }
 
-    public function buy_electricity(Request $request) {}
+    public function buy_electricity(Request $request)
+    {
+
+    }
 }
