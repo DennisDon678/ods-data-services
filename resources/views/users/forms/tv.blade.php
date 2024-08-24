@@ -264,7 +264,22 @@
                                     `Buy`
                                 );
                             }
+
+                            if(response == 3){
+                                $('#buyBtn').html(
+                                    `Buy`
+                                );
+                                swal('Alert!!', "Your subscription failed please check the IUC and try again", "error");
+                            }
+
+                            if(response == 0){
+                                $('#buyBtn').html(
+                                    `Buy`
+                                );
+                                swal('Success!!', "Your subscription was successful", "success");
+                            }
                         }
+
                     });
                 }
             })
