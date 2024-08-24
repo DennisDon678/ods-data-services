@@ -772,7 +772,7 @@ class AdminController extends Controller
 
       // finc transaction 
       $trans = Transactions::where('transaction_id', '=', $ato->transaction_id)->first();
-      $trans->status = "Successfull";
+      $trans->status = "Successful";
       $trans->save();
 
       Notification::create([
