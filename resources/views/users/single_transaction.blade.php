@@ -45,7 +45,7 @@
                                             <h6>Status</h6>
                                         </div>
                                         <div
-                                            class="col-6 mx-auto {{ strtoupper($trans->status) == 'SUCCESS' ? 'text-success' : 'text-warning' }}">
+                                            class="col-6 mx-auto {{ strtoupper($trans->status) == 'SUCCESS' ? 'text-success' : '' }} {{ strtoupper($trans->status) == 'SUCCESSFUL' ? 'text-success' : 'text-warning' }}">
                                             {{ strtoupper($trans->status) }}
                                         </div>
                                     </div>

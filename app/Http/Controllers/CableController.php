@@ -10,22 +10,23 @@ use Illuminate\Support\Facades\Http;
 class CableController extends Controller
 {
     //
-    public function validate_subscriber(Request $request){
+    public function validate_subscriber(Request $request)
+    {
 
-        $response = Http::get(env('API_URI').'/ajax/validate_iuc?smart_card_number',[
+        $response = Http::get(env('API_URI') . '/ajax/validate_iuc?smart_card_number', [
             'smart_card_number' => $request->iuc,
             'cablename' => $request->cablename
         ])->json();
 
-        if($response['invalid']){
+        if ($response['invalid']) {
             return response()->json(1);
-        }else{
+        } else {
             return response()->json($response);
         }
-       
     }
 
-    public function buy_cable_subscription(Request $request){
+    public function buy_cable_subscription(Request $request)
+    {
         $user = User::find($request->user()->id);
         if ($user->balance >= $request->amount) {
             $curl = curl_init();
@@ -55,24 +56,38 @@ class CableController extends Controller
             if (array_key_exists('error', $response)) {
                 return response()->json(2);
             } else {
-                
-                
-                // // debit User's account
-                // $user->balance = $user->balance - $request->amount;
-                // $user->save();
-                // // create transaction
-                // Transactions::create([
-                //     'user_id' => $request->user()->id,
-                //     'transaction_id' => $response['ident'],
-                //     'title' => 'Data Purchase',
-                //     'type' => "data",
-                //     'amount' => $request->amount,
-                //     'status' => $response['Status'],
-                //     'number' => $response['mobile_number'],
-                //     'size' => $response['plan_name'],
-                // ]);
+                if ($response['Status']) {
+                    $user->balance = $user->balance - $request->amount;
+                    $user->save();
+
+                    // create transaction
+                    Transactions::create([
+                        'user_id' => $request->user()->id,
+                        'transaction_id' => $response['ident'],
+                        'title' => 'Cable Purchase',
+                        'type' => "cable",
+                        'amount' => $request->amount,
+                        'status' => $response['Status'],
+                        'number' => $response['smart_card_number'],
+                        'size' => $response['package'],
+                    ]);
+                    return response()->json(0);
+                } else {
+                    // create transaction
+                    Transactions::create([
+                        'user_id' => $request->user()->id,
+                        'transaction_id' => $response['ident'],
+                        'title' => 'Cable Purchase',
+                        'type' => "cable",
+                        'amount' => $request->amount,
+                        'status' => $response['Status'],
+                        'number' => $response['smart_card_number'],
+                        'size' => $response['package'],
+                    ]);
+
+                    return response()->json(3);
+                }
             }
-            return response()->json(0);
         } else {
             return response()->json(1);
         }
