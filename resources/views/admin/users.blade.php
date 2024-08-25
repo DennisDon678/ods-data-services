@@ -37,6 +37,19 @@
 
         <!-- CARDS -->
         <div class="container-fluid">
+            <div class="card">
+                <div class="card-body">
+                    <h5>Search For User</h5>
+                    <form action="" method="get" class="" id="filterForm">
+                       
+                        <div class="mb-3 col-6">
+                            <label for="">Enter users email or phone number</label>
+                            <input type="text" class="form-control" placeholder="Enter User's email or phone number" name="q" required>
+                        </div>
+                        <input type="submit" value="Search" class="btn btn-primary ">
+                    </form>
+                </div>
+            </div>
 
             <!-- Card -->
             <div class="card">
@@ -51,6 +64,7 @@
                                     <th scope="col">First</th>
                                     <th scope="col">Last</th>
                                     <th scope="col">phone</th>
+                                    <th scope="col">Balance</th>
                                     <th scope="col">View</th>
                                 </tr>
                             </thead>
@@ -64,6 +78,7 @@
                                         <td>{{ ucfirst(explode(' ', $user->name)[0]) }}</td>
                                         <td>{{ array_key_exists('1',explode(' ',$user->name))? ucfirst(explode(' ', $user->name)[1]):""}}</td>
                                         <td>{{ $user->phone }}</td>
+                                        <td>&#8358;{{ number_format($user->balance,2) }}</td>
                                         <td><a href="/admin/user/view?id={{ $user->id }}"
                                                 class="btn btn-primary">View</a></td>
                                     </tr>
