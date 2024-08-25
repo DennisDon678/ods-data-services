@@ -36,9 +36,13 @@ class AdminController extends Controller
     return  view('admin.dashboard', compact('balance'));
   }
 
-  public function users()
+  public function users(Request $request)
   {
-    $users = User::paginate(20);
+    if(isset($request->query)){
+      $users = User::where('email','=',$request->q)->orwhere('phone', '=',$request->q)->paginate(10);
+    }else{
+      $users = User::paginate(20);
+    }
 
     return view('admin.users', compact('users'));
   }
@@ -989,4 +993,5 @@ class AdminController extends Controller
 
     return redirect()->back();
   }
+
 }

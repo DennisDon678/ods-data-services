@@ -37,6 +37,19 @@
 
         <!-- CARDS -->
         <div class="container-fluid">
+            <div class="card">
+                <div class="card-body">
+                    <h5>Search For User</h5>
+                    <form action="" method="get" class="" id="filterForm">
+                       
+                        <div class="mb-3 col-6">
+                            <label for="">Enter users email or phone number</label>
+                            <input type="text" class="form-control" placeholder="Enter User's email or phone number" name="q" required>
+                        </div>
+                        <input type="submit" value="Search" class="btn btn-primary ">
+                    </form>
+                </div>
+            </div>
 
             <!-- Card -->
             <div class="card">
