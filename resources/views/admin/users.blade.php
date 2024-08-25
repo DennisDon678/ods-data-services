@@ -51,6 +51,7 @@
                                     <th scope="col">First</th>
                                     <th scope="col">Last</th>
                                     <th scope="col">phone</th>
+                                    <th scope="col">Balance</th>
                                     <th scope="col">View</th>
                                 </tr>
                             </thead>
@@ -64,6 +65,7 @@
                                         <td>{{ ucfirst(explode(' ', $user->name)[0]) }}</td>
                                         <td>{{ array_key_exists('1',explode(' ',$user->name))? ucfirst(explode(' ', $user->name)[1]):""}}</td>
                                         <td>{{ $user->phone }}</td>
+                                        <td>&#8358;{{ number_format($user->balance,2) }}</td>
                                         <td><a href="/admin/user/view?id={{ $user->id }}"
                                                 class="btn btn-primary">View</a></td>
                                     </tr>
