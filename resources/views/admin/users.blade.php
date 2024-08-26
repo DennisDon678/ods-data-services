@@ -42,7 +42,7 @@
                     <h5>Search For User</h5>
                     <form action="" method="get" class="" id="filterForm">
                        
-                        <div class="mb-3 col-6">
+                        <div class="mb-3 col-md-6">
                             <label for="">Enter users email or phone number</label>
                             <input type="text" class="form-control" placeholder="Enter User's email or phone number" name="q" required>
                         </div>
