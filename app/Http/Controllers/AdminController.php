@@ -38,7 +38,7 @@ class AdminController extends Controller
 
   public function users(Request $request)
   {
-    if(isset($request->query)){
+    if(isset($request->q)){
       $users = User::where('email','=',$request->q)->orwhere('phone', '=',$request->q)->paginate(10);
     }else{
       $users = User::paginate(20);
