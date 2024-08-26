@@ -263,21 +263,37 @@ class DataController extends Controller
             if (array_key_exists('error', $response)) {
                 return response()->json($response);
             } else {
-                // debit User's account
-                $user->balance = $user->balance - $request->amount;
-                $user->save();
-                // create transaction
-                Transactions::create([
-                    'user_id' => $request->user()->id,
-                    'transaction_id' => $response['ident'],
-                    'title' => 'Airtime Purchase',
-                    'type' => "airtime",
-                    'amount' => $request->amount,
-                    'status' => $response['Status'],
-                    'number' => $response['mobile_number'],
-                ]);
+                if ($response['Status'] == 'successful') {
+                    // debit User's account
+                    $user->balance = $user->balance - $request->amount;
+                    $user->save();
+                    // create transaction
+                    Transactions::create([
+                        'user_id' => $request->user()->id,
+                        'transaction_id' => $response['ident'],
+                        'title' => 'Airtime Purchase',
+                        'type' => "airtime",
+                        'amount' => $request->amount,
+                        'status' => $response['Status'],
+                        'number' => $response['mobile_number'],
+                    ]);
+
+                    return response()->json(0);
+                } else {
+                    // create transaction
+                    Transactions::create([
+                        'user_id' => $request->user()->id,
+                        'transaction_id' => $response['ident'],
+                        'title' => 'Airtime Purchase',
+                        'type' => "airtime",
+                        'amount' => $request->amount,
+                        'status' => $response['Status'],
+                        'number' => $response['mobile_number'],
+                    ]);
+
+                    return response()->json(3);
+                }
             }
-            return response()->json(0);
         } else {
             return response()->json(1);
         }
