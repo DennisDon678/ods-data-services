@@ -36,7 +36,13 @@
                                     {{ strtoupper(explode(' ', Auth::user()->name)[0]) }}</h5>
                                 <h3 class="fw-medium">&#8358;{{ number_format(Auth::user()->balance, 2) }}</h3>
                             </div>
+
+                            <div class="funding text-center">
+                                <a href="/user/fund-wallet" class="btn btn-primary">Fund Wallet</a>
+                            </div>
                         </div>
+
+
                     </div>
                 </div>
 
@@ -140,11 +146,11 @@
 
     @php
         $notice = App\Models\User_notification::first();
-        
+
     @endphp
-    @if($notice->title != '')
+    @if ($notice->title != '')
         <script>
-            swal('{{ $notice->title }}','{{ $notice->message }}','{{ $notice->type}}');
+            swal('{{ $notice->title }}', '{{ $notice->message }}', '{{ $notice->type }}');
         </script>
     @endif
 </body>
