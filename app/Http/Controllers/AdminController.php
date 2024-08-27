@@ -763,11 +763,11 @@ class AdminController extends Controller
   public function approve_airtime_to_cash(Request $request)
   {
     $ato = Airtime_to_cash::find($request->id);
+    $user = User::find($ato->user_id);
 
     if ($ato) {
       if ($ato->account_name == '') {
         // find User 
-        $user = User::find($ato->user_id);
         $percent = AirtimetoCashConfig::first();
 
         $user->balance = $user->balance + ($ato->amount * ($percent->percent / 100));
