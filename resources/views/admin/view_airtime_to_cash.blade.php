@@ -58,13 +58,31 @@
                                     </label>
 
                                     <!-- Input -->
-                                    <input type="text" value="{{ $ato->bank_name == '' ? 'WALLET' : 'BANK' }}" readonly
-                                        class="form-control">
+                                    <input type="text" value="{{ $ato->bank_name == '' ? 'WALLET' : 'BANK' }}"
+                                        readonly class="form-control">
 
                                 </div>
 
                             </div>
                             @if ($ato->bank_name != '')
+                                <div class="col-12 col-md-6">
+                                    @php
+                                        $config = App\Models\AirtimetoCashConfig::first();
+                                    @endphp
+                                    <!-- First name -->
+                                    <div class="form-group">
+
+                                        <!-- Label -->
+                                        <label class="form-label">
+                                            Amount
+                                        </label>
+
+                                        <!-- Input -->
+                                        <input type="text" value="{{ number_format($ato->amount*($config->percent/100),2) }}" readonly class="form-control">
+
+                                    </div>
+
+                                </div>
                                 <div class="col-12 col-md-6">
 
                                     <!-- Last name -->
@@ -136,7 +154,7 @@
                             <div class="col-auto">
 
                                 <!-- Button -->
-                                <a class="btn btn-primary" href="/admin/airtime_to_cash/approve?id={{$ato->id}}">
+                                <a class="btn btn-primary" href="/admin/airtime_to_cash/approve?id={{ $ato->id }}">
                                     Approve
                                 </a>
 
@@ -158,7 +176,7 @@
                             <div class="col-auto">
 
                                 <!-- Button -->
-                                <a class="btn btn-danger" href="/admin/airtime_to_cash/reject?id={{$ato->id}}">
+                                <a class="btn btn-danger" href="/admin/airtime_to_cash/reject?id={{ $ato->id }}">
                                     reject
                                 </a>
 
