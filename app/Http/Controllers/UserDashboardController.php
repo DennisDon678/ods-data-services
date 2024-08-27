@@ -190,9 +190,9 @@ class UserDashboardController extends Controller
             'user_id' => $request->user()->id,
             'to' => $request->to,
             'from' => $request->from,
-            'bank_name' => $request->a2cBank,
-            'account_number' => $request->a2cAccountNumber,
-            'account_name' => $request->a2cAccountName,
+            'bank_name' => $request->bankName,
+            'account_number' => $request->bankAccount,
+            'account_name' => $request->accountName,
             'transaction_id' => $transactionId,
             'networks' => $request->networks,
         ]);
