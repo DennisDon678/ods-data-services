@@ -104,7 +104,7 @@
                                         <td><button type="button" class="btn btn-primary"
                                                 data-bs-target="#edit-{{ $network->id }}"
                                                 data-bs-toggle="modal">Edit</button></td>
-                                        <td><a href="/admin/data-plan/delete?id={{ $network->id }}"
+                                        <td><a href="/admin/preorder/delete?id={{ $network->id }}"
                                                 class="btn btn-danger">Delete</a></td>
                                     </tr>
 
