@@ -92,7 +92,8 @@
                                     </div>
                                     <div>
                                         <h5 class="fs-8 fw-bold lh-lg mb-1"> Earn More as Vendor</h5>
-                                        <p class="lh-xl mb-0">Vendors will purchase Airtime, Data and other Utilities at a very discounted price.</p>
+                                        <p class="lh-xl mb-0">Vendors will purchase Airtime, Data and other Utilities at
+                                            a very discounted price.</p>
                                     </div>
                                 </div>
                             </div>
@@ -106,7 +107,8 @@
                         <div class="col-12 col-lg-6 col-xl-7">
                             <div class="row justify-content-center justify-content-lg-start">
                                 <div class="col-sm-10 col-md-8 col-lg-11">
-                                    <h2 class="fs-4 fs-lg-3 fw-bold mb-2 text-center text-lg-start"> Steps to Become Vendor.</h2>
+                                    <h2 class="fs-4 fs-lg-3 fw-bold mb-2 text-center text-lg-start"> Steps to Become
+                                        Vendor.</h2>
                                     <p class="fs-8 mb-4 mb-lg-5 lh-lg text-center text-lg-start fw-normal">Proceed to
                                         registration page and register with your correct details, then verify your email
                                         and proceed to your dashboard.</p>
@@ -120,7 +122,8 @@
                                     </div>
                                     <div>
                                         <h5 class="fs-8 fw-bold lh-lg mb-1"> Get Discounted Prices</h5>
-                                        <p class="lh-xl mb-0">All product will have a discount after your have upgraded to a vendor.</p>
+                                        <p class="lh-xl mb-0">All product will have a discount after your have upgraded
+                                            to a vendor.</p>
                                     </div>
                                 </div>
                             </div>
@@ -249,7 +252,7 @@
                                                 are premium to us, hence satisfying them is our topmost priority. Our
                                                 customer service is just a click away. We are Online 24/7..</p>
                                         </div>
-                                    </div>  
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -387,14 +390,55 @@
                                     <div
                                         class="p-x1 text-center price-card-1 bg-transparent border mb-3 mb-md-0 rounded-2 pricing-card">
                                         @php
-                                            $sme = App\Models\Dataplans::where('plan_id', '=', 1)->get();
-                                            $profit = App\Models\Profits::where('plan_type', '=', 1)->first();
+                                            
+                                            $plan = App\Models\preorder::all();
+                                        @endphp
+                                        <p class="fs-10 text-uppercase mb-3 fw-bold text-primary ls-2"> MTN (PREORDER
+                                            PLAN)</p>
+                                        <ul class="list-unstyled fs-8 lh-xl fw-light text-1100 ls-1">
+                                            @foreach ($plan as $plan)
+                                                <li class="py-x1 px-1 border-top"> {{ $plan->size }} -
+                                                    ₦{{ $plan->price }}
+                                                    ({{ $plan->validity }})
+                                                </li>
+                                            @endforeach
+                                            <li class="mt-1 d-grid"> <button
+                                                    class="btn btn-secondary btn-lg lh-xl">Check More</button></li>
+                                        </ul>
+                                    </div>
+                                    <div
+                                        class="p-x1 text-center price-card-1 bg-transparent border mb-3 mb-md-0 rounded-2 pricing-card">
+                                        @php
+                                            $network = App\Models\Network_list::where('label', '=', 'mtn')->first();
+                                            $plan = App\Models\plan_type_list::where(
+                                                'network_id',
+                                                '=',
+                                                $network->network_id,
+                                            )->get();
                                         @endphp
                                         <p class="fs-10 text-uppercase mb-3 fw-bold text-primary ls-2"> MTN</p>
                                         <ul class="list-unstyled fs-8 lh-xl fw-light text-1100 ls-1">
-                                            @foreach ($sme as $sme)
-                                                <li class="py-x1 px-1 border-top"> {{ $sme->size }} -
-                                                    ₦{{ $sme->price + ($profit->profit/100 * $sme->price) }} ({{ $sme->validity }} ) </li>
+                                            @foreach ($plan as $plan)
+                                                @php
+                                                    $sme = App\Models\Dataplans::where(
+                                                        'plan_id',
+                                                        '=',
+                                                        $plan->id,
+                                                    )->get();
+                                                    $profit = App\Models\Profits::where(
+                                                        'plan_type',
+                                                        '=',
+                                                        $plan->id,
+                                                    )->first();
+                                                @endphp
+                                                <h4>{{ $plan->plan_type }}</h4>
+                                                <hr>
+                                                @foreach ($sme as $sme)
+                                                    <li class="py-x1 px-1 border-top"> {{ $sme->size }} -
+                                                        ₦{{ $sme->price + ($profit->profit / 100) * $sme->price }}
+                                                        ({{ $sme->validity }})
+                                                    </li>
+                                                @endforeach
                                             @endforeach
                                             <li class="mt-1 d-grid"> <button
                                                     class="btn btn-secondary btn-lg lh-xl">Check More</button></li>
@@ -402,19 +446,38 @@
                                     </div>
                                     <div class="p-x1 text-center bg-white border shadow-sm rounded-2 pricing-card">
                                         @php
-                                            $sme = App\Models\Dataplans::where('plan_id', '=', 8)->get();
-                                            $profit = App\Models\Profits::where('plan_type', '=', 1)->first();
-
+                                            $network = App\Models\Network_list::where('label', '=', 'airtel')->first();
+                                            $plan = App\Models\plan_type_list::where(
+                                                'network_id',
+                                                '=',
+                                                $network->network_id,
+                                            )->get();
                                         @endphp
                                         <p class="fs-10 text-uppercase mb-3 fw-bold text-primary ls-2"> Airtel</p>
 
                                         <ul class="list-unstyled fs-8 lh-xl fw-light text-1100 ls-1">
-                                            @if ($sme != null)
+                                            @foreach ($plan as $plan)
+                                                @php
+                                                    $sme = App\Models\Dataplans::where(
+                                                        'plan_id',
+                                                        '=',
+                                                        $plan->id,
+                                                    )->get();
+                                                    $profit = App\Models\Profits::where(
+                                                        'plan_type',
+                                                        '=',
+                                                        $plan->id,
+                                                    )->first();
+                                                @endphp
+                                                <h4>{{ $plan->plan_type }}</h4>
+                                                <hr>
                                                 @foreach ($sme as $sme)
                                                     <li class="py-x1 px-1 border-top"> {{ $sme->size }} -
-                                                        ₦{{ $sme->price + ($profit->profit/100 * $sme->price) }} ({{ $sme->validity }} ) </li>
+                                                        ₦{{ $sme->price + ($profit->profit / 100) * $sme->price }}
+                                                        ({{ $sme->validity }})
+                                                    </li>
                                                 @endforeach
-                                            @endif
+                                            @endforeach
                                             <li class="mt-1 d-grid"> <button
                                                     class="btn btn-secondary btn-lg lh-xl">Check More</button></li>
                                         </ul>
@@ -435,19 +498,39 @@
                                     <div
                                         class="p-x1 text-center price-card-1 bg-transparent border mb-3 mb-md-0 rounded-2 pricing-card">
                                         @php
-                                            $sme = App\Models\Dataplans::where('plan_id', '=', 8)->get();
-                                            $profit = App\Models\Profits::where('plan_type', '=', 1)->first();
-
+                                            $network = App\Models\Network_list::where('label', '=', 'glo')->first();
+                                            $plan = App\Models\plan_type_list::where(
+                                                'network_id',
+                                                '=',
+                                                $network->network_id,
+                                            )->get();
                                         @endphp
                                         <p class="fs-10 text-uppercase mb-3 fw-bold text-primary ls-2"> GLO</p>
 
+
                                         <ul class="list-unstyled fs-8 lh-xl fw-light text-1100 ls-1">
-                                            @if ($sme != null)
+                                            @foreach ($plan as $plan)
+                                                @php
+                                                    $sme = App\Models\Dataplans::where(
+                                                        'plan_id',
+                                                        '=',
+                                                        $plan->id,
+                                                    )->get();
+                                                    $profit = App\Models\Profits::where(
+                                                        'plan_type',
+                                                        '=',
+                                                        $plan->id,
+                                                    )->first();
+                                                @endphp
+                                                <h4>{{ $plan->plan_type }}</h4>
+                                                <hr>
                                                 @foreach ($sme as $sme)
                                                     <li class="py-x1 px-1 border-top"> {{ $sme->size }} -
-                                                        ₦{{ $sme->price + ($profit->profit/100 * $sme->price)}} ({{ $sme->validity }} ) </li>
+                                                        ₦{{ $sme->price + ($profit->profit / 100) * $sme->price }}
+                                                        ({{ $sme->validity }})
+                                                    </li>
                                                 @endforeach
-                                            @endif
+                                            @endforeach
                                             <li class="mt-1 d-grid"> <button
                                                     class="btn btn-secondary btn-lg lh-xl">Check More</button></li>
                                         </ul>
@@ -455,17 +538,37 @@
                                     <div class="p-x1 text-center bg-white border shadow-sm rounded-2 pricing-card">
                                         <p class="fs-10 text-uppercase mb-3 fw-bold text-primary ls-2"> 9Moblie</p>
                                         @php
-                                            $sme = App\Models\Dataplans::where('plan_id', '=', 11)->get();
-                                            $profit = App\Models\Profits::where('plan_type', '=', 1)->first();
-
+                                            $network = App\Models\Network_list::where('label', '=', '9mobile')->first();
+                                            $plan = App\Models\plan_type_list::where(
+                                                'network_id',
+                                                '=',
+                                                $network->network_id,
+                                            )->get();
                                         @endphp
+
                                         <ul class="list-unstyled fs-8 lh-xl fw-light text-1100 ls-1">
-                                            @if ($sme != null)
+                                            @foreach ($plan as $plan)
+                                                @php
+                                                    $sme = App\Models\Dataplans::where(
+                                                        'plan_id',
+                                                        '=',
+                                                        $plan->id,
+                                                    )->get();
+                                                    $profit = App\Models\Profits::where(
+                                                        'plan_type',
+                                                        '=',
+                                                        $plan->id,
+                                                    )->first();
+                                                @endphp
+                                                <h4>{{ $plan->plan_type }}</h4>
+                                                <hr>
                                                 @foreach ($sme as $sme)
                                                     <li class="py-x1 px-1 border-top"> {{ $sme->size }} -
-                                                        ₦{{ $sme->price + ($profit->profit/100 * $sme->price)}} ({{ $sme->validity }} ) </li>
+                                                        ₦{{ $sme->price + ($profit->profit / 100) * $sme->price }}
+                                                        ({{ $sme->validity }})
+                                                    </li>
                                                 @endforeach
-                                            @endif
+                                            @endforeach
                                             <li class="mt-1 d-grid"> <button
                                                     class="btn btn-secondary btn-lg lh-xl">Check More</button></li>
                                         </ul>
@@ -535,7 +638,7 @@
                                         <div class="accordion-collapse collapse show" id="collapse1"
                                             data-bs-parent="#accordion">
                                             <div class="accordion-body lh-xl pt-0 pb-x1">Every data plan on the
-                                                platform lasts for 30  unless stated otherwise.</div>
+                                                platform lasts for 30 unless stated otherwise.</div>
                                         </div>
                                     </div>
                                     <div class="accordion-item">
@@ -547,10 +650,12 @@
                                                 wallet?</button></h2>
                                         <div class="accordion-collapse collapse" id="collapse2"
                                             data-bs-parent="#accordion">
-                                            <div class="accordion-body lh-xl pt-0 pb-x1">You can fund your account by transferring money to your automatic virtual account or manually by using the manual option displayed on your dashboard.</div>
+                                            <div class="accordion-body lh-xl pt-0 pb-x1">You can fund your account by
+                                                transferring money to your automatic virtual account or manually by
+                                                using the manual option displayed on your dashboard.</div>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="heading4"><button
                                                 class="accordion-button fs-8 lh-lg fw-bold pt-x1 pb-2 collapsed"
@@ -573,8 +678,9 @@
                                                 airtime cheaper?</button></h2>
                                         <div class="accordion-collapse collapse" id="collapse5"
                                             data-bs-parent="#accordion">
-                                            <div class="accordion-body lh-xl pt-0 pb-x1">Yes. Prices are cheaper for vendors. 
-They get all the services at a discounted price.</div>
+                                            <div class="accordion-body lh-xl pt-0 pb-x1">Yes. Prices are cheaper for
+                                                vendors.
+                                                They get all the services at a discounted price.</div>
                                         </div>
                                     </div>
                                 </div>
