@@ -391,7 +391,7 @@
                                         class="p-x1 text-center price-card-1 bg-transparent border mb-3 mb-md-0 rounded-2 pricing-card">
                                         @php
                                             
-                                            $plan = App\Models\preorder::all();
+                                            $plan = App\Models\preorders::all();
                                         @endphp
                                         <p class="fs-10 text-uppercase mb-3 fw-bold text-primary ls-2"> MTN (PREORDER
                                             PLAN)</p>
