@@ -399,7 +399,7 @@
                                             @foreach ($plan as $plan)
                                                 <li class="py-x1 px-1 border-top"> {{ $plan->size }} -
                                                     ₦{{ $plan->price }}
-                                                    ({{ $plan->validity }})
+                                                    ({{ $plan->validity }} Days)
                                                 </li>
                                             @endforeach
                                             <li class="mt-1 d-grid"> <button
