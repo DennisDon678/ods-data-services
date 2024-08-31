@@ -4716,7 +4716,7 @@
 
                 </div> <!-- end intro-content__text -->
 
-                <div class="intro-content__bottom">
+                {{-- <div class="intro-content__bottom">
 
                     <div class="intro-content__counter-wrap">
                         <h4>Launching in</h4>
@@ -4728,7 +4728,7 @@
                         </div> <!-- end counter -->
                     </div> <!-- end intro-content__counter-wrap -->
 
-                </div> <!-- end intro-content__bottom -->
+                </div> <!-- end intro-content__bottom --> --}}
 
             </div> <!-- end column -->
 
