@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\DirectMail;
 use App\Models\Admin;
 use App\Models\Airtime_to_cash;
 use App\Models\AirtimetoCashConfig;
@@ -25,6 +26,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
 {
@@ -113,7 +115,7 @@ class AdminController extends Controller
     $user = User::find($request->id);
 
     try {
-
+      Mail::to($user->email,explode(' ', $user->name)[0])->send(new DirectMail($request->message, explode(' ', $user->name)[0]));
       return redirect()->back()->with('message', "Message has been sent");
     } catch (\Exception $e) {
       return redirect()->back()->with('message', 'Something went wrong');
