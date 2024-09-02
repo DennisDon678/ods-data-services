@@ -21,8 +21,15 @@
                     <div class="card-header">
                         <h6 class="title" id="exampleModalLabel">Airtime to Cash</h6>
                     </div>
-                    <div class="col-12 col-lg-12 mb-2 p-2">
-                        <form action="/user/airtime-to-cash" id="convertForm">.
+                    <div class="col-12 col-lg-12 mb-2 p-2 ">
+                        <div class="bg-info p-3 rounded mb-3">
+                            <ul>
+                                <li>This is not an automatic process.</li>
+                                <li>You will have to manually Transfer the airtime to the assigned number.</li>
+                                <li>Use this USSD code for your airtime transfer <span class="text-light">*321*1#</span></li>
+                            </ul>
+                        </div>
+                        <form action="/user/airtime-to-cash" id="convertForm">
                             @csrf
                             <div class="modal-body">
                                 <div class="row">
