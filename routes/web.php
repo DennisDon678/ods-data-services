@@ -248,6 +248,10 @@ Route::middleware('admin')->prefix('admin')->group(function () {
     Route::get('/pending_funding/approve',[AdminController::class,'approve_pending_funding']);
     Route::get('/pending_funding/reject',[AdminController::class,'reject_pending_funding']);
 
+    // automatic config
+    Route::get('/config/automatic',[AdminController::class, 'config_automatic']);
+    Route::post('/config/automatic',[AdminController::class,'update_automatic']);
+
     // Notification
     Route::get('/notification',[AdminController::class,'notification']); 
     Route::post('/notification',[AdminController::class,'update_notification']); 

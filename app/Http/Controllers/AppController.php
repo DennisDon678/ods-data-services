@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Automatic_funding_config;
 use App\Models\Notification;
 use App\Models\Transactions;
 use App\Models\User;
@@ -32,13 +33,14 @@ class AppController extends Controller
             }else{
                 // Create a new transaction
                 if($type == 'SUCCESSFUL_TRANSACTION'){
+                    $auto_config = Automatic_funding_config::first();
                     $user = User::find($info->product->reference);
-                    $user->balance = $user->balance + $info->settlementAmount;
+                    $user->balance = $user->balance + ($info->amountPaid - $auto_config->charge_amount);
                     $user->save();
                     Transactions::create([
                         'user_id' => $info->product->reference,
                         'transaction_id' => $info->transactionReference,
-                        'amount' => $info->settlementAmount,
+                        'amount' => ($info->amountPaid - $auto_config->charge_amount),
                         'status' => 'successful',
                         'title' => "Wallet Funding",
                         'type' => "deposit",
