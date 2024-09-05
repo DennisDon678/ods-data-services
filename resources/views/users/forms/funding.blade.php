@@ -69,7 +69,7 @@
                                                 <h6>Bank Name: <em class="text-muted">{{ $account->bank_name }}</em>
                                                 </h6>
                                             </div>
-                                            <small>Charges applies</small>
+                                            <small>Charges applies (&#8358;{{number_format(App\Models\Automatic_funding_config::first()->charge_amount,2)}})</small>
                                         </div>
                                     @else
                                         <div class="col-12">

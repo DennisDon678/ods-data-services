@@ -6,6 +6,7 @@ use App\Mail\DirectMail;
 use App\Models\Admin;
 use App\Models\Airtime_to_cash;
 use App\Models\AirtimetoCashConfig;
+use App\Models\Automatic_funding_config;
 use App\Models\Cable_list;
 use App\Models\Cable_plan;
 use App\Models\Contact_config;
@@ -992,6 +993,20 @@ class AdminController extends Controller
     }
 
     $user->save();
+
+    return redirect()->back();
+  }
+
+  public function config_automatic(){
+    $auto_config = Automatic_funding_config::first();
+    return view('admin.config_automatic', compact('auto_config'));
+  }
+
+  public function update_automatic(Request $request){
+    $auto_config = Automatic_funding_config::first();
+
+    $auto_config->charge_amount = $request->charge_amount;
+    $auto_config->save();
 
     return redirect()->back();
   }

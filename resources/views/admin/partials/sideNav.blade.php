@@ -170,6 +170,11 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="/admin/config/automatic">
+                                <i class="fe fe-briefcase"></i> Automatic Funding Config
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="/admin/config/contact">
                                 <i class="fe fe-message-square"></i> Contact Config
                             </a>
