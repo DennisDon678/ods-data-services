@@ -23,6 +23,7 @@ use App\Models\Transactions;
 use App\Models\User;
 use App\Models\User_notification;
 use App\Models\Vendor_config;
+use App\Models\Vendors_preorder_config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -1007,6 +1008,20 @@ class AdminController extends Controller
 
     $auto_config->charge_amount = $request->charge_amount;
     $auto_config->save();
+
+    return redirect()->back();
+  }
+
+  public function preorder_vendor(){
+    $discount = Vendors_preorder_config::first();
+    return view('admin.preorder_vendor',compact('discount'));
+  }
+
+  public function update_preorder_vendor(Request $request){
+    $discount = Vendors_preorder_config::first();
+    $discount->discount_amount = $request->discount_amount;
+
+    $discount->save();
 
     return redirect()->back();
   }

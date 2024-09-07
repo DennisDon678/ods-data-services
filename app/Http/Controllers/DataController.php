@@ -10,6 +10,7 @@ use App\Models\Profits;
 use App\Models\Transactions;
 use App\Models\User;
 use App\Models\Vendor_config;
+use App\Models\Vendors_preorder_config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -170,9 +171,10 @@ class DataController extends Controller
 
         if ($plan) {
             if (Auth::user()->is_vendor) {
-                $vendor_config = Vendor_config::first();
+                $vendor_config = Vendors_preorder_config::first();
 
-                $price = $plan->price - ($plan->price * ($vendor_config->discount / 100));
+
+                $price = $plan->price - ($vendor_config->discount_amount);
             } else {
                 $price = $plan->price;
             }
@@ -186,11 +188,20 @@ class DataController extends Controller
     {
         $plan = Preorder::find($request->data_id);
 
+        if (Auth::user()->is_vendor) {
+            $vendor_config = Vendors_preorder_config::first();
+
+
+            $price = $plan->price - ($vendor_config->discount_amount);
+        } else {
+            $price = $plan->price;
+        }
+
         // Charge the User Account
         $user = User::find($request->user()->id);
         // check if user has enough balance
-        if ($user->balance >= $plan->price) {
-            $user->balance -= $plan->price;
+        if ($user->balance >= $price) {
+            $user->balance -= $price;
             $user->save();
 
             // Created Preordered 
@@ -211,7 +222,7 @@ class DataController extends Controller
                     'transaction_id' => $reference,
                     'title' => 'MTN ' . $plan->size . ' Pre-Order',
                     'type' => "preorder",
-                    'amount' => $plan->price,
+                    'amount' => $price,
                     'status' => 'processing',
                     'size' => $plan->size,
                     'number' => $request->number,
