@@ -165,6 +165,11 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="/admin/config/preorder-vendor">
+                                <i class="fe fe-award"></i>PreOrder Vendors Config
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="/admin/config/funding">
                                 <i class="fe fe-briefcase"></i> Manual Funding Config
                             </a>

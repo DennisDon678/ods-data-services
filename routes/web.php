@@ -270,7 +270,8 @@ Route::middleware('admin')->prefix('admin')->group(function () {
     Route::get('/generate_cable_plan_types',[CableManagerController::class,'generate_cable_plan_types']);
     Route::get('/generate_cable_plans',[CableManagerController::class,'generate_cable_plan']);
 
-
+    Route::get('/config/preorder-vendor',[AdminController::class,'preorder_vendor']);
+    Route::post('/config/preorder-vendor',[AdminController::class,'update_preorder_vendor']);
 });
 
 Route::post('/monify/webhook',[AppController::class,'monify_webhook']);
