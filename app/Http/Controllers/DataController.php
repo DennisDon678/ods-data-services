@@ -172,9 +172,9 @@ class DataController extends Controller
         if ($plan) {
             if (Auth::user()->is_vendor) {
                 $vendor_config = Vendors_preorder_config::first();
+                $int_var = preg_replace('/[^0-9]/', '', $plan->size); 
 
-
-                $price = $plan->price - ($vendor_config->discount_amount);
+                $price = $plan->price - ($vendor_config->discount_amount*$int_var);
             } else {
                 $price = $plan->price;
             }
@@ -191,8 +191,9 @@ class DataController extends Controller
         if (Auth::user()->is_vendor) {
             $vendor_config = Vendors_preorder_config::first();
 
+            $int_var = preg_replace('/[^0-9]/', '', $plan->size);
 
-            $price = $plan->price - ($vendor_config->discount_amount);
+            $price = $plan->price - ($vendor_config->discount_amount * $int_var);
         } else {
             $price = $plan->price;
         }
