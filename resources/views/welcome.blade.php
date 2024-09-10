@@ -198,23 +198,32 @@
                         </div>
                     </div>
                 </section>
+                <style>
+                    .video-container {
+                        display: flex;
+                        justify-content: center;
+                    }
+
+
+                    iframe {
+                        aspect-ratio: 16 / 9;
+                        width: 100% !important;
+                    }
+                </style>
                 <section class="experience position-relative overflow-hidden" id="service">
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-12">
-                                <div class="position-relative z-1 text-center mb-8 mb-lg-9 video-player-paused"
-                                    data-video-player-container="data-video-player-container"><video
-                                        class="w-100 h-100 rounded-4" src="https://youtu.be/dbUC_FreYLk"
-                                        poster="assets/img/Hero/experiences.webp" type="youtube"
-                                        data-video-player="data-video-player"></video>
-                                    <div class="overlay position-absolute top-0 bottom-0 start-0 end-0 rounded-4 bg-1100 object-cover"
-                                        data-overlay="data-overlay"> </div><button
-                                        class="btn play-button position-absolute justify-content-center align-items-center bg-white rounded-circle cursor-pointer"
-                                        data-play-button="data-play-button"> <img class="play-icon w-25"
-                                            src="assets/img/illustrations/play-solid.svg" alt=""
-                                            data-play-icon="data-play-icon"><img class="pause-icon w-25"
-                                            src="assets/img/illustrations/pause-solid.svg" alt=""
-                                            data-pause-icon="data-pause-icon"></button>
+                                <div class="position-relative z-1 text-center mb-8 mb-lg-9  video-container"
+                                    >
+                                    <iframe width="800" height="420"
+                                        src="https://www.youtube.com/embed/6ED6ohLvRtk?si=GcJ14uMAH2qsPzRm&controls=0"
+                                        title="YouTube video player" frameborder="0" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                        referrerpolicy="strict-origin-when-cross-origin" ></iframe>
+                                    {{-- <div
+                                        class="overlay position-absolute z-12 top-0 bottom-0 start-0 end-0 rounded-4 bg-1100 object-cover">
+                                    </div> --}}
                                     <div class="position-absolute dots d-none d-sm-block"><img class="img-fluid w-100"
                                             src="assets/img/illustrations/Dots.webp" alt=""></div>
                                 </div>
@@ -390,7 +399,7 @@
                                     <div
                                         class="p-x1 text-center price-card-1 bg-transparent border mb-3 mb-md-0 rounded-2 pricing-card">
                                         @php
-                                            
+
                                             $plan = App\Models\Preorder::all();
                                         @endphp
                                         <p class="fs-10 text-uppercase mb-3 fw-bold text-primary ls-2"> MTN (PREORDER
