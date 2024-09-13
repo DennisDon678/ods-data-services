@@ -144,8 +144,7 @@
 
 
     <script src="/sweetalert%402.1.2/dist/sweetalert.min.js"></script>
-    <script src="/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-        crossorigin="anonymous"></script>
+    <script src="/jquery-3.6.0.min.js" ></script>
     <script>
         $.ajax({
             type: "get",
