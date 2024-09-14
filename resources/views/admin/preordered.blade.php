@@ -18,7 +18,7 @@
                         <div class="col">
 
                             <!-- Pretitle -->
-                            <h6 class="header-pretitle">
+                            <h6 class="header-pretitle"> 
                                 Overview
                             </h6>
 
@@ -49,6 +49,7 @@
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Size</th>
+                                    <th scope="col">User</th>
                                     <th scope="col">phone</th>
                                     <th scope="col">Action</th>
                                 </tr>
@@ -61,6 +62,7 @@
                                     <tr>
                                         <th scope="row">{{ $sn }}</th>
                                         <td>{{ ucfirst($preorder->size) }}</td>
+                                        <td>{{App\Models\User::find($preorder->user_id)->email}}</td>
                                         <td>{{ $preorder->number }}</td>
                                         <td><a href="/admin/preorder/approve?id={{ $preorder->id }}"
                                                 class="btn btn-primary">Delivered</a></td>

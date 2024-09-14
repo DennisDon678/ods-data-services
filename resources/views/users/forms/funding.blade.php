@@ -61,15 +61,16 @@
                                     @if ($account)
                                         <div class="col-12">
                                             <div class="accountinfo">
-                                                <h5>Account Number: <em
-                                                        class="text-muted">{{ $account->account_number }}</em>
+                                                <h5>Account Number: <span
+                                                        class="text-muted">{{ $account->account_number }}</span>
                                                 </h5>
                                                 <h6 class="">Account Name: <em
                                                         class="text-muted">{{ $account->account_name }}</em> </h6>
                                                 <h6>Bank Name: <em class="text-muted">{{ $account->bank_name }}</em>
                                                 </h6>
                                             </div>
-                                            <small>Charges applies (&#8358;{{number_format(App\Models\Automatic_funding_config::first()->charge_amount,2)}})</small>
+                                            <small>Charges applies
+                                                (&#8358;{{ number_format(App\Models\Automatic_funding_config::first()->charge_amount, 2) }})</small>
                                         </div>
                                     @else
                                         <div class="col-12">
@@ -123,8 +124,14 @@
                                 <h6 class="title" id="exampleModalLabel">Manual Funding</h6>
                             </div>
                             <div class="col-12 col-lg-12 mb-2 p-2">
+                                <div class="col-lg-12 mb-2 ">
+                                    <div class="mtn p-3" style="background-color: rgba(230, 230, 76, 0.685);">
+                                        For Details on How to Use Manual Funding, Watch tutorials here. <br><a href="https://www.youtube.com/watch?v=842BypcqpTQ" class="btn btn-primary mt-2" target="blank">Click Here to watch</a>
+                                    </div>
+                                </div>
 
-                                <div class="modal-body">
+                                <div class="modal-body">,
+
                                     @php
                                         $accounts = App\Models\Manual_funding::get();
                                         $sn = 1;
@@ -133,8 +140,8 @@
                                     @forelse ($accounts as $account)
                                         <div class="col-12">
                                             <div class="accountinfo">
-                                                <h5>Account Number: <em
-                                                        class="text-muted">{{ $account->account_number }}</em>
+                                                <h5>Account Number: <span
+                                                        class="text-muted">{{ $account->account_number }}</span>
                                                 </h5>
                                                 <h6 class="">Account Name: <em
                                                         class="text-muted">{{ $account->account_name }}</em> </h6>

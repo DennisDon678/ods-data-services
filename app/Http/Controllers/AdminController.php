@@ -10,6 +10,7 @@ use App\Models\Automatic_funding_config;
 use App\Models\Cable_list;
 use App\Models\Cable_plan;
 use App\Models\Contact_config;
+use App\Models\count_preorder;
 use App\Models\Dataplans;
 use App\Models\Manual_funding;
 use App\Models\Network_list;
@@ -24,6 +25,7 @@ use App\Models\User;
 use App\Models\User_notification;
 use App\Models\Vendor_config;
 use App\Models\Vendors_preorder_config;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -745,6 +747,12 @@ class AdminController extends Controller
         'title' => "Preorder Approved",
         'description' => "Your Data preorder has been approved and delivered.",
         'status' => 0
+      ]);
+
+      count_preorder::create([
+        'from' =>$user->email,
+        'to' =>$preorder->number,
+        'quantity' =>$preorder->size,
       ]);
 
       $preorder->delete();
