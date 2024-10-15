@@ -61,19 +61,39 @@
                                     @if ($account)
                                         <div class="col-12">
                                             <div class="accountinfo">
-                                                <h5>Account Number: <em
-                                                        class="text-muted">{{ $account->account_number }}</em>
+                                                <h5>Account Number: <span
+                                                        class="text-muted">{{ $account->account_number }}</span>
                                                 </h5>
                                                 <h6 class="">Account Name: <em
                                                         class="text-muted">{{ $account->account_name }}</em> </h6>
                                                 <h6>Bank Name: <em class="text-muted">{{ $account->bank_name }}</em>
                                                 </h6>
                                             </div>
-                                            <small>Charges applies (&#8358;{{number_format(App\Models\Automatic_funding_config::first()->charge_amount,2)}})</small>
+                                            <small>Charges applies
+                                                (&#8358;{{ number_format(App\Models\Automatic_funding_config::first()->charge_amount, 2) }})</small>
                                         </div>
                                     @else
+                                        <div class="mtn p-3" style="background-color: rgba(230, 230, 76, 0.685);">
+                                            <p>Due to CBN order, we have been mandated to provide customers BVN
+                                                durig account generation. <br>
+                                                Please Note that we do not store your BVN but only Send it For CBN
+                                                validation.
+                                            </p>
+                                        </div>
                                         <div class="col-12">
-                                            <Button class="btn btn-primary" id="generateBank">Generate Account</Button>
+                                            <div class="mb-2">
+                                                <div class="form-group mb-3 position-relative check-valid">
+                                                    <div class="input-group input-group-lg">
+                                                        <div class="form-floating">
+                                                            <input type="number" placeholder="100" id="bvn"
+                                                                class="form-control border-start-0">
+                                                            <label>Enter Your BVN</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <Button class="btn btn-primary" id="generateBank">Generate
+                                                Account</Button>
                                         </div>
                                     @endif
                                 </div>
@@ -123,8 +143,34 @@
                                 <h6 class="title" id="exampleModalLabel">Manual Funding</h6>
                             </div>
                             <div class="col-12 col-lg-12 mb-2 p-2">
+                                <div class="col-lg-12 mb-2 ">
+                                    <div class="mtn p-3" style="background-color: rgba(230, 230, 76, 0.685);">
+                                        To fund your wallet:
+                                        <br>
+                                        <br>
+                                        1. Transfer the exact amount of money you want in your wallet to the displayed
+                                        account number.
+                                        <br>
+                                        <br>
+                                        2. Fill the following details:
+                                        - Amount transferred
+                                        - Your account number
+                                        - Your bank name
+                                        <br>
+                                        <br>
+                                        3. Submit the request after completing the transfer.
+                                        <br>
+                                        <br>
+                                        No Charges!
+                                        <br>
+                                        <br>
+                                        NB: Please make sure you have transferred the money before submitting the
+                                        request to avoid account restrictions.
+                                    </div>
+                                </div>
 
-                                <div class="modal-body">
+                                <div class="modal-body">,
+
                                     @php
                                         $accounts = App\Models\Manual_funding::get();
                                         $sn = 1;
@@ -133,8 +179,8 @@
                                     @forelse ($accounts as $account)
                                         <div class="col-12">
                                             <div class="accountinfo">
-                                                <h5>Account Number: <em
-                                                        class="text-muted">{{ $account->account_number }}</em>
+                                                <h5>Account Number: <span
+                                                        class="text-muted">{{ $account->account_number }}</span>
                                                 </h5>
                                                 <h6 class="">Account Name: <em
                                                         class="text-muted">{{ $account->account_name }}</em> </h6>
@@ -279,12 +325,18 @@
 
         // Generate bank
         $('#generateBank').on('click', function() {
+            const bvn = $('#bvn').val();
+
+            if (!bvn) {
+                swal("Alart!", "Enter Your BVN", "warning")
+                return
+            }
             $('#generateBank').html(
                 '<i class="fa fa-spinner fa-spin text-warning" aria-hidden="true"></i> Generating Bank Please wait .'
             );
             $.ajax({
                 type: "get",
-                url: "/user/generate_bank",
+                url: "/user/generate_bank?bvn=" + bvn,
                 success: function(response) {
                     if (response == 0) {
                         swal("Alart!", "Bank created successfully, wait while we refresh your profile.",

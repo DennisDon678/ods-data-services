@@ -88,7 +88,7 @@
                                         <div class="input-group input-group-lg">
                                             <div class="form-floating">
                                                 <input type="number" placeholder="100" id="amountPreOrder"
-                                                    required="" class="form-control border-start-0" readonly>
+                                                    required="" class="form-control border-start-0" name="amount" readonly>
                                                 <label>Enter Amount (&#8358;)</label>
                                             </div>
                                         </div>

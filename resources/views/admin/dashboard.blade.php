@@ -96,12 +96,12 @@
 
                                     <!-- Title -->
                                     <h6 class="text-uppercase text-body-secondary mb-2">
-                                        Transactions today
+                                        Preorders today
                                     </h6>
 
                                     <!-- Heading -->
                                     <span class="h2 mb-0">
-                                        35.5%
+                                        {{count(App\Models\count_preorder::whereDate('created_at', Carbon\Carbon::today())->get())}}
                                     </span>
 
                                 </div>
@@ -120,12 +120,12 @@
 
                                     <!-- Title -->
                                     <h6 class="text-uppercase text-body-secondary mb-2">
-                                        Avg. Time
+                                        Total Preoder Amount
                                     </h6>
 
                                     <!-- Heading -->
                                     <span class="h2 mb-0">
-                                        2:37
+                                        &#8358;{{App\Models\count_preorder::whereDate('created_at', Carbon\Carbon::today())->sum('price')}}
                                     </span>
 
                                 </div>

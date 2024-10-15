@@ -18,7 +18,7 @@
                         <div class="col">
 
                             <!-- Pretitle -->
-                            <h6 class="header-pretitle">
+                            <h6 class="header-pretitle"> 
                                 Overview
                             </h6>
 

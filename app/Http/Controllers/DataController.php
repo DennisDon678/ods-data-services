@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\DirectMail;
+use App\Models\Admin;
 use App\Models\Dataplans;
 use App\Models\plan_type_list;
 use App\Models\Preorder;
@@ -14,6 +16,7 @@ use App\Models\Vendors_preorder_config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Mail;
 
 class DataController extends Controller
 {
@@ -214,6 +217,7 @@ class DataController extends Controller
                 'size' => $plan->size,
                 'number' => $request->number,
                 'status' => 'processing',
+                'amount' => $price,
             ]);
 
             if ($order) {
@@ -221,13 +225,21 @@ class DataController extends Controller
                 $transaction = Transactions::create([
                     'user_id' => $request->user()->id,
                     'transaction_id' => $reference,
-                    'title' => 'MTN ' . $plan->size . ' Pre-Order',
+                    'title' =>  $plan->size . ' Pre-Order to ' . $request->number,
                     'type' => "preorder",
                     'amount' => $price,
                     'status' => 'processing',
                     'size' => $plan->size,
                     'number' => $request->number,
                 ]);
+
+                // notify admin 
+                try {
+                    $info = "You Have a pending PreOrder";
+                    Mail::to(Admin::first()->email, 'admin')->send(new DirectMail($info,'admin'));
+                }catch (\Exception $e){
+
+                }
 
                 return response()->json(0);
             } else {

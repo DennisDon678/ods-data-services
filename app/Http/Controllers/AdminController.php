@@ -10,6 +10,7 @@ use App\Models\Automatic_funding_config;
 use App\Models\Cable_list;
 use App\Models\Cable_plan;
 use App\Models\Contact_config;
+use App\Models\count_preorder;
 use App\Models\Dataplans;
 use App\Models\Manual_funding;
 use App\Models\Network_list;
@@ -24,6 +25,7 @@ use App\Models\User;
 use App\Models\User_notification;
 use App\Models\Vendor_config;
 use App\Models\Vendors_preorder_config;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -747,6 +749,19 @@ class AdminController extends Controller
         'status' => 0
       ]);
 
+      count_preorder::create([
+        'from' =>$user->email,
+        'to' =>$preorder->number,
+        'quantity' =>$preorder->size,
+        'price' => $preorder->amount,
+      ]);
+
+      try{
+        $info = "Your preorder has been delivered successfully.Remember to check your balance by dialing *3234# or *310# if you didn’t receive a message notification.";
+        Mail::to($user->email,explode(' ',$user->name)[0])->send(new DirectMail($info, explode(' ', $user->name)[0]));
+      }catch(\Exception $e){
+      }
+
       $preorder->delete();
     }
     return redirect()->back();
@@ -910,6 +925,12 @@ class AdminController extends Controller
         'status' => 'success',
         'title' => 'wallet Funding'
       ]);
+
+      try {
+        $info = "Your Manual Deposit Has been Approved. Kindly Check Your Dashboard.";
+        Mail::to($user->email, explode(' ', $user->name)[0])->send(new DirectMail($info, explode(' ', $user->name)[0]));
+      } catch (\Exception $e) {
+      }
     }
 
     return redirect()->back();
