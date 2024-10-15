@@ -753,7 +753,14 @@ class AdminController extends Controller
         'from' =>$user->email,
         'to' =>$preorder->number,
         'quantity' =>$preorder->size,
+        'price' => $preorder->amount,
       ]);
+
+      try{
+        $info = "Your preorder has been delivered successfully.Remember to check your balance by dialing *3234# or *310# if you didn’t receive a message notification.";
+        Mail::to($user->email,explode(' ',$user->name)[0])->send(new DirectMail($info, explode(' ', $user->name)[0]));
+      }catch(\Exception $e){
+      }
 
       $preorder->delete();
     }
@@ -918,6 +925,12 @@ class AdminController extends Controller
         'status' => 'success',
         'title' => 'wallet Funding'
       ]);
+
+      try {
+        $info = "Your Manual Deposit Has been Approved. Kindly Check Your Dashboard.";
+        Mail::to($user->email, explode(' ', $user->name)[0])->send(new DirectMail($info, explode(' ', $user->name)[0]));
+      } catch (\Exception $e) {
+      }
     }
 
     return redirect()->back();

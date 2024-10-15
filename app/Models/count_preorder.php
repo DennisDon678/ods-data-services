@@ -13,5 +13,6 @@ class count_preorder extends Model
         'from',
         'to',
         'quantity',
+        'price',
     ];
 }

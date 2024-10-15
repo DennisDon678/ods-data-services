@@ -6,6 +6,7 @@ use App\Models\Transactions;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class CableController extends Controller
 {
@@ -52,11 +53,13 @@ class CableController extends Controller
             $response = curl_exec($curl);
             $response = json_decode($response, true);
 
+            Log::info($response);
+
             curl_close($curl);
             if (array_key_exists('error', $response)) {
                 return response()->json(2);
             } else {
-                if ($response['Status']=='successful') {
+                if ($response['Status'] == 'successful') {
                     $user->balance = $user->balance - $request->amount;
                     $user->save();
 

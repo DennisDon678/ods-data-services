@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\DirectMail;
+use App\Models\Admin;
 use App\Models\Airtime_to_cash;
 use App\Models\Contact_config;
 use App\Models\Contacts;
@@ -15,6 +17,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use PDO;
 
 
@@ -76,7 +80,7 @@ class UserDashboardController extends Controller
         return view('users.profile');
     }
 
-    public function generate_bank()
+    public function generate_bank(Request $request)
     {
 
         // Get Oauth token
@@ -95,9 +99,11 @@ class UserDashboardController extends Controller
             "customerEmail" => Auth::user()->email,
             "customerName" => Auth::user()->name,
             "getAllAvailableBanks" => false,
+            'bvn' => $request->bvn,
             "preferredBanks" => ['232'],
         ])->json();
         // Save to database
+        Log::info($account);
         if ($account['requestSuccessful'] == true) {
             $create = Reserved_bank::create([
                 'user_id' => Auth::user()->id,
@@ -301,8 +307,20 @@ class UserDashboardController extends Controller
 
     public function add_manual_reqeust(Request $request)
     {
-        Pending_manual_fund::create($request->except('_token'));
+        // Check if user already has manual reqeust
+        if(!Pending_manual_fund::where('user_id', $request->user()->id)){
+            Pending_manual_fund::create($request->except('_token'));
 
-        return response()->json(0);
+            // notify admin 
+            try {
+                $info = "You Have a pending Manual Deposit";
+                Mail::to(Admin::first()->email, 'admin')->send(new DirectMail($info, 'admin'));
+            } catch (\Exception $e) {
+            }
+
+            return response()->json(0);
+        }else{
+            return response()->json(1);
+        }
     }
 }

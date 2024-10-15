@@ -15,6 +15,7 @@ class Preordered extends Model
         'size',
         'status',
         'network',
-        'reference'
+        'reference',
+        'amount',
     ];
 }
