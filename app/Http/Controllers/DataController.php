@@ -126,7 +126,7 @@ class DataController extends Controller
                     Transactions::create([
                         'user_id' => $request->user()->id,
                         'transaction_id' => $response['ident'],
-                        'title' => $response['plan_name'].' to '. $response['mobile_number'],
+                        'title' => $response['plan_name'].'to'. $response['mobile_number'],
                         'type' => "data",
                         'amount' => $request->amount,
                         'status' => $response['Status'],

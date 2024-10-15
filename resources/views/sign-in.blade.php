@@ -145,6 +145,8 @@
             //     $(this).removeAttr("readonly");
             // });
 
+            console.log("heree");
+
             //Registration Form
             $('#login-form').submit(function(e) {
                 e.preventDefault()
@@ -161,18 +163,17 @@
                     processData: false,
                     method: 'POST',
                     type: 'POST',
-                    success: function(resp) {
-                        console.log(resp);
-                        if (resp == 0) {
+                    success: function(res) {
+                        if (res == 0) {
                             swal('Alert!!', "Login Succesfull", "success");
                             setTimeout(function() {
                                 location.replace('/user/dashboard')
                             }, 1000)
-                        } else if (resp == 1) {
+                        } else if (res == 1) {
                             swal('Alert!!',
                                 "Incorrect {{env('APP_NAME')}} Login Details, Please Try Again with a correct one to avoid suspension.",
                                 "error");
-                        } else if (resp == 2) {
+                        } else if (res == 2) {
                             swal('Alert!!',
                                 "Incorrect password details",
                                 "error");
