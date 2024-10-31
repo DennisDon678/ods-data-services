@@ -24,17 +24,24 @@
                 <table class="table table-borderless">
                     <tbody class="">
                         @php
-                            $trans = App\Models\Transactions::where('user_id', '=', Auth::user()->id)->orderby('created_at','DESC')->paginate(5);
+                            $trans = App\Models\Transactions::where('user_id', '=', Auth::user()->id)
+                                ->orderby('created_at', 'DESC')
+                                ->paginate(10);
                         @endphp
 
                         @forelse ($trans as $tran)
+                            @php
+                                $date = new \DateTime($tran->created_at);
+                            @endphp
                             <tr class="">
                                 <td>
                                     <a href="/user/transaction/view/{{ $tran->transaction_id }}">
                                         <div class="row align-items-center p-4 border rounded">
                                             <div class="col-8 ps-0">
                                                 <h6 class="mb-0 bold">{{ strtoupper($tran->title) }}</h6>
-                                                <p class="text-secondary small">TRANSACTION {{ strtoupper($tran->status) }}</p>
+                                                <p class="text-secondary small">TRANSACTION
+                                                    {{ strtoupper($tran->status) }} <br>
+                                                    <small style="color: rgb(29, 23, 24)">{{ $date->format('M d, Y h:i A') }}</small></p>
                                             </div>
 
                                             <div class="col-4">
@@ -49,6 +56,7 @@
                         @empty
                         @endforelse
                     </tbody>
+                    {{ $trans->links('pagination::bootstrap-5') }}
                 </table>
             </div>
         </div>

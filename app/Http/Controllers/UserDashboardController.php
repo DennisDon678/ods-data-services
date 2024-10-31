@@ -308,7 +308,7 @@ class UserDashboardController extends Controller
     public function add_manual_reqeust(Request $request)
     {
         // Check if user already has manual reqeust
-        if(!Pending_manual_fund::where('user_id', $request->user()->id)){
+        if(!Pending_manual_fund::where('user_id', $request->user()->id)->first()){
             Pending_manual_fund::create($request->except('_token'));
 
             // notify admin 

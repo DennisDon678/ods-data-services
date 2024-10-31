@@ -124,10 +124,7 @@
                                             </div>
                                         </div>
                                         <div class="payWithCard">
-                                            <button class="btn btn-primary" id="paywithcard"
-                                                onclick="payWithMonnify()">Pay
-                                                With
-                                                Card</button>
+                                            <button class="btn btn-primary" id="paywithcard">Pay With Card</button>
                                         </div>
                                     </div>
                                 </div>
@@ -262,67 +259,9 @@
     <script type="text/javascript" src="https://sdk.monnify.com/plugin/monnify.js"></script>
     <script src="/sweetalert%402.1.2/dist/sweetalert.min.js"></script>
     <script src="/jquery-3.6.0.min.js"></script>
+    <script src="https://js.paystack.co/v2/inline.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/short-unique-id@5.2.0/dist/short-unique-id.min.js"></script>
     <script>
-        function payWithMonnify() {
-            const amount = $('#fundamount').val();
-            // console.log(amount);
-            MonnifySDK.initialize({
-                amount: amount,
-                currency: "NGN",
-                reference: new String((new Date()).getTime()),
-                customerFullName: "{{ Auth::user()->name }}",
-                customerEmail: "{{ Auth::user()->email }}",
-                apiKey: "{{ env('MONIFY_KEY') }}",
-                contractCode: "{{ env('MONIFY_CONTRACT') }}",
-                paymentDescription: "Wallet Funding",
-
-                onLoadStart: () => {
-                    console.log("loading has started");
-                },
-                onLoadComplete: () => {
-                    console.log("SDK is UP");
-                },
-                onComplete: function(response) {
-                    //Implement what happens when the transaction is completed.
-                    if (response.status == "SUCCESS") {
-                        const reference = response.transactionReference
-                        const amount = response.authorizedAmount;
-                        const status = response.status
-
-
-                        $.ajax({
-                            type: "post",
-                            url: "/user/fund-wallet/create",
-                            data: {
-                                _token: "{{ csrf_token() }}",
-                                reference: reference,
-                                amount: amount,
-                                status: status,
-                            },
-                            success: function(response) {
-                                console.log(response)
-                            }
-                        });
-                    }
-                },
-                onClose: function(data) {
-                    //Implement what should happen when the modal is closed here
-                    console.log(data);
-                    if (data.status == "SUCCESS") {
-                        swal("Alert!", "You have successfully funded your wallet", "success")
-
-                        // reload page
-                        setTimeout(function() {
-                            location.replace('/user/dashboard')
-                        }, 1000)
-                    } else {
-                        swal("Alert!", "You have canceled this transaction", "error")
-                    }
-                }
-            });
-        }
-
-
         // Generate bank
         $('#generateBank').on('click', function() {
             const bvn = $('#bvn').val();
@@ -379,7 +318,9 @@
                             location.replace('/user/dashboard')
                         }, 1000)
                     } else if (response == 1) {
-                        swal('Alert!!', "Insufficient Balance", "error");
+                        swal('Alert!!',
+                            "You Have A request pending approval. Kindly wait while we process that.",
+                            "error");
                         $('#submitManual').html(
                             `Submit Request`
                         );
@@ -392,6 +333,74 @@
                 }
             });
         })
+
+        $('#paywithcard').click(() => {
+            $("#paywithcard").html(`
+                <i class="fa fa-spinner fa-spin text-warning" aria-hidden="true"></i> Initializing payment Please wait ...
+            `)
+
+            // check for empty amount field
+            const amount = $('#fundamount').val();
+            if (!amount) {
+                swal('Invalid Input', 'Please enter a valid amount', 'error')
+                $("#paywithcard").html(`Pay with card`);
+                return;
+            }
+
+            const uid = new ShortUniqueId({ length: 10 });
+            const ref = uid.rnd();
+            const popup = new PaystackPop()
+            popup.newTransaction({
+                key: '{{ env('PAYSTACK_PUBLIC_KEY') }}',
+                email: '{{ Auth::user()->email }}',
+                amount: (amount * 100) + ((amount * 100)*0.015),
+                reference: ref,
+                onLoad: (response) => {
+                    // create a new deposit transaction
+                    $.ajax({
+                        type: "get",
+                        url: `/user/paystack/create-transaction?reference=${ref}&amount=${amount}`,
+                        success: function (response) {
+                            console.log(response);
+                        }
+                    });
+                },
+                onSuccess: function(transaction) {
+                    $("#paywithcard").html(`
+                    <i class="fa fa-spinner fa-spin text-warning" aria-hidden="true"></i> Processing Payment Please wait ...`);
+                    $.ajax({
+                        type: "get",
+                        url: `/user/paystack/update-transaction?reference=${ref}&status=${transaction.status}`,
+                        success: function (response) {
+                            $('#paywithcard').html('Pay with card');
+                            $('#fundamount').val('');
+                            swal('Success', "Payment Completed successfully", 'success');
+                        }
+                    });
+                },
+                onClose: function(transaction) {
+                    $("#paywithcard").html(`
+                    <i class="fa fa-spinner fa-spin text-warning" aria-hidden="true"></i> Closing Payment Please wait ...`);
+
+                    $.ajax({
+                        type: "get",
+                        url: `/user/paystack/update-transaction?reference=${ref}&status=canceled`,
+                        success: function (response) {
+                            $('#paywithcard').html('Pay with card');
+                            $('#fundamount').val('');
+                            swal('Error', "Payment was cancelled", 'error');
+                        }
+                    });
+                },
+                onError: function(transaction) {
+                    $("#paywithcard").html(`Pay with card`);
+                    console.log('Transaction failed')
+                    console.log(transaction)
+                }
+            })
+
+
+        });
     </script>
     @include('users.partials.mobileNav')
     @include('users.partials.scripts')
