@@ -39,4 +39,4 @@
  <script src="/dashboard/assets/js/header-title.js"></script>
  <script src="/dashboard/assets/js/finance-dashboard.js"></script>
 
-
+<script src="https://vjs.zencdn.net/8.16.1/video.min.js"></script>
