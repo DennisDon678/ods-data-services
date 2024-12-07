@@ -42,14 +42,16 @@ class PaystackController extends Controller
 
     public function update_transaction(Request $request){
         $trans = Transactions::where('transaction_id', $request->reference)->first();
+        if($request->status == strtoupper('success')){
+            if($trans->status == "pending"){
+                Log::info('Transaction processed via Callback');
+                $user = User::find($trans->user_id);
+                $user->balance += $trans->amount;
+                $user->save();
 
-        if($request->status == 'success'){
-            $user = User::find(Auth::user()->id);
-            $user->balance += $trans->amount;
-            $user->save();
-
-            $trans->status = strtolower('successful');
-            $trans->save();
+                $trans->status = strtolower('successful');
+                $trans->save();
+            }
         }else{
             $trans->status = strtolower($request->status);
             $trans->save();
@@ -61,16 +63,16 @@ class PaystackController extends Controller
     }
     
     public function webhookAction(Request $request){
-        if ((strtoupper($_SERVER['REQUEST_METHOD']) != 'POST') || !array_key_exists('HTTP_X_PAYSTACK_SIGNATURE', $_SERVER))
-            exit();
+        // if ((strtoupper($_SERVER['REQUEST_METHOD']) != 'POST') || !array_key_exists('HTTP_X_PAYSTACK_SIGNATURE', $_SERVER))
+        //     exit();
 
-        // Retrieve the request's body
+        // // Retrieve the request's body
         $input = @file_get_contents("php://input");
 
 
-        // validate event do all at once to avoid timing attack
-        if ($_SERVER['HTTP_X_PAYSTACK_SIGNATURE'] !== hash_hmac('sha512', $input, env('PAYSTACK_SECRET_KEY')))
-        exit();
+        // // validate event do all at once to avoid timing attack
+        // if ($_SERVER['HTTP_X_PAYSTACK_SIGNATURE'] !== hash_hmac('sha512', $input, env('PAYSTACK_SECRET_KEY')))
+        // exit();
 
         http_response_code(200);
 
@@ -80,6 +82,24 @@ class PaystackController extends Controller
 
         // obtain data from event
         $data = $event->data;
-        Log::info('PaymentEvent:'.$data);
+        sleep(20);
+        // Get transaction
+        $transaction = Transactions::where('transaction_id', $data->reference)->first();
+
+        if ($transaction && $transaction->status == 'pending'){
+            if($data->status == 'success'){
+                $user = User::find($transaction->user_id);
+                $user->balance += $transaction->amount;
+                $user->save();
+
+                // update transaction status to successful
+                $transaction->status = strtolower('successful');
+                $transaction->save();
+            }
+        }else{
+            // update transaction status to successful
+            $transaction->status = strtolower($data->status);
+            $transaction->save();
+        }
     }
 }

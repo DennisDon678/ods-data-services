@@ -44,9 +44,7 @@ class UserDashboardController extends Controller
 
         if ($trans) {
             $user = User::find($request->user()->id);
-            $user->balance = $user->balance + $request->amount;
-            $user->save();
-
+            
             // create notification and save to database
             Notification::create([
                 'user_id' => $request->user()->id,

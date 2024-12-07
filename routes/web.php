@@ -151,7 +151,7 @@ Route::middleware('auth')->prefix('user')->group(function () {
 
 });
 
-Route::get('/paystack/webhooks', [PaystackController::class, 'webhookAction']);
+Route::post('/paystack/webhooks', [PaystackController::class, 'webhookAction']);
 
 
 // Admin Management Panel

@@ -29,7 +29,7 @@ class CableController extends Controller
     public function buy_cable_subscription(Request $request)
     {
         $user = User::find($request->user()->id);
-        if ($user->balance >= $request->amount) {
+        if ($user->balance >= abs($request->amount)) {
             $curl = curl_init();
             curl_setopt_array($curl, array(
                 CURLOPT_URL => env('API_BASE_URL') . 'cablesub/',
@@ -60,7 +60,7 @@ class CableController extends Controller
                 return response()->json(2);
             } else {
                 if ($response['Status'] == 'successful') {
-                    $user->balance = $user->balance - $request->amount;
+                    $user->balance = $user->balance - abs($request->amount);
                     $user->save();
 
                     // create transaction

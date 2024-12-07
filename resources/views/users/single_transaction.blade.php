@@ -35,7 +35,7 @@
                                 <div class="upper-part text-center mb-5">
                                     <i class="bi bi-arrow-right-circle-fill text-primary" style="font-size:70px"></i>
                                     <div class="mt-1">
-                                        <h5>{{ strtoupper($trans->title) }}</h5>
+                                        <h5>{{ $trans->title ? strtoupper($trans->title):'' }}</h5>
                                     </div>
                                 </div>
 
