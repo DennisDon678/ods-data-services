@@ -7,6 +7,7 @@ use App\Http\Controllers\CableController;
 use App\Http\Controllers\CableManagerController;
 use App\Http\Controllers\DataController;
 use App\Http\Controllers\DataManagerController;
+use App\Http\Controllers\mailerLiteController;
 use App\Http\Controllers\PaystackController;
 use App\Http\Controllers\TvController;
 use App\Http\Controllers\UserDashboardController;
@@ -284,3 +285,15 @@ Route::middleware('admin')->prefix('admin')->group(function () {
 });
 
 Route::post('/monify/webhook',[AppController::class,'monify_webhook']);
+
+// mailerLite
+Route::get('/test',function(){
+    $mailerlite = new mailerLiteController();
+    dd($mailerlite->getSubscribers());
+
+});
+
+Route::get('/sync-users',function(){
+    $mailerlite = new mailerLiteController();
+    dd($mailerlite->syncUsers());
+});

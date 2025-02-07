@@ -37,6 +37,15 @@ class AuthController extends Controller
             'referral_id' => Str::random(6) . '_' . Str::random(3),
         ]);
 
+        if($user){
+            $mailer = new mailerLiteController();
+            $mailer->subscribe(
+                $request->firstname,
+                $request->lastname,
+                $request->email
+            );
+        }
+
         if ($user && Auth::attempt([
             'email' => $request->email,
             'password' => $request->password,
