@@ -80,7 +80,7 @@ class AuthController extends Controller
             $user = User::where('email', '=', $request->email)->first();
             if ($user) {
                 // send Mail to user with code
-                $code =  rand(0, 999999);
+                $code =  $token = str_pad(rand(0, 999999), 6, '0', STR_PAD_LEFT);
 
                 $code_save = reset_code::create([
                     'user_id' => $user->id,

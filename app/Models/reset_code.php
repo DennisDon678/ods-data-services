@@ -12,6 +12,6 @@ class reset_code extends Model
         'user_id',
         'code',
         'email',
-        'expired_at',
+        'expire_at',
     ];
 }
