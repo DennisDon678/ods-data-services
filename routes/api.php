@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\PaystackController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -25,6 +26,12 @@ Route::prefix('auth')->group(function(){
 });
 
 Route::middleware('auth:sanctum')->group(function(){
-
+    Route::prefix('user')->group(function(){
+        Route::get('/',[UserController::class, 'user_account_info']);
+        Route::post('/update_pin_code', [UserController::class, 'update_pin_code']);
+        Route::post('/reset_password', [UserController::class, 'reset_password']);
+        Route::get('/check_tag_availability', [UserController::class, 'check_tag_availability']);
+        Route::post('/set_tag', [UserController::class, 'set_tag']);
+    });
 });
 Route::post('/paystack/webhooks', [PaystackController::class, 'webhookAction']);
