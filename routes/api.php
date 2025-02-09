@@ -32,6 +32,10 @@ Route::middleware('auth:sanctum')->group(function(){
         Route::post('/reset_password', [UserController::class, 'reset_password']);
         Route::get('/check_tag_availability', [UserController::class, 'check_tag_availability']);
         Route::post('/set_tag', [UserController::class, 'set_tag']);
+
+        // Wallet funding
+        Route::get('/wallet_funding_details', [UserController::class, 'wallet_funding_details']);
+        Route::post('submit_manual_funding', [UserController::class, 'submit_manual_funding']);
     });
 });
 Route::post('/paystack/webhooks', [PaystackController::class, 'webhookAction']);

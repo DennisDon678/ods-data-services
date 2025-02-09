@@ -3,21 +3,29 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Mail\DirectMail;
+use App\Models\Admin;
+use App\Models\Manual_funding;
+use App\Models\Pending_manual_fund;
+use App\Models\Reserved_bank;
 use App\Models\User;
 use App\Models\User_Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
-    public function user_account_info(Request $request){
+    public function user_account_info(Request $request)
+    {
         $user = $request->user();
         return response()->json([
             'user' => $user
         ]);
     }
 
-    public function update_pin_code(Request $request){
+    public function update_pin_code(Request $request)
+    {
         // validation
         $request->validate([
             'pin_code' => 'required|numeric|digits:4'
@@ -26,18 +34,19 @@ class UserController extends Controller
         $user->pin = $request->pin_code;
 
 
-        if($user->save()){
+        if ($user->save()) {
             return response()->json([
                 'message' => 'Pin code updated successfully'
             ]);
-        }else{
+        } else {
             return response()->json([
                 'error' => 'Failed to update pin code'
             ]);
         }
     }
 
-    public function reset_password(Request $request){
+    public function reset_password(Request $request)
+    {
         // validation
         $request->validate([
             'password' => 'required|min:8|confirmed',
@@ -45,55 +54,109 @@ class UserController extends Controller
         $user = User::find($request->user()->id);
         $user->password =  Hash::make($request->password);
 
-        if($user->save()){
+        if ($user->save()) {
             return response()->json([
-               'message' => 'Password reset successfully'
+                'message' => 'Password reset successfully'
             ]);
-        } else{
+        } else {
             return response()->json([
                 'error' => 'Failed to reset password'
             ]);
         }
     }
 
-    public function check_tag_availability(Request $request){
+    public function check_tag_availability(Request $request)
+    {
         // validation
         $request->validate([
-            'tag' =>'required|alpha_dash|max:20'
+            'tag' => 'required|alpha_dash|max:20'
         ]);
         $tag = User_Tag::where('tag', $request->tag)->first();
-        if($tag){
+        if ($tag) {
             return response()->json([
                 'error' => 'Tag is already taken'
             ]);
-        } else{
+        } else {
             return response()->json([
-               'message' => 'Tag is available'
+                'message' => 'Tag is available'
             ]);
         }
     }
 
-    public function set_tag(Request $request){
+    public function set_tag(Request $request)
+    {
         // validation
         $request->validate([
-            'tag' =>'required|alpha_dash|max:20'
+            'tag' => 'required|alpha_dash|max:20'
         ]);
-        $user = User_Tag::where('user_id',$request->user()->id)->first();
+        $user = User_Tag::where('user_id', $request->user()->id)->first();
 
-        if(!$user){
+        if (!$user) {
             $user = new User_Tag();
             $user->user_id = $request->user()->id;
         }
         $user->tag = $request->tag;
 
-        if($user->save()){
+        if ($user->save()) {
             return response()->json([
-               'message' => 'Tag set successfully'
+                'message' => 'Tag set successfully'
             ]);
-        } else{
+        } else {
             return response()->json([
                 'error' => 'Failed to set tag'
             ]);
         }
+    }
+
+    public function wallet_funding_details(Request $request)
+    {
+        $automatic_wallet = Reserved_bank::where('user_id', $request->user()->id)->select(
+            'account_name',
+            'account_number',
+            'bank_name'
+        )->all();
+        $manual_funding = Manual_funding::select(
+            'account_name',
+            'account_number',
+            'bank_name'
+        )->all();
+
+        return response()->json([
+            'automatic_wallet' => $automatic_wallet,
+            'manual_funding' => $manual_funding
+        ]);
+    }
+
+    public function submit_manual_funding(Request $request)
+    {
+        // validation
+        $request->validate([
+            'sender_name' => 'required|string|max:255',
+            'sender_bank' => 'required|string|max:255',
+            'amount' => 'required|numeric',
+        ]);
+
+        $pending_funding = Pending_manual_fund::create([
+            'user_id' => $request->user()->id,
+            'sender_name' => $request->sender_name,
+            'sender_bank' => $request->sender_bank,
+            'amount' => abs($request->amount),
+        ]);
+
+        // create a pending transaction
+
+        // notify admin 
+        try {
+            $info = "You Have a pending Manual Deposit";
+            Mail::to(Admin::first()->email, 'admin')->send(new DirectMail($info, 'admin'));
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Failed to send notification to admin'
+            ]);
+        }
+
+        return response()->json([
+            'message' => 'Manual funding request submitted successfully'
+        ]);
     }
 }
