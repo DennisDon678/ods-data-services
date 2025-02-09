@@ -85,10 +85,21 @@ class DataController extends Controller
         // return response()->json($request->all());
         // Check Users Balance
         $user = User::find($request->user()->id);
-        $plan = Dataplans::find($request->plan_id);
+        $plan = Dataplans::where('data_id',$request->plan_id)->first();
+        $profit = Profits::where('plan_type', '=', $plan->plan_id)->first();
+        // $amount = abs($request->amount);
+        $profit =  ($profit->profit / 100) * $plan->price;
+        if (Auth::user()->is_vendor) {
+            $vendor_config = Vendor_config::first();
+
+            $price = ($plan->price + $profit) - (($plan->price + $profit) * ($vendor_config->discount / 100));
+        } else {
+            $price = $plan->price + $profit;
+        }
+        $amount = (int)$price;
 
 
-        if ($user->balance >= $request->amount) {
+        if ($user->balance >= $amount) {
             $curl = curl_init();
             curl_setopt_array($curl, array(
                 CURLOPT_URL => env('API_BASE_URL') . 'data/',
@@ -120,15 +131,15 @@ class DataController extends Controller
 
                 if ($response['Status'] == 'successful') {
                     // debit User's account
-                    $user->balance = $user->balance - $request->amount;
+                    $user->balance = $user->balance - $amount;
                     $user->save();
                     // create transaction
                     Transactions::create([
                         'user_id' => $request->user()->id,
                         'transaction_id' => $response['ident'],
-                        'title' => $response['plan_name'].'to'. $response['mobile_number'],
+                        'title' => $response['plan_name'] . 'to' . $response['mobile_number'],
                         'type' => "data",
-                        'amount' => $request->amount,
+                        'amount' => $amount,
                         'status' => $response['Status'],
                         'number' => $response['mobile_number'],
                         'size' => $response['plan_name'],
@@ -142,7 +153,7 @@ class DataController extends Controller
                         'transaction_id' => $response['ident'],
                         'title' => 'Data Purchase',
                         'type' => "data",
-                        'amount' => $request->amount,
+                        'amount' => $amount,
                         'status' => $response['Status'],
                         'number' => $response['mobile_number'],
                         'size' => $response['plan_name'],
@@ -175,9 +186,9 @@ class DataController extends Controller
         if ($plan) {
             if (Auth::user()->is_vendor) {
                 $vendor_config = Vendors_preorder_config::first();
-                $int_var = preg_replace('/[^0-9]/', '', $plan->size); 
+                $int_var = preg_replace('/[^0-9]/', '', $plan->size);
 
-                $price = $plan->price - ($vendor_config->discount_amount*$int_var);
+                $price = $plan->price - ($vendor_config->discount_amount * $int_var);
             } else {
                 $price = $plan->price;
             }
@@ -236,9 +247,8 @@ class DataController extends Controller
                 // notify admin 
                 try {
                     $info = "You Have a pending PreOrder";
-                    Mail::to(Admin::first()->email, 'admin')->send(new DirectMail($info,'admin'));
-                }catch (\Exception $e){
-
+                    Mail::to(Admin::first()->email, 'admin')->send(new DirectMail($info, 'admin'));
+                } catch (\Exception $e) {
                 }
 
                 return response()->json(0);

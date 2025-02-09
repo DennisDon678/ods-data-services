@@ -7,6 +7,8 @@ use App\Http\Controllers\CableController;
 use App\Http\Controllers\CableManagerController;
 use App\Http\Controllers\DataController;
 use App\Http\Controllers\DataManagerController;
+use App\Http\Controllers\mailerLiteController;
+use App\Http\Controllers\PaystackController;
 use App\Http\Controllers\TvController;
 use App\Http\Controllers\UserDashboardController;
 use App\Models\Admin;
@@ -142,7 +144,15 @@ Route::middleware('auth')->prefix('user')->group(function () {
     // Ajax for cable subscriptions
     Route::get('/validate_subscriber', [CableController::class, 'validate_subscriber']);
     Route::post('/buy_cable_subscription', [CableController::class, 'buy_cable_subscription']);
+
+    // Paystack
+    // Route::get('/paystack/init', [PaystackController::class, 'init']);
+    Route::get('/paystack/create-transaction', [PaystackController::class, 'create_transaction']);
+    Route::get('/paystack/update-transaction', [PaystackController::class, 'update_transaction']);
+
 });
+
+Route::post('/paystack/webhooks', [PaystackController::class, 'webhookAction']);
 
 
 // Admin Management Panel
@@ -275,3 +285,15 @@ Route::middleware('admin')->prefix('admin')->group(function () {
 });
 
 Route::post('/monify/webhook',[AppController::class,'monify_webhook']);
+
+// mailerLite
+Route::get('/test',function(){
+    $mailerlite = new mailerLiteController();
+    dd($mailerlite->getSubscribers());
+
+});
+
+Route::get('/sync-users',function(){
+    $mailerlite = new mailerLiteController();
+    dd($mailerlite->syncUsers());
+});

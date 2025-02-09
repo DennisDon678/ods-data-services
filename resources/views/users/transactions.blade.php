@@ -45,7 +45,10 @@
                                                         <div class="col-8 ps-0">
                                                             <h6 class="mb-0 bold">{{ strtoupper($tran->title) }}</h6>
                                                             <p class="text-secondary small">TRANSACTION
-                                                                {{ strtoupper($tran->status) }}</p>
+                                                                {{ strtoupper($tran->status) }} <br>
+                                                                <small
+                                                                    style="color: rgb(29, 23, 24)">{{ $date->format('M d, Y h:i A') }}</small>
+                                                            </p>
                                                         </div>
 
                                                         <div class="col-4">
@@ -60,6 +63,7 @@
                                     @empty
                                     @endforelse
                                 </tbody>
+                                {{ $trans->links('pagination::bootstrap-5') }}
                             </table>
                         </div>
                     </div>
