@@ -4,6 +4,8 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\external\vtu;
+use App\Models\Cable_list;
+use App\Models\Cable_plan;
 use App\Models\Dataplans;
 use App\Models\Network_list;
 use App\Models\plan_type_list;
@@ -171,6 +173,88 @@ class transactions extends Controller
         }
 
         return response()->json($plans);
+    }
+
+    public function cable_providers() {
+        $cables = Cable_list::all();
+        return response()->json($cables);
+    }
+
+    public function cable_plans(Request $request){
+        $plans = Cable_plan::where('cable_id','=', $request->cable_id)->get();
+        return response()->json($plans);
+    }
+
+    public function validate_iuc(Request $request){
+        $iuc = $request->iuc;
+        $cablename = $request->cablename;
+        $response = vtu::validate_iuc($iuc,$cablename);
+        return response()->json($response);
+    }
+
+    public function buy_cable_subscription(Request $request)
+    {
+        // Validate the request
+        $this->validate($request, [
+            'cablename' => 'required|string',
+            'plan' => 'required|string',
+            'iuc' => 'required|numeric',
+            'pin' => 'required|digits:4',
+        ]);
+
+        // Check pin
+        $correct_pin = $this->correct_pin($request->pin);
+        if (!$correct_pin) {
+            return response()->json(['message' => 'Incorrect pin'], 403);
+        }
+
+        // Get user details
+        $user = User::find($request->user()->id);
+
+        // Check user balance
+        $enough_balance = $this->enough_balance($request->amount, $user->balance);
+        if (!$enough_balance) {
+            return response()->json(['message' => 'Insufficient balance'], 403);
+        }
+
+        // Execute request from VTU
+        $response = vtu::buy_cable(
+            $request->cablename,
+            $request->plan,
+            $request->iuc
+        );
+
+        // Check for errors in the response
+        if (array_key_exists('error', $response)) {
+            return response()->json($response);
+        }
+
+        // Handle unsuccessful response
+        if ($response['Status'] != 'successful') {
+            return response()->json(['message' => 'Failed to process transaction. Check that number is valid and active. Else contact our support for assistance.'], 403);
+        }
+
+        // Debit user account
+        $this->debit_user_account($request->amount);
+
+        // Create transaction record
+        ModelsTransactions::create([
+            'user_id' => $request->user()->id,
+            'transaction_id' => $response['ident'],
+            'title' => 'Cable Purchase',
+            'type' => "cable",
+            'amount' => $request->amount,
+            'status' => $response['Status'],
+            'number' => $response['smart_card_number'],
+            'size' => $response['package'],
+        ]);
+
+        return response()->json([
+            'transaction_id' => $response['ident'],
+            'amount' => $request->amount,
+            'smart_card_number' => $request->iuc,
+            'cablename' => $request->cablename,
+        ]);
     }
 
     public function enough_balance($amount, $user_balance)

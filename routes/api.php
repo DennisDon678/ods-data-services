@@ -51,8 +51,17 @@ Route::middleware('auth:sanctum')->group(function(){
         // buy data
         Route::post('/buy_data', [transactions::class, 'buy_data']);
 
+        // Get Cable Providers
+        Route::get('/cable_providers', [transactions::class, 'cable_providers']);
+
+        // Validate cable IUC
+        Route::get('/validate_iuc', [transactions::class, 'validate_iuc']);
+
+        // Cable Plans
+        Route::get('/cable_plans', [transactions::class, 'cable_plans']);
+
         // buy tv
-        Route::post('/buy_tv', [transactions::class, 'buy_tv']);
+        Route::post('/buy_cable', [transactions::class, 'buy_cable_subscription']);
 
         // buy preorders
         Route::post('/buy_preorders', [transactions::class, 'buy_preorders']);
