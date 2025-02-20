@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\api\transactions;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\PaystackController;
 use Illuminate\Http\Request;
@@ -36,6 +37,25 @@ Route::middleware('auth:sanctum')->group(function(){
         // Wallet funding
         Route::get('/wallet_funding_details', [UserController::class, 'wallet_funding_details']);
         Route::post('submit_manual_funding', [UserController::class, 'submit_manual_funding']);
+    });
+
+    Route::prefix('transaction')->group(function(){
+        // network providers 
+        Route::get('get_networks',[transactions::class, 'get_networks']);
+        // buy airtime
+        Route::post('/buy_airtime', [transactions::class, 'buy_airtime']);
+
+        // Get all network plans
+        Route::get('/network_plans', [transactions::class, 'network_plans']);
+
+        // buy data
+        Route::post('/buy_data', [transactions::class, 'buy_data']);
+
+        // buy tv
+        Route::post('/buy_tv', [transactions::class, 'buy_tv']);
+
+        // buy preorders
+        Route::post('/buy_preorders', [transactions::class, 'buy_preorders']);
     });
 });
 Route::post('/paystack/webhooks', [PaystackController::class, 'webhookAction']);

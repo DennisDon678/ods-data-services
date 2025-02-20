@@ -10,4 +10,9 @@ class Network_list extends Model
     use HasFactory;
 
     protected $fillable = ['label','network_id'];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at'
+    ];
 }
