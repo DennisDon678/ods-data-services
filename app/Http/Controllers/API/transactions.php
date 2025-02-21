@@ -175,20 +175,23 @@ class transactions extends Controller
         return response()->json($plans);
     }
 
-    public function cable_providers() {
+    public function cable_providers()
+    {
         $cables = Cable_list::all();
         return response()->json($cables);
     }
 
-    public function cable_plans(Request $request){
-        $plans = Cable_plan::where('cable_id','=', $request->cable_id)->get();
+    public function cable_plans(Request $request)
+    {
+        $plans = Cable_plan::where('cable_id', '=', $request->cable_id)->get();
         return response()->json($plans);
     }
 
-    public function validate_iuc(Request $request){
+    public function validate_iuc(Request $request)
+    {
         $iuc = $request->iuc;
         $cablename = $request->cablename;
-        $response = vtu::validate_iuc($iuc,$cablename);
+        $response = vtu::validate_iuc($iuc, $cablename);
         return response()->json($response);
     }
 
@@ -254,6 +257,93 @@ class transactions extends Controller
             'amount' => $request->amount,
             'smart_card_number' => $request->iuc,
             'cablename' => $request->cablename,
+        ]);
+    }
+
+    public function validate_meter(Request $request)
+    {
+        // Validate the request
+        $this->validate($request, [
+            'meter_number' => 'required|numeric',
+            'disco' => 'required|string',
+            'plan' => 'required|string',
+        ]);
+
+        $meter_number = $request->meter_number;
+        $disco = $request->disco;
+        $plan = $request->plan;
+        $response = vtu::validate_meter($disco, $meter_number, $plan);
+        return response()->json($response);
+    }
+
+    public function electricity_providers() {}
+
+    public function buy_electricity(Request $request)
+    {
+        // Validate the request
+        $this->validate($request, [
+            'disco' => 'required',
+            'plan' => 'required',
+            'meter_number' => 'required|numeric',
+            'pin' => 'required|digits:4',
+            'amount' => 'required|numeric',
+        ]);
+
+        // Check pin
+        $correct_pin = $this->correct_pin($request->pin);
+        if (!$correct_pin) {
+            return response()->json(['message' => 'Incorrect pin'], 403);
+        }
+
+        // Get user details
+        $user = User::find($request->user()->id);
+
+        // Check user balance
+        $enough_balance = $this->enough_balance($request->amount, $user->balance);
+        if (!$enough_balance) {
+            return response()->json(['message' => 'Insufficient balance'], 403);
+        }
+
+        // Execute request from VTU
+        $response = vtu::buy_electricity(
+            $request->disco,
+            $request->meter_number,
+            $request->plan,
+            $request->amount
+        );
+
+        return response()->json($response);
+
+        // Check for errors in the response
+        if (array_key_exists('error', $response)) {
+            return response()->json($response);
+        }
+
+        // Handle unsuccessful response
+        if ($response['Status'] != 'Successful') {
+            return response()->json(['message' => 'Failed to process transaction. Check that number is valid and active. Else contact our support for assistance.'], 403);
+        }
+
+        // Debit user account
+        $this->debit_user_account($request->amount);
+
+        // Create transaction record
+        ModelsTransactions::create([
+            'user_id' => $request->user()->id,
+            'transaction_id' => $response['ident'],
+            'title' => 'Electricity Purchase',
+            'type' => "electricity",
+            'amount' => $request->amount,
+            'status' => $response['Status'],
+            'number' => $request->meter_number,
+            'size' => $request->disco,
+        ]);
+
+        return response()->json([
+            'transaction_id' => $response['ident'],
+            'amount' => $request->amount,
+            'meter_number' => $request->meter_number,
+            'disco' => $request->disco,
         ]);
     }
 

@@ -112,4 +112,47 @@ class vtu extends Controller
 
         return $response;
     }
+
+    public static function validate_meter($disco, $meter_number, $plan)
+    {
+        $response = Http::get(env('API_URI') . '/ajax/validate_meter_number', [
+            'meternumber' => $meter_number,
+            'disconame' => $disco,
+            'mtype' => $plan,
+        ])->json();
+
+        if ($response['invalid']) {
+            return response()->json(1);
+        } else {
+            return response()->json($response);
+        }
+    }
+
+    public static function buy_electricity($disco, $meter_number, $plan, $amount)
+    {
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => env('API_BASE_URL') . 'billpayment',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => `{
+            "disco_name":$disco,
+            "amount":500,
+            "meter_number": $meter_number,
+            "MeterType": $plan
+            }`,
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: Token ' . env('API_TOKEN'),
+                'Content-Type: application/json'
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        return   json_decode($response, true);
+    }
 }

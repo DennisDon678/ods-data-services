@@ -60,6 +60,15 @@ Route::middleware('auth:sanctum')->group(function(){
         // Cable Plans
         Route::get('/cable_plans', [transactions::class, 'cable_plans']);
 
+        // electricity Providers
+        Route::get('/electricity_providers', [transactions::class, 'electricity_providers']);
+
+        // Validate Meter
+        Route::get('/validate_meter', [transactions::class, 'validate_meter']);
+
+        // buy electricity
+        Route::post('/buy_electricity', [transactions::class, 'buy_electricity']);
+
         // buy tv
         Route::post('/buy_cable', [transactions::class, 'buy_cable_subscription']);
 
