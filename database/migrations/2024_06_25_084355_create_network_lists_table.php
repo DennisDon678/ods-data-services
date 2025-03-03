@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('network_lists', function (Blueprint $table) {
             $table->id();
             $table->string('label');
+            $table->string('network_id');
             $table->timestamps();
         });
     }

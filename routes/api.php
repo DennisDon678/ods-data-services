@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\api\transactions;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\PaystackController;
 use Illuminate\Http\Request;
@@ -32,6 +33,50 @@ Route::middleware('auth:sanctum')->group(function(){
         Route::post('/reset_password', [UserController::class, 'reset_password']);
         Route::get('/check_tag_availability', [UserController::class, 'check_tag_availability']);
         Route::post('/set_tag', [UserController::class, 'set_tag']);
+
+        // Wallet funding
+        Route::get('/wallet_funding_details', [UserController::class, 'wallet_funding_details']);
+        Route::post('submit_manual_funding', [UserController::class, 'submit_manual_funding']);
+    });
+
+    Route::prefix('transaction')->group(function(){
+        // network providers 
+        Route::get('get_networks',[transactions::class, 'get_networks']);
+        // buy airtime
+        Route::post('/buy_airtime', [transactions::class, 'buy_airtime']);
+
+        // Get all network plans
+        Route::get('/network_plans', [transactions::class, 'network_plans']);
+
+        // buy data
+        Route::post('/buy_data', [transactions::class, 'buy_data']);
+
+        // Get Cable Providers
+        Route::get('/cable_providers', [transactions::class, 'cable_providers']);
+
+        // Validate cable IUC
+        Route::get('/validate_iuc', [transactions::class, 'validate_iuc']);
+
+        // Cable Plans
+        Route::get('/cable_plans', [transactions::class, 'cable_plans']);
+
+        // electricity Providers
+        Route::get('/electricity_providers', [transactions::class, 'electricity_providers']);
+
+        // Validate Meter
+        Route::get('/validate_meter', [transactions::class, 'validate_meter']);
+
+        // buy electricity
+        Route::post('/buy_electricity', [transactions::class, 'buy_electricity']);
+
+        // buy tv
+        Route::post('/buy_cable', [transactions::class, 'buy_cable_subscription']);
+
+        // buy preorders
+        Route::post('/buy_preorders', [transactions::class, 'buy_preorders']);
+
+        // get all transactions
+        Route::get('/all_transactions', [transactions::class, 'all_transactions']);
     });
 });
 Route::post('/paystack/webhooks', [PaystackController::class, 'webhookAction']);

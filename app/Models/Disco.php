@@ -5,19 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Dataplans extends Model
+class Disco extends Model
 {
     use HasFactory;
-
     protected $fillable = [
-        'data_id',
-        'price',
-        'plan_id',
-        'validity',
-        'size',
+        'disco_name'
     ];
 
-    protected $hidden =[
+    protected $hidden = [
         'created_at',
         'updated_at'
     ];

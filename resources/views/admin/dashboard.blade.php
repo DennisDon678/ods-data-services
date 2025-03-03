@@ -125,7 +125,7 @@
 
                                     <!-- Heading -->
                                     <span class="h2 mb-0">
-                                        &#8358;{{App\Models\count_preorder::whereDate('created_at', Carbon\Carbon::today())->sum('price')}}
+                                        {{-- &#8358;{{App\Models\count_preorder::whereDate('created_at', Carbon\Carbon::today())->sum('price')}} --}}
                                     </span>
 
                                 </div>

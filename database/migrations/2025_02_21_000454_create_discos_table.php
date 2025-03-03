@@ -13,11 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('profits', function (Blueprint $table) {
+        Schema::create('discos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('plan_type');
-            $table->string('profit');
-            $table->foreign('plan_type')->references('id')->on('plan_type_lists')->onDelete('cascade');
+            $table->string('disco_name');
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('profits');
+        Schema::dropIfExists('discos');
     }
 };
