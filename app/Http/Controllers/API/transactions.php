@@ -347,6 +347,12 @@ class transactions extends Controller
         ]);
     }
 
+    public function all_transactions(Request $request)
+    {
+        $transactions = ModelsTransactions::where('user_id', $request->user()->id)->paginate(10);
+        return response()->json($transactions);
+    }
+
     public function enough_balance($amount, $user_balance)
     {
         if ($amount <= $user_balance) {

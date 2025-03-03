@@ -142,7 +142,7 @@ class vtu extends Controller
             CURLOPT_CUSTOMREQUEST => 'POST',
             CURLOPT_POSTFIELDS => `{
             "disco_name":$disco,
-            "amount":500,
+            "amount":$amount,
             "meter_number": $meter_number,
             "MeterType": $plan
             }`,

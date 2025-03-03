@@ -74,6 +74,9 @@ Route::middleware('auth:sanctum')->group(function(){
 
         // buy preorders
         Route::post('/buy_preorders', [transactions::class, 'buy_preorders']);
+
+        // get all transactions
+        Route::get('/all_transactions', [transactions::class, 'all_transactions']);
     });
 });
 Route::post('/paystack/webhooks', [PaystackController::class, 'webhookAction']);
