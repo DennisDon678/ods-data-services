@@ -157,4 +157,15 @@ class AuthController extends Controller
             return response()->json(1);
         }
     }
+
+    public function staff_sign_in(Request $request){
+        if (Auth::guard('staff')->attempt([
+            'email' => $request->email,
+            'password' => $request->password,
+        ])) {
+            return response()->json(0);
+        } else {
+            return response()->json(1);
+        }
+    }
 }

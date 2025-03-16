@@ -258,7 +258,7 @@
                             }
 
                             if(response == 2){
-                                swal('Alert!!', "An error occured please contact support", "error");
+                                swal('Alert!!', "This Service is not available at the moment. Please try again later", "error");
                                 $('#buyBtn').html(
                                     `Buy`
                                 );

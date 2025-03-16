@@ -20,6 +20,7 @@ use App\Models\plan_type_list;
 use App\Models\Preorder;
 use App\Models\Preordered;
 use App\Models\Profits;
+use App\Models\Staff;
 use App\Models\Transactions;
 use App\Models\User;
 use App\Models\User_notification;
@@ -44,9 +45,9 @@ class AdminController extends Controller
 
   public function users(Request $request)
   {
-    if(isset($request->q)){
-      $users = User::where('email','=',$request->q)->orwhere('phone', '=',$request->q)->paginate(10);
-    }else{
+    if (isset($request->q)) {
+      $users = User::where('email', '=', $request->q)->orwhere('phone', '=', $request->q)->paginate(10);
+    } else {
       $users = User::paginate(20);
     }
 
@@ -119,7 +120,7 @@ class AdminController extends Controller
     $user = User::find($request->id);
 
     try {
-      Mail::to($user->email,explode(' ', $user->name)[0])->send(new DirectMail($request->message, explode(' ', $user->name)[0]));
+      Mail::to($user->email, explode(' ', $user->name)[0])->send(new DirectMail($request->message, explode(' ', $user->name)[0]));
       return redirect()->back()->with('message', "Message has been sent");
     } catch (\Exception $e) {
       return redirect()->back()->with('message', 'Something went wrong');
@@ -750,16 +751,16 @@ class AdminController extends Controller
       ]);
 
       count_preorder::create([
-        'from' =>$user->email,
-        'to' =>$preorder->number,
-        'quantity' =>$preorder->size,
+        'from' => $user->email,
+        'to' => $preorder->number,
+        'quantity' => $preorder->size,
         'price' => $preorder->amount,
       ]);
 
-      try{
+      try {
         $info = "Your preorder has been delivered successfully.Remember to check your balance by dialing *3234# or *310# if you didn’t receive a message notification.";
-        Mail::to($user->email,explode(' ',$user->name)[0])->send(new DirectMail($info, explode(' ', $user->name)[0]));
-      }catch(\Exception $e){
+        Mail::to($user->email, explode(' ', $user->name)[0])->send(new DirectMail($info, explode(' ', $user->name)[0]));
+      } catch (\Exception $e) {
       }
 
       $preorder->delete();
@@ -1001,9 +1002,9 @@ class AdminController extends Controller
 
   public function update_profile(Request $request)
   {
- 
+
     $user = Admin::first();
-    
+
     if ($request->type == 'info') {
       $user->name = $request->name;
       $user->email = $request->email;
@@ -1019,12 +1020,14 @@ class AdminController extends Controller
     return redirect()->back();
   }
 
-  public function config_automatic(){
+  public function config_automatic()
+  {
     $auto_config = Automatic_funding_config::first();
     return view('admin.config_automatic', compact('auto_config'));
   }
 
-  public function update_automatic(Request $request){
+  public function update_automatic(Request $request)
+  {
     $auto_config = Automatic_funding_config::first();
 
     $auto_config->charge_amount = $request->charge_amount;
@@ -1033,12 +1036,14 @@ class AdminController extends Controller
     return redirect()->back();
   }
 
-  public function preorder_vendor(){
+  public function preorder_vendor()
+  {
     $discount = Vendors_preorder_config::first();
-    return view('admin.preorder_vendor',compact('discount'));
+    return view('admin.preorder_vendor', compact('discount'));
   }
 
-  public function update_preorder_vendor(Request $request){
+  public function update_preorder_vendor(Request $request)
+  {
     $discount = Vendors_preorder_config::first();
     $discount->discount_amount = $request->discount_amount;
 
@@ -1047,4 +1052,70 @@ class AdminController extends Controller
     return redirect()->back();
   }
 
+  public function staff()
+  {
+    $staffs = Staff::all();
+    return view('admin.staff', compact('staffs'));
+  }
+
+  public function add_staff(Request $request)
+  {
+    // validate email for uniqueness
+    $request->validate([
+      'email' => 'unique:staff'
+    ]);
+
+    $staff = Staff::create($request->except('_token'));
+
+    if ($staff) {
+      // send mail to staff with their logins
+      try {
+        $info = "Your Staff account has been created. Your login details are:<br> Email: " . $staff->email . "<br> Password: " . $request->password;
+        Mail::to($staff->email, explode(' ', $staff->name)[0])->send(new DirectMail($info, explode(' ', $staff->name)[0]));
+      } catch (\Exception $e) {
+      }
+    }
+    return redirect()->back();
+  }
+
+  public function new_staff()
+  {
+    return view('admin.new_staff');
+  }
+
+  public function delete_staff(Request $request)
+  {
+    $staff = Staff::find($request->id);
+    $staff->delete();
+
+    return redirect()->back();
+  }
+
+  public function staff_dashboard()
+  {
+    // return all pending manual funding
+    $pendings = Pending_manual_fund::all();
+    return view('staff.dashboard', compact('pendings'));
+  }
+
+  public function staff_profile(Request $request)
+  {
+    $user = Auth::guard('staff')->user();
+    return view('staff.profile', compact('user'));
+  }
+
+  public function update_staff_profile(Request $request)
+  {
+    $user = Staff::where('id', '=', Auth::guard('staff')->user()->id)->first();
+
+
+    if (!password_verify($request->old_password, $user->password)) {
+      return redirect()->back()->with('error', 'Old Password is incorrect');
+    }
+    $user->password = Hash::make($request->password);
+
+    $user->save();
+
+    return redirect()->back();
+  }
 }
