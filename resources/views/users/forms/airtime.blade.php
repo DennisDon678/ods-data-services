@@ -164,7 +164,7 @@
                                 $('#buyBtn').html(
                                     `Buy Now`
                                 );
-                                swal('Alert!!', "An error occured please contact admin",
+                                swal('Alert!!', "This Service is not available at the moment. Please try again later",
                                     "error");
                             }
                         }

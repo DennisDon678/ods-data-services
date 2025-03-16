@@ -72,6 +72,12 @@ Route::prefix('/auth')->group(function () {
         return view('admin.login');
     })->name('admin_login');
 
+    Route::get('staffs', function () {
+        return view('staff.login');
+    })->name('staff_login');
+
+    Route::post('/staff-sign-in',[AuthController::class, 'staff_sign_in']);
+
     Route::post('/admin-sign-in',[AuthController::class, 'admin_sign_in']);
 });
 
@@ -166,6 +172,10 @@ Route::get('create_admin', function () {
 
 Route::get('/admins', function () {
     return redirect('/auth/admin');
+});
+
+Route::get('staffs', function () {
+    return redirect('/auth/staffs');
 });
 
 Route::middleware('admin')->prefix('admin')->group(function () {
@@ -282,6 +292,22 @@ Route::middleware('admin')->prefix('admin')->group(function () {
 
     Route::get('/config/preorder-vendor',[AdminController::class,'preorder_vendor']);
     Route::post('/config/preorder-vendor',[AdminController::class,'update_preorder_vendor']);
+
+    // staff 
+    Route::get('/staffs',[AdminController::class,'staff']);
+    Route::get('/new-staff',[AdminController::class,'new_staff']);
+    Route::post('/new-staff',[AdminController::class,'add_staff']);
+    Route::get('/staff/delete',[AdminController::class,'delete_staff']);
+});
+
+Route::prefix('staff')->middleware('staff')->group(function(){
+    Route::get('/dashboard',[AdminController::class,'staff_dashboard']);
+    Route::get('/profile',[AdminController::class,'staff_profile']);
+    Route::post('/profile',[AdminController::class,'update_staff_profile']);
+
+    // funding management
+    Route::get('/pending_funding/approve',[AdminController::class,'approve_pending_funding']);
+    Route::get('/pending_funding/reject',[AdminController::class,'reject_pending_funding']);
 });
 
 Route::post('/monify/webhook',[AppController::class,'monify_webhook']);

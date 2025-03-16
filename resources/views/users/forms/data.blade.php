@@ -296,7 +296,7 @@
                                 class="border-start-0 btn btn-primary mb-2">`
                                 );
                             }else if(response == 2){
-                                swal('Alert!!', "An error occured please contact support", "error");
+                                swal('Alert!!', "This Service is not available at the moment. Please try again later.", "error");
                                 $('#buyBtn').html(
                                     `<input type="submit" value="Buy Now"
                                 class="border-start-0 btn btn-primary mb-2">`

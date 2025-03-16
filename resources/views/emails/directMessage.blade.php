@@ -11,7 +11,7 @@
     <h4>Message From {{env('APP_NAME')}}</h4>
     <p>Dear {{ $username }},</p>
     <hr>
-    <p>{{$info}}</p>
+    <p>{!! $info !!}</p>
     <p>{{ env('APP_NAME') }} Team</p>
 </body>
 </html>

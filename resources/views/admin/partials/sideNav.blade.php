@@ -185,6 +185,36 @@
                             </a>
                         </li>
                     </ul>
+                    <!-- Divider -->
+                    <hr class="navbar-divider my-3">
+
+                    <!-- Heading -->
+                    <h6 class="navbar-heading">
+                        Staff Management
+                    </h6>
+
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#sidebarAuth" data-bs-toggle="collapse" role="button"
+                                aria-expanded="false" aria-controls="sidebarAuth">
+                                <i class="fe fe-list"></i> Staffs management
+                            </a>
+                            <div class="collapse" id="sidebarAuth">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="/admin/staffs" class="nav-link">
+                                            Staffs
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/admin/new-staff" class="nav-link">
+                                            Add a Staff
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
 
                     <!-- Divider -->
                     <hr class="navbar-divider my-3">
