@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
-use App\Http\Controllers\api\transactions;
+use App\Http\Controllers\API\transactions;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\PaystackController;
 use Illuminate\Http\Request;
