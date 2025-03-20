@@ -77,6 +77,9 @@ Route::middleware('auth:sanctum')->group(function(){
 
         // get all transactions
         Route::get('/all_transactions', [transactions::class, 'all_transactions']);
+
+        // get electricity providers
+        Route::get('/electricity_providers', [transactions::class, 'electricity_providers']);
     });
 });
 Route::post('/paystack/webhooks', [PaystackController::class, 'webhookAction']);
