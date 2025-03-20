@@ -276,7 +276,57 @@ class transactions extends Controller
         return response()->json($response);
     }
 
-    public function electricity_providers() {}
+    public function electricity_providers()
+    {
+        return response()->json([
+            'providers' => [
+                [
+                    'id' => 1,
+                    'name' => 'Ikeja Electric'
+                ],
+                [
+                    'id' => 2,
+                    'name' => 'Eko Electric'
+                ],
+                [
+                    'id' => 3,
+                    'name' => 'Abuja Electric'
+                ],
+                [
+                    'id' => 4,
+                    'name' => 'Kano Electric'
+                ],
+                [
+                    'id' => 5,
+                    'name' => 'Enugu Electric'
+                ],
+                [
+                    'id' => 6,
+                    'name' => 'Port Harcourt Electric'
+                ],
+                [
+                    'id' => 7,
+                    'name' => 'Ibadan Electric'
+                ],
+                [
+                    'id' => 8,
+                    'name' => 'Kaduna Electric'
+                ],
+                [
+                    'id' => 9,
+                    'name' => 'Jos Electric'
+                ],
+                [
+                    'id' => 10,
+                    'name' => 'Benin Electric'
+                ],
+                [
+                    'id' => 11,
+                    'name' => 'Yola Electric'
+                ],
+            ]
+        ]);
+    }
 
     public function buy_electricity(Request $request)
     {
