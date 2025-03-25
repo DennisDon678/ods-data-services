@@ -15,4 +15,11 @@ class Reserved_bank extends Model
         'account_number',
         'bank_name',
     ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'id',
+        'user_id'
+    ];
 }

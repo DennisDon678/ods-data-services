@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\Monnify;
 use App\Http\Controllers\API\transactions;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\PaystackController;
@@ -80,6 +81,19 @@ Route::middleware('auth:sanctum')->group(function(){
 
         // get electricity providers
         Route::get('/electricity_providers', [transactions::class, 'electricity_providers']);
+
+        
+
+    });
+
+    // monnify Deposit system
+    Route::prefix('deposit')->group(function(){
+        Route::post('/initiate_deposit', [Monnify::class, 'initiate_deposit']);
+        Route::post('/verify_deposit', [Monnify::class, 'verify_deposit']);
+        Route::get('/get_banks/{reference}', [Monnify::class, 'create_bank_account']);
+        Route::get('/verify_deposit', [Monnify::class, 'verify_payment']);
+        Route::post('/dedicated_account', [Monnify::class, 'dedicated_account']);
+        Route::get('/dedicated_account', [Monnify::class, 'get_dedicated_account']);
     });
 });
 Route::post('/paystack/webhooks', [PaystackController::class, 'webhookAction']);
