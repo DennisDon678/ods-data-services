@@ -64,7 +64,7 @@ class Monnify extends Controller
 
         $trans = Transactions::create([
             'user_id' => $request->user()->id,
-            'transaction_id' => $request->reference,
+            'transaction_id' => $reference,
             'title' => "Wallet Funding",
             'type' => "deposit",
             'amount' => $request->amount,
