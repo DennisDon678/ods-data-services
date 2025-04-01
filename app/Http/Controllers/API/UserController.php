@@ -110,19 +110,14 @@ class UserController extends Controller
 
     public function wallet_funding_details(Request $request)
     {
-        $automatic_wallet = Reserved_bank::where('user_id', $request->user()->id)->select(
-            'account_name',
-            'account_number',
-            'bank_name'
-        )->all();
+        
         $manual_funding = Manual_funding::select(
             'account_name',
             'account_number',
             'bank_name'
-        )->all();
+        )->get();
 
         return response()->json([
-            'automatic_wallet' => $automatic_wallet,
             'manual_funding' => $manual_funding
         ]);
     }
