@@ -50,7 +50,16 @@ class UserController extends Controller
         // validation
         $request->validate([
             'password' => 'required|min:8|confirmed',
+            'old_password' => 'required'
         ]);
+
+        // confirm old password
+        if(!password_verify($request->old_password,$request->user()->password)){
+            return response()->json([
+                'status' => false,
+                'message' => 'Old password does not match'
+            ]);
+        }
         $user = User::find($request->user()->id);
         $user->password =  Hash::make($request->password);
 
