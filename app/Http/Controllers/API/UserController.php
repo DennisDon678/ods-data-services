@@ -163,4 +163,63 @@ class UserController extends Controller
             'message' => 'Manual funding request submitted successfully'
         ]);
     }
+
+    public function get_user_notifications(Request $request)
+    {
+        $user = $request->user();
+
+        $notifications = Notifications::get_user_notifications($user->id);
+
+        return response()->json([
+            'notifications' => $notifications
+        ]);
+    }
+
+    public function get_unread_user_notifications(Request $request)
+    {
+        $user = $request->user();
+
+        $notifications = Notifications::get_unread_user_notifications($user->id);
+
+        return response()->json([
+            'notifications' => $notifications,
+            'unread_count' => count($notifications)
+        ]);
+    }
+
+    public function mark_notification_as_read(Request $request)
+    {
+        $request->validate([
+            'notification_id' => 'required|integer'
+        ]);
+
+        $notification = Notifications::mark_notification_as_read($request->notification_id);
+
+        if ($notification) {
+            return response()->json([
+                'message' => 'Notification marked as read'
+            ]);
+        } else {
+            return response()->json([
+                'error' => 'Failed to mark notification as read'
+            ]);
+        }
+    }
+
+    public function mark_all_notifications_as_read(Request $request)
+    {
+        $user = $request->user();
+
+        $notifications = Notifications::mark_all_notifications_as_read($user->id);
+
+        if ($notifications) {
+            return response()->json([
+                'message' => 'All notifications marked as read'
+            ]);
+        } else {
+            return response()->json([
+                'error' => 'Failed to mark all notifications as read'
+            ]);
+        }
+    }
 }
