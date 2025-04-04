@@ -15,4 +15,14 @@ class Notification extends Model
         'description',
         'status',
     ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        "user_id",
+    ];
+
+    protected $casts = [
+        'status' => 'boolean',
+    ];
 }

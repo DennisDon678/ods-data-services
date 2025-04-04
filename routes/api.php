@@ -38,6 +38,12 @@ Route::middleware('auth:sanctum')->group(function(){
         // Wallet funding
         Route::get('/wallet_funding_details', [UserController::class, 'wallet_funding_details']);
         Route::post('submit_manual_funding', [UserController::class, 'submit_manual_funding']);
+
+        // notifications
+        Route::get('/notifications', [UserController::class, 'get_user_notifications']);
+        Route::get('/unread_notifications', [UserController::class, 'get_unread_user_notifications']);
+        Route::post('/mark_notification_as_read', [UserController::class, 'mark_notification_as_read']);
+        Route::post('/mark_all_notifications_as_read', [UserController::class, 'mark_all_notifications_as_read']);
     });
 
     Route::prefix('transaction')->group(function(){
