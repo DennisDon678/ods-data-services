@@ -15,4 +15,9 @@ class Preorder extends Model
         'validity',
         'size',
     ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
 }
