@@ -211,7 +211,6 @@ class DataController extends Controller
         } else {
             $price = $plan->price;
         }
-        // mod
         // Charge the User Account
         $user = User::find($request->user()->id);
         // check if user has enough balance

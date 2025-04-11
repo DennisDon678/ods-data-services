@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\Monnify;
+use App\Http\Controllers\API\PreorderController;
 use App\Http\Controllers\API\transactions;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\PaystackController;
@@ -100,6 +101,12 @@ Route::middleware('auth:sanctum')->group(function(){
         Route::get('/verify_deposit', [Monnify::class, 'verify_payment']);
         Route::post('/dedicated_account', [Monnify::class, 'dedicated_account']);
         Route::get('/dedicated_account', [Monnify::class, 'get_dedicated_account']);
+    });
+
+    // preorder handler
+    Route::prefix('preorder')->group(function(){
+        Route::get('/', [PreorderController::class, 'providers']);
+        Route::post('/submit', [PreorderController::class, 'submit_preorder']);
     });
 });
 Route::post('/paystack/webhooks', [PaystackController::class, 'webhookAction']);
