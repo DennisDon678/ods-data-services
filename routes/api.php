@@ -108,5 +108,17 @@ Route::middleware('auth:sanctum')->group(function(){
         Route::get('/', [PreorderController::class, 'providers']);
         Route::post('/submit', [PreorderController::class, 'submit_preorder']);
     });
+
+    // become a vendor
+    Route::prefix('vendor')->group(function(){
+        Route::get('/', [UserController::class, 'become_vendor']);
+        Route::post('/submit', [UserController::class, 'submit_vendor_request']);
+    });
+
+    // airtime2cash
+    Route::prefix('airtime2cash')->group(function(){
+        Route::get('/', [transactions::class, 'airtime2cash']);
+        Route::post('/submit', [transactions::class, 'submit_airtime2cash']);
+    });
 });
 Route::post('/paystack/webhooks', [PaystackController::class, 'webhookAction']);

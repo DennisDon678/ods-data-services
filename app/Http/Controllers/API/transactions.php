@@ -4,6 +4,8 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\external\vtu;
+use App\Models\Airtime_to_cash;
+use App\Models\AirtimetoCashConfig;
 use App\Models\Cable_list;
 use App\Models\Cable_plan;
 use App\Models\Dataplans;
@@ -444,5 +446,63 @@ class transactions extends Controller
         }
 
         return $price;
+    }
+
+
+    public function airtime2cash()
+    {
+        // get airtime to cash config
+        $config = AirtimetoCashConfig::first();
+
+        if ($config) {
+            return response()->json([
+                'send_to' => $config->to,
+                'network' => 'MTN',
+                'percentage_charge' => 100 - $config->percent,
+            ]);
+        } else {
+            return response()->json(['message' => 'No config found'], 404);
+        }
+    }
+
+    public  function submit_airtime2cash(Request $request)
+    {
+        // Validate the request
+        $this->validate($request, [
+            'amount' => 'required|numeric|min:0',
+            'to' => 'required|string',
+            'from' => 'required|string',
+            'bankName' => 'nullable|string',
+            'bankAccount' => 'nullable|string',
+            'accountName' => 'nullable|string',
+        ]);
+
+        $amount = (int)filter_var($request->amount, FILTER_SANITIZE_NUMBER_INT) / 100;
+        $transactionId = uniqid();
+
+        // airtime to cash config
+        $config = AirtimetoCashConfig::first();
+
+
+        $cash = Airtime_to_cash::create([
+            'amount' => $amount,
+            'user_id' => $request->user()->id,
+            'to' => $config->to,
+            'from' => $request->from,
+            'bank_name' => $request->bankName,
+            'account_number' => $request->bankAccount,
+            'account_name' => $request->accountName,
+            'transaction_id' => $transactionId,
+            'networks' => "MTN",
+        ]);
+
+        $trans = ModelsTransactions::create([
+            'user_id' => $request->user()->id,
+            'transaction_id' => $transactionId,
+            'title' => "Airtime 2 Cash",
+            'type' => "deposit",
+            'amount' => $amount,
+            'status' => strtolower('processing'),
+        ]);
     }
 }
