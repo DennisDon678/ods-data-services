@@ -120,5 +120,10 @@ Route::middleware('auth:sanctum')->group(function(){
         Route::get('/', [transactions::class, 'airtime2cash']);
         Route::post('/submit', [transactions::class, 'submit_airtime2cash']);
     });
+
+    // referrals
+    Route::prefix('referrals')->group(function(){
+        Route::get('/', [UserController::class, 'referrals']);
+    });
 });
 Route::post('/paystack/webhooks', [PaystackController::class, 'webhookAction']);

@@ -319,4 +319,22 @@ class UserController extends Controller
             'balance' => $user->balance,
         ]);
     }
+
+    public function referrals(Request $request)
+    {
+        // get the user
+        $user = User::find($request->user()->id);
+
+        // get the referrals
+        $referrals = User::where('referred_by', $user->referral_id)->select(
+            'name',
+            'phone',
+        )->paginate(10);
+
+        return response()->json([
+            'referrals' => $referrals,
+            'referral_code' => $user->referral_code,
+            'percentage' => 50,
+        ]);
+    }
 }
