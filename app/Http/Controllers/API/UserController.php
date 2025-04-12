@@ -8,8 +8,10 @@ use App\Models\Admin;
 use App\Models\Manual_funding;
 use App\Models\Pending_manual_fund;
 use App\Models\Reserved_bank;
+use App\Models\Transactions;
 use App\Models\User;
 use App\Models\User_Tag;
+use App\Models\Vendor_config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -54,7 +56,7 @@ class UserController extends Controller
         ]);
 
         // confirm old password
-        if(!password_verify($request->old_password,$request->user()->password)){
+        if (!password_verify($request->old_password, $request->user()->password)) {
             return response()->json([
                 'status' => false,
                 'message' => 'Old password does not match'
@@ -119,7 +121,7 @@ class UserController extends Controller
 
     public function wallet_funding_details(Request $request)
     {
-        
+
         $manual_funding = Manual_funding::select(
             'account_name',
             'account_number',
@@ -221,5 +223,118 @@ class UserController extends Controller
                 'error' => 'Failed to mark all notifications as read'
             ]);
         }
+    }
+
+    public function become_vendor(Request $request)
+    {
+        // get the one time fee for vendor
+        $vendor_config = Vendor_config::first();
+
+        // check if user is already a vendor
+        $user = User::find($request->user()->id);
+        if ($user->is_vendor) {
+            return response()->json([
+                'error' => 'You are already a vendor'
+            ]);
+        }
+
+        // check if user has enough balance
+        if ($user->balance < 0 || $user->balance < $vendor_config->onetime_fee) {
+            return response()->json([
+                'error' => 'You do not have enough balance'
+            ]);
+        }
+
+        if (!$vendor_config) {
+            return response()->json([
+                'error' => 'Vendor config not found'
+            ]);
+        }
+
+        return response()->json([
+            'vendor_fee' => $vendor_config->onetime_fee,
+        ]);
+    }
+
+    public function submit_vendor_request(Request $request)
+    {
+        // get the user
+        $user = User::find($request->user()->id);
+
+        // get the vendor config
+        $vendor_config = Vendor_config::first();
+
+        // check if user is already a vendor
+        if ($user->is_vendor) {
+            return response()->json([
+                'error' => 'You are already a vendor'
+            ]);
+        }
+
+        // check if user has enough balance
+        if ($user->balance < $vendor_config->onetime_fee) {
+            return response()->json([
+                'error' => 'You do not have enough balance'
+            ]);
+        }
+
+        // deduct the fee from user balance
+        $user->balance -= $vendor_config->onetime_fee;
+        $user->is_vendor = true;
+        $user->save();
+
+        // create a transaction
+        Transactions::create([
+            'user_id' => $user->id,
+            'transaction_id' => uniqid(),
+            'title' => 'Vendor Fee',
+            'type' => 'withdrawal',
+            'amount' => $vendor_config->onetime_fee,
+            'status' => 'Successful',
+        ]);
+
+        // check referral
+        if ($user->referred_by) {
+            // give 50% commission to the referrer
+            $referral_fee = $vendor_config->onetime_fee * 0.5;
+            $referral = User::find($user->referred_by);
+            $referral->balance = $referral->balance + $referral_fee;
+            $referral->save();
+
+            // create a transaction
+            Transactions::create([
+                'user_id' => $user->referred_by,
+                'transaction_id' => uniqid(),
+                'title' => 'Referral Commission',
+                'type' => 'deposit',
+                'amount' => $referral_fee,
+                'status' => 'Successful',
+            ]);
+        }
+
+        // return response
+        return response()->json([
+            'message' => 'You are now a vendor',
+            'vendor_fee' => $vendor_config->onetime_fee,
+            'balance' => $user->balance,
+        ]);
+    }
+
+    public function referrals(Request $request)
+    {
+        // get the user
+        $user = User::find($request->user()->id);
+
+        // get the referrals
+        $referrals = User::where('referred_by', $user->referral_id)->select(
+            'name',
+            'phone',
+        )->paginate(10);
+
+        return response()->json([
+            'referrals' => $referrals,
+            'referral_code' => $user->referral_code,
+            'percentage' => 50,
+        ]);
     }
 }
