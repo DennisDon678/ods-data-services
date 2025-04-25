@@ -156,7 +156,7 @@ class transactions extends Controller
 
     public function network_plans(Request $request)
     {
-        $planTypes = plan_type_list::where('network_id', $request->network_id)->get();
+        $planTypes = plan_type_list::where('network_id', $request->network_id)->where('status','active')->get();
         $plans = [];
 
         foreach ($planTypes as $planType) {
