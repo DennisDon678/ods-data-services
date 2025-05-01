@@ -53,7 +53,7 @@
 
                                     <!-- Heading -->
                                     <span class="h2 mb-0">
-                                        &#8358;{{number_format($balance, 2)}}
+                                        &#8358;{{ number_format($balance, 2) }}
                                     </span>
                                 </div>
                             </div> <!-- / .row -->
@@ -76,7 +76,7 @@
 
                                     <!-- Heading -->
                                     <span class="h2 mb-0">
-                                        &#8358;{{number_format(App\Models\User::sum('balance'),2)}}
+                                        &#8358;{{ number_format(App\Models\User::sum('balance'), 2) }}
                                     </span>
 
                                 </div>
@@ -101,7 +101,7 @@
 
                                     <!-- Heading -->
                                     <span class="h2 mb-0">
-                                        {{count(App\Models\count_preorder::whereDate('created_at', Carbon\Carbon::today())->get())}}
+                                        {{ count(App\Models\count_preorder::whereDate('created_at', Carbon\Carbon::today())->get()) }}
                                     </span>
 
                                 </div>
@@ -149,7 +149,7 @@
 
                                     <!-- Heading -->
                                     <span class="h2 mb-0">
-                                        {{count(App\Models\User::all())}}
+                                        {{ count(App\Models\User::all()) }}
                                     </span>
 
                                 </div>
@@ -174,7 +174,7 @@
 
                                     <!-- Heading -->
                                     <span class="h2 mb-0">
-                                        {{count(App\Models\User::where('is_vendor','=',true)->get())}}
+                                        {{ count(App\Models\User::where('is_vendor', '=', true)->get()) }}
                                     </span>
 
                                 </div>
@@ -200,12 +200,207 @@
 
                         </div>
                         <div class="card-body">
-
-                            <!-- Chart -->
-                            <div class="chart">
-                                <canvas id="salesChart" class="chart-canvas"></canvas>
+                            <div class="row align-items-center mb-4">
+                                <div class="col">
+                                    <ul class="nav nav-tabs nav-overflow" role="tablist">
+                                        <li class="nav-item">
+                                            <a href="#all-fundings" class="nav-link active" data-bs-toggle="tab"
+                                                role="tab" aria-controls="all-fundings" aria-selected="true">
+                                                All
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#today-fundings" class="nav-link" data-bs-toggle="tab"
+                                                role="tab" aria-controls="today-fundings" aria-selected="false">
+                                                Today
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#month-fundings" class="nav-link" data-bs-toggle="tab"
+                                                role="tab" aria-controls="month-fundings" aria-selected="false">
+                                                This Month
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
 
+                            <div class="tab-content">
+                                <div class="tab-pane fade show active" id="all-fundings" role="tabpanel">
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-nowrap card-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>User</th>
+                                                    <th>Amount</th>
+                                                    <th>Method</th>
+                                                    <th>Status</th>
+                                                    <th>Date</th>
+                                                    {{-- <th>Action</th> --}}
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @forelse(App\Models\Transactions::where('type', 'deposit')->latest()->take(10)->get() as $funding)
+                                                    <tr>
+                                                        <td>
+                                                            <a href="">
+                                                                {{ $funding->user->name ? explode(' ', $funding->user->name)[0] : 'N/A' }}
+                                                            </a>
+                                                            <br>
+                                                            <small
+                                                                class="text-muted">{{ $funding->user->phone }}</small>
+                                                        </td>
+                                                        <td>₦{{ number_format($funding->amount, 2) }}</td>
+                                                        <td>{{ $funding->title }}</td>
+                                                        <td>
+                                                            @if (strtoupper($funding->status) == strtoupper('successful') || strtoupper($funding->status) == strtoupper('success'))
+                                                                <span class="badge bg-success">Successful</span>
+                                                            @elseif(strtoupper($funding->status) == strtoupper('pending'))
+                                                                <span class="badge bg-warning">Pending</span>
+                                                            @else
+                                                                <span class="badge bg-danger">{{$funding->status??'failed'}}</span>
+                                                            @endif
+                                                        </td>
+                                                        <td>{{ $funding->created_at->format('d M, Y H:i') }}</td>
+                                                        {{-- <td>
+                                                            <a href="#" class="btn btn-sm btn-white"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#fundingModal{{ $funding->id }}">
+                                                                View
+                                                            </a>
+                                                        </td> --}}
+                                                    </tr>
+                                                @empty
+                                                    <tr>
+                                                        <td colspan="6" class="text-center">No funding records found
+                                                        </td>
+                                                    </tr>
+                                                @endforelse
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="today-fundings" role="tabpanel">
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-nowrap card-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>User</th>
+                                                    <th>Amount</th>
+                                                    <th>Method</th>
+                                                    <th>Status</th>
+                                                    <th>Time</th>
+                                                    {{-- <th>Action</th> --}}
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @forelse(App\Models\Transactions::where('type', 'deposit')->whereDate('created_at', Carbon\Carbon::today())->latest()->get() as $funding)
+                                                    <tr>
+                                                        <td>
+                                                            <a href="">
+                                                                {{ $funding->user->name ? explode(' ', $funding->user->name)[0] : 'N/A' }}
+                                                            </a>
+                                                            <br>
+                                                            <small
+                                                                class="text-muted">{{ $funding->user->phone }}</small>
+                                                        </td>
+                                                        <td>₦{{ number_format($funding->amount, 2) }}</td>
+                                                        <td>{{ $funding->title }}</td>
+                                                        <td>
+                                                            @if (strtoupper($funding->status) == strtoupper('successful') || strtoupper($funding->status) == strtoupper('success'))
+                                                                <span class="badge bg-success">Successful</span>
+                                                            @elseif(strtoupper($funding->status) == strtoupper('pending'))
+                                                                <span class="badge bg-warning">Pending</span>
+                                                            @else
+                                                                <span class="badge bg-danger">
+                                                                    {{$funding->status??'failed'}}
+                                                                </span>
+                                                            @endif
+                                                        </td>
+                                                        <td>{{ $funding->created_at->format('H:i') }}</td>
+                                                        {{-- <td>
+                                                            <a href="#" class="btn btn-sm btn-white"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#fundingModal{{ $funding->id }}">
+                                                                View
+                                                            </a>
+                                                        </td> --}}
+                                                    </tr>
+                                                @empty
+                                                    <tr>
+                                                        <td colspan="6" class="text-center">No funding records for
+                                                            today</td>
+                                                    </tr>
+                                                @endforelse
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="month-fundings" role="tabpanel">
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-nowrap card-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>User</th>
+                                                    <th>Amount</th>
+                                                    <th>Method</th>
+                                                    <th>Status</th>
+                                                    <th>Date</th>
+                                                    {{-- <th>Action</th> --}}
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @forelse(App\Models\Transactions::where('type', 'deposit')->whereMonth('created_at', Carbon\Carbon::now()->month)->whereYear('created_at', Carbon\Carbon::now()->year)->latest()->get() as $funding)
+                                                    <tr>
+                                                        <td>
+                                                            <a href="">
+                                                                {{ $funding->user->name ? explode(' ', $funding->user->name)[0] : 'N/A' }}
+                                                            </a>
+                                                            <br>
+                                                            <small
+                                                                class="text-muted">{{ $funding->user->phone }}</small>
+                                                        </td>
+                                                        <td>₦{{ number_format($funding->amount, 2) }}</td>
+                                                        <td>{{ $funding->title }}</td>
+                                                        <td>
+                                                            @if (strtoupper($funding->status) == strtoupper('successful') || strtoupper($funding->status) == strtoupper('success'))
+                                                                <span class="badge bg-success">Successful</span>
+                                                            @elseif(strtoupper($funding->status) == strtoupper('pending'))
+                                                                <span class="badge bg-warning">Pending</span>
+                                                            @else
+                                                                <span class="badge bg-danger">
+                                                                    {{$funding->status??'failed'}}
+                                                                </span>
+                                                            @endif
+                                                        </td>
+                                                        <td>{{ $funding->created_at->format('d M, Y') }}</td>
+                                                        {{-- <td>
+                                                            <a href="#" class="btn btn-sm btn-white"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#fundingModal{{ $funding->id }}">
+                                                                View
+                                                            </a>
+                                                        </td> --}}
+                                                    </tr>
+                                                @empty
+                                                    <tr>
+                                                        <td colspan="6" class="text-center">No funding records this
+                                                            month</td>
+                                                    </tr>
+                                                @endforelse
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-3 text-center">
+                                <a href="" class="btn btn-sm btn-outline-primary">
+                                    View All Fundings
+                                </a>
+                            </div>
                         </div>
                     </div>
 

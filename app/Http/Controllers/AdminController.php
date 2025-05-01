@@ -915,23 +915,29 @@ class AdminController extends Controller
       $user->balance = $user->balance + $pending->amount;
       $user->save();
 
-      $pending->delete();
 
-      // Create Transaction
-      Transactions::create([
-        'user_id' => $user->id,
-        'transaction_id' => uniqid(),
-        'amount' => $pending->amount,
-        'type' => 'deposit',
-        'status' => 'success',
-        'title' => 'wallet Funding'
-      ]);
+      // Find transaction with format uniqid().'-'.$pending->id
+      $transaction = Transactions::where('transaction_id', 'LIKE', '%-' . $pending->id)->first();
+      if ($transaction) {
+        $transaction->status = 'successful';
+        $transaction->save();
+
+        // Create notification for the user
+        Notification::create([
+          'user_id' => $pending->user_id,
+          'title' => "Manual Funding Approved",
+          'description' => "Your manual funding request of NGN" . $pending->amount . " has been approved.",
+          'status' => 0
+        ]);
+      }
 
       try {
         $info = "Your Manual Deposit Has been Approved. Kindly Check Your Dashboard.";
         Mail::to($user->email, explode(' ', $user->name)[0])->send(new DirectMail($info, explode(' ', $user->name)[0]));
       } catch (\Exception $e) {
       }
+
+      $pending->delete();
     }
 
     return redirect()->back();
@@ -942,17 +948,24 @@ class AdminController extends Controller
     $pending = Pending_manual_fund::find($request->id);
 
     if ($pending) {
-      $pending->delete();
 
-      // create Transaction
-      Transactions::create([
-        'user_id' => $pending->user_id,
-        'transaction_id' => uniqid(),
-        'amount' => $pending->amount,
-        'type' => 'deposit',
-        'status' => 'rejected',
-        'title' => 'wallet Funding'
-      ]);
+
+      // Find transaction with format uniqid().'-'.$pending->id
+      $transaction = Transactions::where('transaction_id', 'LIKE', '%-' . $pending->id)->first();
+      if ($transaction) {
+        $transaction->status = 'Rejected';
+        $transaction->save();
+
+        // Create notification for the user
+        Notification::create([
+          'user_id' => $pending->user_id,
+          'title' => "Manual Funding Rejected",
+          'description' => "Your manual funding request of NGN" . $pending->amount . " has been rejected.",
+          'status' => 0
+        ]);
+      }
+
+      $pending->delete();
     }
 
     return redirect()->back();

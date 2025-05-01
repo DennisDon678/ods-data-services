@@ -307,7 +307,17 @@ class UserDashboardController extends Controller
     {
         // Check if user already has manual reqeust
         if(!Pending_manual_fund::where('user_id', $request->user()->id)->first()){
-            Pending_manual_fund::create($request->except('_token'));
+            $pending = Pending_manual_fund::create($request->except('_token'));
+
+            // create a transaction
+            Transactions::create([
+                'user_id' => $request->user()->id,
+                'transaction_id' => uniqid().'-'.$pending->id,
+                'title' => 'Manual Funding',
+                'type' => 'deposit',
+                'amount' => $request->amount,
+                'status' => 'Pending',
+            ]);
 
             // notify admin 
             try {
