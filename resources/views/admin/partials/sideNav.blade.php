@@ -160,6 +160,11 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="/admin/config/airtime_discount">
+                                <i class="fe fe-clipboard"></i> Airtime Discount Config
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="/admin/config/vendors">
                                 <i class="fe fe-award"></i> Vendors Config
                             </a>

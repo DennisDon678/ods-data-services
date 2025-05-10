@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Mail\DirectMail;
 use App\Models\Admin;
+use App\Models\Airtime_discount;
 use App\Models\Dataplans;
+use App\Models\Network_list;
 use App\Models\plan_type_list;
 use App\Models\Preorder;
 use App\Models\Preordered;
@@ -297,8 +299,17 @@ class DataController extends Controller
                 return response()->json($response);
             } else {
                 if ($response['Status'] == 'successful') {
+                    // get network discount
+                    $discount =null;
+                    $network = Network_list::where('network_id', '=', $request->network)->first();
+
+                    $discountConfig = Airtime_discount::first();
+
+                    $discount = $discountConfig->strtolower($network->name);
+                    $discountAmount = ($discount / 100) * $request->amount;
                     // debit User's account
-                    $user->balance = $user->balance - $request->amount;
+                    $user->balance = $user->balance - $request->amount + $discountAmount;
+                    
                     $user->save();
                     // create transaction
                     Transactions::create([

@@ -298,6 +298,9 @@ Route::middleware('admin')->prefix('admin')->group(function () {
     Route::get('/new-staff',[AdminController::class,'new_staff']);
     Route::post('/new-staff',[AdminController::class,'add_staff']);
     Route::get('/staff/delete',[AdminController::class,'delete_staff']);
+
+    Route::get('/config/airtime_discount',[AdminController::class,'airtime_discount']);
+    Route::post('/config/airtime_discount',[AdminController::class,'update_airtime_discount']);
 });
 
 Route::prefix('staff')->middleware('staff')->group(function(){
