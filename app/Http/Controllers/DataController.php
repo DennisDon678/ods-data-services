@@ -304,13 +304,13 @@ class DataController extends Controller
                     $network = Network_list::where('network_id', '=', $request->network)->first();
 
                     $discountConfig = Airtime_discount::first();
-                    if ($network->network_name == 'MTN') {
+                    if ($network->label == 'MTN') {
                         $discount = $discountConfig->mtn;
-                    } elseif ($network->network_name == 'GLO') {
+                    } elseif ($network->label == 'GLO') {
                         $discount = $discountConfig->glo;
-                    } elseif ($network->network_name == 'AIRTEL') {
+                    } elseif ($network->label == 'AIRTEL') {
                         $discount = $discountConfig->airtel;
-                    } elseif ($network->network_name == '9MOBILE') {
+                    } elseif ($network->label == '9MOBILE') {
                         $discount = $discountConfig->mobile;
                     }
                     $discountAmount = ($discount / 100) * $request->amount;
