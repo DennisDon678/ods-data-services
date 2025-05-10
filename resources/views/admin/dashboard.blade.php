@@ -125,7 +125,7 @@
 
                                     <!-- Heading -->
                                     <span class="h2 mb-0">
-                                        &#8358;{{App\Models\count_preorder::whereDate('created_at', Carbon\Carbon::today())->sum('price')}}
+                                        &#8358;{{number_format(App\Models\count_preorder::whereDate('created_at', Carbon\Carbon::today())->sum('price'),2)}}
                                     </span>
 
                                 </div>
@@ -404,6 +404,195 @@
                         </div>
                     </div>
 
+                </div>
+            </div> <!-- / .row -->
+
+            <div class="row mt-4">
+                <div class="col-12 col-xl-4-12">
+                    <!-- Preorders -->
+                    <div class="card">
+                        <div class="card-header">
+                            <!-- Title -->
+                            <h4 class="card-header-title">
+                                Preorder History
+                            </h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row align-items-center mb-4">
+                                <div class="col">
+                                    <ul class="nav nav-tabs nav-overflow" role="tablist">
+                                        <li class="nav-item">
+                                            <a href="#all-preorders" class="nav-link active" data-bs-toggle="tab"
+                                                role="tab" aria-controls="all-preorders" aria-selected="true">
+                                                All
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#today-preorders" class="nav-link" data-bs-toggle="tab"
+                                                role="tab" aria-controls="today-preorders" aria-selected="false">
+                                                Today
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#month-preorders" class="nav-link" data-bs-toggle="tab"
+                                                role="tab" aria-controls="month-preorders" aria-selected="false">
+                                                This Month
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="tab-content">
+                                <div class="tab-pane fade show active" id="all-preorders" role="tabpanel">
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-nowrap card-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>User</th>
+                                                    <th>Amount</th>
+                                                    <th>Item</th>
+                                                    <th>Status</th>
+                                                    <th>Date</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @forelse(App\Models\Transactions::where('type', 'preorder')->latest()->take(10)->get() as $preorder)
+                                                    <tr>
+                                                        <td>
+                                                            <a href="">
+                                                                {{ $preorder->user->name ? explode(' ', $preorder->user->name)[0] : 'N/A' }}
+                                                            </a>
+                                                            <br>
+                                                            <small class="text-muted">{{ $preorder->user->phone ?? 'N/A' }}</small>
+                                                        </td>
+                                                        <td>₦{{ number_format($preorder->amount, 2) }}</td>
+                                                        <td>{{ $preorder->title ?? $preorder->size ?? 'N/A' }}</td>
+                                                        <td>
+                                                            @if (strtoupper($preorder->status) == strtoupper('completed') || strtoupper($preorder->status) == strtoupper('successful'))
+                                                                <span class="badge bg-success">Completed</span>
+                                                            @elseif(strtoupper($preorder->status) == strtoupper('pending'))
+                                                                <span class="badge bg-warning">Pending</span>
+                                                            @elseif(strtoupper($preorder->status) == strtoupper('processing'))
+                                                                <span class="badge bg-info">Processing</span>
+                                                            @else
+                                                                <span class="badge bg-danger">{{ $preorder->status ?? 'Failed' }}</span>
+                                                            @endif
+                                                        </td>
+                                                        <td>{{ $preorder->created_at->format('d M, Y H:i') }}</td>
+                                                    </tr>
+                                                @empty
+                                                    <tr>
+                                                        <td colspan="5" class="text-center">No preorder records found</td>
+                                                    </tr>
+                                                @endforelse
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="today-preorders" role="tabpanel">
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-nowrap card-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>User</th>
+                                                    <th>Amount</th>
+                                                    <th>Item</th>
+                                                    <th>Status</th>
+                                                    <th>Time</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @forelse(App\Models\Transactions::where('type', 'preorder')->whereDate('created_at', Carbon\Carbon::today())->latest()->get() as $preorder)
+                                                    <tr>
+                                                        <td>
+                                                            <a href="">
+                                                                {{ $preorder->user->name ? explode(' ', $preorder->user->name)[0] : 'N/A' }}
+                                                            </a>
+                                                            <br>
+                                                            <small class="text-muted">{{ $preorder->user->phone ?? 'N/A' }}</small>
+                                                        </td>
+                                                        <td>₦{{ number_format($preorder->amount, 2) }}</td>
+                                                        <td>{{ $preorder->title ?? $preorder->size ?? 'N/A' }}</td>
+                                                        <td>
+                                                            @if (strtoupper($preorder->status) == strtoupper('completed') || strtoupper($preorder->status) == strtoupper('successful'))
+                                                                <span class="badge bg-success">Completed</span>
+                                                            @elseif(strtoupper($preorder->status) == strtoupper('pending'))
+                                                                <span class="badge bg-warning">Pending</span>
+                                                            @elseif(strtoupper($preorder->status) == strtoupper('processing'))
+                                                                <span class="badge bg-info">Processing</span>
+                                                            @else
+                                                                <span class="badge bg-danger">{{ $preorder->status ?? 'Failed' }}</span>
+                                                            @endif
+                                                        </td>
+                                                        <td>{{ $preorder->created_at->format('H:i') }}</td>
+                                                    </tr>
+                                                @empty
+                                                    <tr>
+                                                        <td colspan="5" class="text-center">No preorder records for today</td>
+                                                    </tr>
+                                                @endforelse
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="month-preorders" role="tabpanel">
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-nowrap card-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>User</th>
+                                                    <th>Amount</th>
+                                                    <th>Item</th>
+                                                    <th>Status</th>
+                                                    <th>Date</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @forelse(App\Models\Transactions::where('type', 'preorder')->whereMonth('created_at', Carbon\Carbon::now()->month)->whereYear('created_at', Carbon\Carbon::now()->year)->latest()->get() as $preorder)
+                                                    <tr>
+                                                        <td>
+                                                            <a href="">
+                                                                {{ $preorder->user->name ? explode(' ', $preorder->user->name)[0] : 'N/A' }}
+                                                            </a>
+                                                            <br>
+                                                            <small class="text-muted">{{ $preorder->user->phone ?? 'N/A' }}</small>
+                                                        </td>
+                                                        <td>₦{{ number_format($preorder->amount, 2) }}</td>
+                                                        <td>{{ $preorder->title ?? $preorder->size ?? 'N/A' }}</td>
+                                                        <td>
+                                                            @if (strtoupper($preorder->status) == strtoupper('completed') || strtoupper($preorder->status) == strtoupper('successful'))
+                                                                <span class="badge bg-success">Completed</span>
+                                                            @elseif(strtoupper($preorder->status) == strtoupper('pending'))
+                                                                <span class="badge bg-warning">Pending</span>
+                                                            @elseif(strtoupper($preorder->status) == strtoupper('processing'))
+                                                                <span class="badge bg-info">Processing</span>
+                                                            @else
+                                                                <span class="badge bg-danger">{{ $preorder->status ?? 'Failed' }}</span>
+                                                            @endif
+                                                        </td>
+                                                        <td>{{ $preorder->created_at->format('d M, Y') }}</td>
+                                                    </tr>
+                                                @empty
+                                                    <tr>
+                                                        <td colspan="5" class="text-center">No preorder records this month</td>
+                                                    </tr>
+                                                @endforelse
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-3 text-center">
+                                <a href="" class="btn btn-sm btn-outline-primary">
+                                    View All Preorders
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div> <!-- / .row -->
         </div>
