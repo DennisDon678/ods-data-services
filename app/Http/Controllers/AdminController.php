@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\DirectMail;
 use App\Models\Admin;
+use App\Models\Airtime_discount;
 use App\Models\Airtime_to_cash;
 use App\Models\AirtimetoCashConfig;
 use App\Models\Automatic_funding_config;
@@ -1130,5 +1131,27 @@ class AdminController extends Controller
     $user->save();
 
     return redirect()->back();
+  }
+
+  public function airtime_discount(){
+    $discount = Airtime_discount::first();
+    return view('admin.airtime_discount', compact('discount'));
+  }
+
+  public function update_airtime_discount(Request $request)
+  {
+    $discount = Airtime_discount::first();
+    if(!$discount) {
+        $discount = new Airtime_discount();
+    }
+    
+    $discount->mtn = $request->mtn;
+    $discount->glo = $request->glo;
+    $discount->airtel = $request->airtel;
+    $discount->mobile = $request->mobile;
+    
+    $discount->save();
+    
+    return redirect()->back()->with('message', 'Airtime discount updated successfully');
   }
 }

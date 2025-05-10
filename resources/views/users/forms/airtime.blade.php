@@ -17,10 +17,42 @@
         <div class="container mt-4">
             <div class="p-2 mb-2 ">
                 <div class="card">
-
                     <div class="card-header">
                         <h6 class="title" id="exampleModalLabel">Buy Airtime</h6>
                     </div>
+                    
+                    <!-- Add discount information -->
+                    <div class="card-body border-bottom">
+                        <div class="row">
+                            <div class="col-12">
+                                <h6 class="mb-2">Current Airtime Discounts</h6>
+                                @php
+                                    $discount = App\Models\Airtime_discount::first();
+                                @endphp
+                                
+                                <div class="row">
+                                    <div class="col-6 col-md-3 mb-2">
+                                        <div class="small text-muted">MTN</div>
+                                        <div class="fw-bold text-success">{{ $discount->mtn ?? 0 }}% OFF</div>
+                                    </div>
+                                    <div class="col-6 col-md-3 mb-2">
+                                        <div class="small text-muted">GLO</div>
+                                        <div class="fw-bold text-success">{{ $discount->glo ?? 0 }}% OFF</div>
+                                    </div>
+                                    <div class="col-6 col-md-3 mb-2">
+                                        <div class="small text-muted">AIRTEL</div>
+                                        <div class="fw-bold text-success">{{ $discount->airtel ?? 0 }}% OFF</div>
+                                    </div>
+                                    <div class="col-6 col-md-3 mb-2">
+                                        <div class="small text-muted">9MOBILE</div>
+                                        <div class="fw-bold text-success">{{ $discount->mobile ?? 0 }}% OFF</div>
+                                    </div>
+                                </div>
+                                <div class="small text-muted fst-italic">Discounts are automatically applied at checkout</div>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <form action="" id="airtimeForm">
                         @csrf
                         <div class="">
@@ -78,6 +110,23 @@
                                         </div>
                                     </div>
 
+                                    <!-- Add this after the amount input field -->
+                                    <div class="mb-2" id="discountInfo" style="display: none;">
+                                        <div class="alert alert-success p-2">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <span class="small">Original Price:</span> <span class="text-decoration-line-through">₦<span id="originalAmount">0</span></span>
+                                                </div>
+                                                <div>
+                                                    <span class="small">You Save:</span> <span class="text-success">₦<span id="savingsAmount">0</span></span>
+                                                </div>
+                                                <div>
+                                                    <span class="small">You Pay:</span> <span class="fw-bold">₦<span id="finalAmount">0</span></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="mb-2">
                                         <div class="form-group mb-3 position-relative check-valid">
                                             <div class="input-group input-group-lg">
@@ -110,9 +159,41 @@
 
 
     <script>
-        // $(document).ready(function() {
-        //     alert('Hello');
-        // });
+        // Add these variables at the beginning of your script
+        const discounts = {
+            @if($discount)
+            "{{ App\Models\Network_list::where('network_id', 1)->first()->network_id ?? 1 }}": {{ $discount->mtn ?? 0 }},
+            "{{ App\Models\Network_list::where('network_id', 2)->first()->network_id ?? 2 }}": {{ $discount->glo ?? 0 }},
+            "{{ App\Models\Network_list::where('network_id', 3)->first()->network_id ?? 3 }}": {{ $discount->airtel ?? 0 }},
+            "{{ App\Models\Network_list::where('network_id', 4)->first()->network_id ?? 4 }}": {{ $discount->mobile ?? 0 }},
+            @endif
+        };
+        
+        // Add this function to calculate discount
+        function calculateDiscount() {
+            const networkId = $('#network').val();
+            const amount = parseFloat($('#amount').val()) || 0;
+            
+            if (networkId && amount > 0) {
+                const discountPercent = discounts[networkId] || 0;
+                const savings = (amount * discountPercent / 100).toFixed(2);
+                const finalAmount = (amount - savings).toFixed(2);
+                
+                $('#originalAmount').text(amount.toFixed(2));
+                $('#savingsAmount').text(savings);
+                $('#finalAmount').text(finalAmount);
+                $('#discountInfo').show();
+            } else {
+                $('#discountInfo').hide();
+            }
+        }
+        
+        // Add these event listeners
+        $('#network, #amount').on('change keyup', function() {
+            calculateDiscount();
+        });
+        
+        // Your existing code continues...
         $('#airtimeForm').on('submit', function(e) {
             e.preventDefault();
             // check if number is 11 digits alert message
