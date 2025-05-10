@@ -87,7 +87,7 @@ class DataController extends Controller
         // return response()->json($request->all());
         // Check Users Balance
         $user = User::find($request->user()->id);
-        $plan = Dataplans::where('data_id',$request->plan_id)->first();
+        $plan = Dataplans::where('data_id', $request->plan_id)->first();
         $profit = Profits::where('plan_type', '=', $plan->plan_id)->first();
         // $amount = abs($request->amount);
         $profit =  ($profit->profit / 100) * $plan->price;
@@ -300,16 +300,23 @@ class DataController extends Controller
             } else {
                 if ($response['Status'] == 'successful') {
                     // get network discount
-                    $discount =null;
+                    $discount = null;
                     $network = Network_list::where('network_id', '=', $request->network)->first();
 
                     $discountConfig = Airtime_discount::first();
-
-                    $discount = $discountConfig->strtolower($network->name);
+                    if ($network->network_name == 'MTN') {
+                        $discount = $discountConfig->mtn;
+                    } elseif ($network->network_name == 'GLO') {
+                        $discount = $discountConfig->glo;
+                    } elseif ($network->network_name == 'AIRTEL') {
+                        $discount = $discountConfig->airtel;
+                    } elseif ($network->network_name == '9MOBILE') {
+                        $discount = $discountConfig->mobile;
+                    }
                     $discountAmount = ($discount / 100) * $request->amount;
                     // debit User's account
                     $user->balance = $user->balance - $request->amount + $discountAmount;
-                    
+
                     $user->save();
                     // create transaction
                     Transactions::create([
