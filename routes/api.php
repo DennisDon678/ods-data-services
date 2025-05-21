@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\ManageBeneficiary;
 use App\Http\Controllers\API\Monnify;
 use App\Http\Controllers\API\PreorderController;
 use App\Http\Controllers\API\transactions;
@@ -124,6 +125,19 @@ Route::middleware('auth:sanctum')->group(function(){
     // referrals
     Route::prefix('referrals')->group(function(){
         Route::get('/', [UserController::class, 'referrals']);
+    });
+
+    // Beneficiary
+    Route::prefix('beneficiary')->group(function(){
+        Route::get('/', [ManageBeneficiary::class, 'list_beneficiaries']);
+        Route::post('/add', [ManageBeneficiary::class, 'add_beneficiary']);
+        Route::post('/{id}/edit', [ManageBeneficiary::class, 'edit_beneficiary']);
+        Route::post('/{id}/delete', [ManageBeneficiary::class, 'delete_beneficiary']);
+    });
+
+    // announcement
+    Route::prefix('announcement')->group(function(){
+        Route::get('/', [\App\Http\Controllers\API\Announcement::class, 'get_announcement']);
     });
 });
 Route::post('/paystack/webhooks', [PaystackController::class, 'webhookAction']);

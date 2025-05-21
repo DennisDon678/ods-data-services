@@ -61,8 +61,15 @@
                                     @if ($account)
                                         <div class="col-12">
                                             <div class="accountinfo">
-                                                <h5>Account Number: <span
-                                                        class="text-muted">{{ $account->account_number }}</span>
+                                                <h5>
+                                                    Account Number:
+                                                    <span class="text-muted" id="autoAccountNumber">
+                                                        {{ $account->account_number }}
+                                                    </span>
+                                                    <button type="button" class="btn btn-sm btn-outline-primary ms-2 copy-btn"
+                                                        data-copy-target="autoAccountNumber">
+                                                        <i class="fa fa-copy"></i> Copy
+                                                    </button>
                                                 </h5>
                                                 <h6 class="">Account Name: <em
                                                         class="text-muted">{{ $account->account_name }}</em> </h6>
@@ -177,8 +184,15 @@
                                     @forelse ($accounts as $account)
                                         <div class="col-12">
                                             <div class="accountinfo">
-                                                <h5>Account Number: <span
-                                                        class="text-muted">{{ $account->account_number }}</span>
+                                                <h5>
+                                                    Account Number: 
+                                                    <span class="text-muted" id="manualAccountNumber{{ $sn }}">
+                                                        {{ $account->account_number }}
+                                                    </span>
+                                                    <button type="button" class="btn btn-sm btn-outline-primary ms-2 copy-btn"
+                                                        data-copy-target="manualAccountNumber{{ $sn }}">
+                                                        <i class="fa fa-copy"></i> Copy
+                                                    </button>
                                                 </h5>
                                                 <h6 class="">Account Name: <em
                                                         class="text-muted">{{ $account->account_name }}</em> </h6>
@@ -498,6 +512,26 @@
                 }
             });
         }
+
+        $(document).on('click', '.copy-btn', function() {
+            var targetId = $(this).data('copy-target');
+            var accountNumber = $('#' + targetId).text().trim();
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(accountNumber).then(function() {
+                    swal('Copied!', 'Account number copied to clipboard.', 'success');
+                }, function() {
+                    swal('Error', 'Could not copy account number.', 'error');
+                });
+            } else {
+                // Fallback for older browsers
+                var $temp = $("<input>");
+                $("body").append($temp);
+                $temp.val(accountNumber).select();
+                document.execCommand("copy");
+                $temp.remove();
+                swal('Copied!', 'Account number copied to clipboard.', 'success');
+            }
+        });
     </script>
     @include('users.partials.mobileNav')
     @include('users.partials.scripts')

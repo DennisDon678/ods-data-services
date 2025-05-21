@@ -138,6 +138,33 @@
                                             </div>
                                         </div>
                                     </div>
+                                    
+                                    <div class="mb-2">
+                                        <div class="form-group mb-3 position-relative check-valid">
+                                            <div class="input-group input-group-lg">
+                                                <div class="form-floating">
+                                                    <select class="form-select border-0" id="beneficiarySelect">
+                                                        <option value="">Choose from Beneficiaries...</option>
+                                                        @foreach(App\Models\Beneficiary::where('user_id', auth()->id())->get() as $ben)
+                                                            <option value="{{ $ben->number }}">{{ $ben->name }} ({{ $ben->number }})</option>
+                                                        @endforeach
+                                                    </select>
+                                                    <label for="beneficiarySelect">Saved Beneficiaries</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox" value="1" id="saveBeneficiary" name="save_beneficiary">
+                                        <label class="form-check-label" for="saveBeneficiary">
+                                            Save this number as beneficiary
+                                        </label>
+                                    </div>
+                                    <div class="mb-2" id="beneficiaryNameDiv" style="display:none;">
+                                        <input type="text" class="form-control" id="beneficiaryName" name="beneficiary_name" placeholder="Beneficiary Name">
+                                    </div>
+                                    
                                     <button id="buyBtn" type="submit"
                                         class=" border-start-0 btn btn-primary mb-2">Buy Now
                                     </button>
@@ -228,6 +255,16 @@
                         contentType: false,
                         success: function(data) {
                             if (data == 0) {
+                                if ($('#saveBeneficiary').is(':checked')) {
+                                    $.post('/user/beneficiary/save', {
+                                        _token: '{{ csrf_token() }}',
+                                        name: $('#beneficiaryName').val(),
+                                        number: $('#phone').val()
+                                    }, function(res) {
+                                        // Optionally show a message or update the dropdown
+                                    });
+                                }
+
                                 $('#buyBtn').html(
                                     `Buy Now`
                                 );
@@ -254,6 +291,66 @@
             })
 
         })
+
+        // Autofill phone number when beneficiary is selected
+        $('#beneficiarySelect').on('change', function() {
+            $('#phone').val($(this).val());
+        });
+
+        // Show/hide beneficiary name input when checkbox is checked
+        $('#saveBeneficiary').on('change', function() {
+            if ($(this).is(':checked')) {
+                $('#beneficiaryNameDiv').show();
+            } else {
+                $('#beneficiaryNameDiv').hide();
+            }
+        });
+
+        // Add this script to show/hide beneficiary name input
+        $('#saveBeneficiary').on('change', function() {
+            if ($(this).is(':checked')) {
+                $('#beneficiaryNameDiv').show();
+                $('#beneficiaryName').prop('required', true);
+            } else {
+                $('#beneficiaryNameDiv').hide();
+                $('#beneficiaryName').val('');
+                $('#beneficiaryName').prop('required', false);
+            }
+        });
+        
+        $(document).on('click', '.delete-beneficiary', function() {
+            var benId = $(this).data('id');
+            var $row = $(this).closest('li');
+            swal({
+                title: "Are you sure?",
+                text: "This beneficiary will be deleted.",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        url: '/user/beneficiary/delete/' + benId,
+                        type: 'DELETE',
+                        data: {
+                            _token: '{{ csrf_token() }}'
+                        },
+                        success: function(res) {
+                            if (res.deleted) {
+                                $row.remove();
+                                // Optionally remove from select as well
+                                $('#beneficiarySelect option').filter(function() {
+                                    return $(this).val() == res.number;
+                                }).remove();
+                                swal("Beneficiary deleted!", { icon: "success" });
+                            } else {
+                                swal("Could not delete beneficiary.", { icon: "error" });
+                            }
+                        }
+                    });
+                }
+            });
+        });
     </script>
     @include('users.partials.mobileNav')
     @include('users.partials.scripts')

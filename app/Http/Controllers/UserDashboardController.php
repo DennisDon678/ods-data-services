@@ -44,7 +44,7 @@ class UserDashboardController extends Controller
 
         if ($trans) {
             $user = User::find($request->user()->id);
-            
+
             // create notification and save to database
             Notification::create([
                 'user_id' => $request->user()->id,
@@ -121,7 +121,7 @@ class UserDashboardController extends Controller
             } else {
                 return response()->json(1);
             }
-        }else{
+        } else {
             return response()->json(2);
         }
     }
@@ -306,13 +306,13 @@ class UserDashboardController extends Controller
     public function add_manual_reqeust(Request $request)
     {
         // Check if user already has manual reqeust
-        if(!Pending_manual_fund::where('user_id', $request->user()->id)->first()){
+        if (!Pending_manual_fund::where('user_id', $request->user()->id)->first()) {
             $pending = Pending_manual_fund::create($request->except('_token'));
 
             // create a transaction
             Transactions::create([
                 'user_id' => $request->user()->id,
-                'transaction_id' => uniqid().'-'.$pending->id,
+                'transaction_id' => uniqid() . '-' . $pending->id,
                 'title' => 'Manual Funding',
                 'type' => 'deposit',
                 'amount' => $request->amount,
@@ -327,8 +327,23 @@ class UserDashboardController extends Controller
             }
 
             return response()->json(0);
-        }else{
+        } else {
             return response()->json(1);
         }
+    }
+
+    public function save_beneficiary(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'number' => 'required|string|max:20',
+        ]);
+        \App\Models\Beneficiary::firstOrCreate([
+            'user_id' => auth()->id(),
+            'number' => $request->number,
+        ], [
+            'name' => $request->name,
+        ]);
+        return response()->json(['saved' => true]);
     }
 }
