@@ -265,6 +265,7 @@ class DataController extends Controller
     {
         // Check Users Balance
         $user = User::find($request->user()->id);
+        $discountConfig = Airtime_discount::first();
         $airtime = $request->amount;
         // $reference = uniqid();
         if ($user->balance >= $airtime) {
@@ -292,6 +293,15 @@ class DataController extends Controller
             ));
 
             $response = curl_exec($curl);
+            // $response = json_encode([
+            //     'Status' => 'successful',
+            //     'ident' => uniqid(),
+            //     'network' => $request->network,
+            //     'amount' => $request->amount,
+            //     'mobile_number' => $request->phone,
+            //     'Ported_number' => true,
+            //     'airtime_type' => 'VTU',
+            // ]);
             $response = json_decode($response, true);
 
             curl_close($curl);
@@ -302,8 +312,7 @@ class DataController extends Controller
                     // get network discount
                     $discount = null;
                     $network = Network_list::where('network_id', '=', $request->network)->first();
-
-                    $discountConfig = Airtime_discount::first();
+                    
                     if ($network->label == 'MTN') {
                         $discount = $discountConfig->mtn;
                     } elseif ($network->label == 'GLO') {
@@ -316,7 +325,6 @@ class DataController extends Controller
                     $discountAmount = ($discount / 100) * $request->amount;
                     // debit User's account
                     $user->balance = $user->balance - $request->amount + $discountAmount;
-
                     $user->save();
                     // create transaction
                     Transactions::create([

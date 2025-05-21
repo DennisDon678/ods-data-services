@@ -980,7 +980,15 @@ class AdminController extends Controller
 
   public function update_notification(Request $request)
   {
-    $notification = User_notification::first();
+
+    // delete old notification
+    $old_notification = User_notification::first();
+    if ($old_notification) {
+      $old_notification->delete();
+    }
+
+    // create new notification
+    $notification = new User_notification();
 
     $notification->title = $request->title;
     $notification->message = $request->message;
