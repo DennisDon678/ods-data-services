@@ -402,7 +402,7 @@ class transactions extends Controller
 
     public function all_transactions(Request $request)
     {
-        $transactions = ModelsTransactions::where('user_id', $request->user()->id)->paginate(10);
+        $transactions = ModelsTransactions::where('user_id', $request->user()->id)->orderby('created_at','DESC')->paginate(10);
         return response()->json($transactions);
     }
 

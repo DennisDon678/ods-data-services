@@ -37,6 +37,24 @@
 
         <!-- CARDS -->
         <div class="container-fluid">
+            <!-- Preorder Toggle -->
+            @php
+                $preorder_service = \App\Models\AvailableServices::where('name', 'preorder')->first();
+                $preorder_enabled = $preorder_service ? $preorder_service->status : 'inactive';
+            @endphp
+            <div class="mb-3">
+                <form method="POST" action="{{ route('admin.toggle_preorder') }}">
+                    @csrf
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="preorderSwitch" name="enabled"
+                            value="1" onchange="this.form.submit()"
+                            {{ $preorder_enabled == 'active' ? 'checked' : '' }}>
+                        <label class="form-check-label" for="preorderSwitch">
+                            Preorder is {{ $preorder_enabled == 'active' ? 'Enabled' : 'Disabled' }}
+                        </label>
+                    </div>
+                </form>
+            </div>
 
             <div class="card">
                 <div class="card-body">
@@ -188,7 +206,8 @@
                                                 <div class="card-body">
 
                                                     <!-- Form -->
-                                                    <form id="creditForm" method="post" action="/admin/preorder/add">
+                                                    <form id="creditForm" method="post"
+                                                        action="/admin/preorder/add">
                                                         @csrf
                                                         <input type="hidden" name="network_id" value="1">
                                                         <div class="mb-3 ">

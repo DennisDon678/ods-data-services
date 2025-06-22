@@ -1141,7 +1141,8 @@ class AdminController extends Controller
     return redirect()->back();
   }
 
-  public function airtime_discount(){
+  public function airtime_discount()
+  {
     $discount = Airtime_discount::first();
     return view('admin.airtime_discount', compact('discount'));
   }
@@ -1149,17 +1150,31 @@ class AdminController extends Controller
   public function update_airtime_discount(Request $request)
   {
     $discount = Airtime_discount::first();
-    if(!$discount) {
-        $discount = new Airtime_discount();
+    if (!$discount) {
+      $discount = new Airtime_discount();
     }
-    
+
     $discount->mtn = $request->mtn;
     $discount->glo = $request->glo;
     $discount->airtel = $request->airtel;
     $discount->mobile = $request->mobile;
-    
+
     $discount->save();
-    
+
     return redirect()->back()->with('message', 'Airtime discount updated successfully');
+  }
+
+  public function toggle_preorder(Request $request)
+  {
+    $vendor = \App\Models\AvailableServices::first();
+    if (!$vendor) {
+      $vendor = new \App\Models\AvailableServices();
+      $vendor->name = 'preorder';
+      $vendor->status = 'active';
+    }
+    $vendor->status = $request->get('enabled') ? 'active' : 'inactive';
+    $vendor->save();
+
+    return back()->with('message', 'Preorder status updated!');
   }
 }

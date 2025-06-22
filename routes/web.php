@@ -304,6 +304,7 @@ Route::middleware('admin')->prefix('admin')->group(function () {
 
     Route::get('/config/airtime_discount', [AdminController::class, 'airtime_discount']);
     Route::post('/config/airtime_discount', [AdminController::class, 'update_airtime_discount']);
+    Route::post('/admin/toggle-preorder', [\App\Http\Controllers\AdminController::class, 'toggle_preorder'])->name('admin.toggle_preorder');
 });
 
 Route::prefix('staff')->middleware('staff')->group(function () {
@@ -314,6 +315,7 @@ Route::prefix('staff')->middleware('staff')->group(function () {
     // funding management
     Route::get('/pending_funding/approve', [AdminController::class, 'approve_pending_funding']);
     Route::get('/pending_funding/reject', [AdminController::class, 'reject_pending_funding']);
+    
 });
 
 Route::post('/monify/webhook', [AppController::class, 'monify_webhook']);
