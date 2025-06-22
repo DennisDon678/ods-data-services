@@ -26,21 +26,22 @@
         <div class="container mt-4">
             <ul class="nav nav-tabs justify-content-center nav-adminux " id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="personal-tab" data-bs-toggle="tab" data-bs-target="#automated"
-                        type="button" role="tab" aria-controls="personal" aria-selected="true">Automated</button>
+                    <button class="nav-link active" id="payment-tab" data-bs-toggle="tab" data-bs-target="#card" type="button"
+                        role="tab" aria-controls="payment" aria-selected="false">Monnify</button>
                 </li>
+
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#manual"
+                    <button class="nav-link " id="profile-tab" data-bs-toggle="tab" data-bs-target="#manual"
                         type="button" role="tab" aria-controls="profile" aria-selected="false">Manual</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="payment-tab" data-bs-toggle="tab" data-bs-target="#card" type="button"
-                        role="tab" aria-controls="payment" aria-selected="false">Card</button>
+                    <button class="nav-link " id="personal-tab" data-bs-toggle="tab" data-bs-target="#automated"
+                        type="button" role="tab" aria-controls="personal" aria-selected="true">Automated</button>
                 </li>
-
+                
             </ul>
             <div class="tab-content py-3" id="myTabContent">
-                <div class="tab-pane fade show active" id="automated" role="tabpanel" aria-labelledby="personal-tab">
+                <div class="tab-pane fade " id="automated" role="tabpanel" aria-labelledby="personal-tab">
                     <div class="p-2 mb-2 ">
                         <div class="card">
 
@@ -82,7 +83,7 @@
                                     @else
                                         <div class="mtn p-3" style="background-color: rgba(230, 230, 76, 0.685);">
                                             <p>Due to CBN order, we have been mandated to provide customers BVN
-                                                durig account generation. <br>
+                                                during account generation. <br>
                                                 Please Note that we do not store your BVN but only Send it For CBN
                                                 validation.
                                             </p>
@@ -108,7 +109,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="card" role="tabpanel" aria-labelledby="personal-tab">
+                <div class="tab-pane fade show active" id="card" role="tabpanel" aria-labelledby="personal-tab">
                     <div class="">
                         <div class="card">
 
@@ -140,7 +141,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="manual" role="tabpanel" aria-labelledby="personal-tab">
+                <div class="tab-pane fade " id="manual" role="tabpanel" aria-labelledby="personal-tab">
                     <div class="p-2 mb-2 ">
                         <div class="card">
 
@@ -223,7 +224,7 @@
                                                         <div class="input-group input-group-lg">
                                                             <div class="form-floating">
                                                                 <input type="number" placeholder="100"
-                                                                    id="fundamount" name="amount" required=""
+                                                                    id="fundamount" name="amount" min="1000" required=""
                                                                     class="form-control border-start-0">
                                                                 <label>Enter Amount (&#8358;)</label>
                                                             </div>
@@ -236,7 +237,7 @@
                                                             <div class="form-floating">
                                                                 <input type="text" placeholder="100"
                                                                     id="fundamount" name="sender_name" required=""
-                                                                    class="form-control border-start-0">
+                                                                    class="form-control border-start-0" >
                                                                 <label>Enter Sender's Account Name</label>
                                                             </div>
                                                         </div>
@@ -425,10 +426,12 @@
 
         function payWithMonnify() {
             const amount = $('#fundamount').val();
+            const charge = amount*(1.65/100);
+            const toAdd = charge<2000?Math.round(charge):2000;
             const ref = new String((new Date()).getTime())
             // console.log(amount);
             MonnifySDK.initialize({
-                amount: amount,
+                amount: Number(amount) + toAdd,
                 currency: "NGN",
                 reference: ref,
                 customerFullName: "{{ Auth::user()->name }}",

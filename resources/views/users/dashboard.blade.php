@@ -146,11 +146,10 @@
 
     @php
         $notice = App\Models\User_notification::first();
-
     @endphp
     @if ($notice->title != '')
         <script>
-            swal('{{ $notice->title }}', '{{ $notice->message }}', '{{ $notice->type }}');
+            swal('{{ $notice->title }}', `{{ $notice->message }}`, '{{ $notice->type }}');
         </script>
     @endif
 </body>

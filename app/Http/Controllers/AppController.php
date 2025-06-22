@@ -58,16 +58,32 @@ class AppController extends Controller
         } else {
             // get the paymentReference
             $ref = $info->paymentReference;
-
-            // find the paymentReference
             $trans = Transactions::where('transaction_id', '=', $ref)->first();
-            if ($trans && $trans->status == "pending") {
-                Log::info('Transaction processed via Callback');
-                $user = User::find($trans->user_id);
-                $user->balance += $trans->amount;
-                $user->save();
 
-                $trans->status = strtolower('successful');
+            if ($info->paymentStatus == 'PAID') {
+                // find the paymentReference
+                $paidAmount = $info->amountPaid;
+                $charge = ($trans->amount * 1.65) / (100);
+
+                $dbamount = $paidAmount - round($charge);
+                Log::info($dbamount);
+
+                if ($dbamount == $trans->amount) {
+                    if ($trans && $trans->status == "pending") {
+                        Log::info('Transaction processed via Callback');
+                        $user = User::find($trans->user_id);
+                        $user->balance += $trans->amount;
+                        $user->save();
+
+                        $trans->status = strtolower('successful');
+                        $trans->save();
+                    }
+                } else {
+                    $trans->status = strtolower('failed');
+                    $trans->save();
+                }
+            } else {
+                $trans->status = strtolower('failed');
                 $trans->save();
             }
         }

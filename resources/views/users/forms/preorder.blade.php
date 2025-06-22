@@ -24,92 +24,102 @@
                     <div class="col-12 col-lg-12 mb-2 p-2">
                         <div class=" ">
                             <p class="text-center">Notice:</p>
-                            <div class="mtn p-3" style="background-color: rgba(230, 230, 76, 0.685);">
+
+                        </div>
+                        @php
+                            $service = \App\Models\AvailableServices::where('name', 'preorder')->first();
+                        @endphp
+                        @if ($service->status == 'inactive')
+                            <div class="alert alert-danger mt-2">Pre-Order service is not available at the moment. Try again Tomorrow.</div>
+                        @else
+                            <div class="mtn p-3 mt-2" style="background-color: rgba(230, 230, 76, 0.685);">
                                 <p>Pre orders are delivered between the time of order and 12:00AM.</p>
                             </div>
 
-                        </div>
-                        <form action="" id="preOrderForm">.
-                            @csrf
-                            <div class="modal-body">
-                                <div class="row">
-                                    <div class="col-12 col-md-12 mb-2">
-                                        <div class="form-group mb-3 position-relative check-valid">
-                                            <div class="input-group input-group-lg">
-                                                <div class="form-floating">
-                                                    <select class="form-select border-0" id="preOrderNetwork"
-                                                        required="">
-                                                        <option value="">Choose Your Network...</option>
-                                                        <option value="1">MTN</option>
-                                                        {{-- <option>Airtel</option>
+                            <form action="" id="preOrderForm">.
+                                @csrf
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-12 col-md-12 mb-2">
+                                            <div class="form-group mb-3 position-relative check-valid">
+                                                <div class="input-group input-group-lg">
+                                                    <div class="form-floating">
+                                                        <select class="form-select border-0" id="preOrderNetwork"
+                                                            required="">
+                                                            <option value="">Choose Your Network...</option>
+                                                            <option value="1">MTN</option>
+                                                            {{-- <option>Airtel</option>
                                             <option>GLO</option>
                                             <option>9Mobile</option> --}}
-                                                    </select>
-                                                    <label for="country2">Network</label>
+                                                        </select>
+                                                        <label for="country2">Network</label>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="row">
-                                    <div class="col-12 col-md-12 mb-2">
+                                    <div class="row">
+                                        <div class="col-12 col-md-12 mb-2">
+                                            <div class="form-group mb-3 position-relative check-valid">
+                                                <div class="input-group input-group-lg">
+                                                    <div class="form-floating">
+                                                        <select class="form-select border-0" name="data_id"
+                                                            id="preOrderPlan" required="">
+                                                            <option value="" id="emptypreOrderPlan">
+                                                                -------------------
+                                                            </option>
+                                                        </select>
+                                                        <label for="country2">Data Plan</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-2">
                                         <div class="form-group mb-3 position-relative check-valid">
                                             <div class="input-group input-group-lg">
                                                 <div class="form-floating">
-                                                    <select class="form-select border-0" name="data_id"
-                                                        id="preOrderPlan" required="">
-                                                        <option value="" id="emptypreOrderPlan">
-                                                            -------------------
-                                                        </option>
-                                                    </select>
-                                                    <label for="country2">Data Plan</label>
+                                                    <input type="number" placeholder="09032431003" name="number"
+                                                        id="preOrderPhone" required=""
+                                                        class="form-control border-start-0">
+                                                    <label>Enter Phone Number</label>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="mb-2">
-                                    <div class="form-group mb-3 position-relative check-valid">
-                                        <div class="input-group input-group-lg">
-                                            <div class="form-floating">
-                                                <input type="number" placeholder="09032431003" name="number"
-                                                    id="preOrderPhone" required=""
-                                                    class="form-control border-start-0">
-                                                <label>Enter Phone Number</label>
+                                    <div class="mb-2">
+                                        <div class="form-group mb-3 position-relative check-valid">
+                                            <div class="input-group input-group-lg">
+                                                <div class="form-floating">
+                                                    <input type="number" placeholder="100" id="amountPreOrder"
+                                                        required="" class="form-control border-start-0"
+                                                        name="amount" readonly>
+                                                    <label>Enter Amount (&#8358;)</label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="mb-2">
-                                    <div class="form-group mb-3 position-relative check-valid">
-                                        <div class="input-group input-group-lg">
-                                            <div class="form-floating">
-                                                <input type="number" placeholder="100" id="amountPreOrder"
-                                                    required="" class="form-control border-start-0" name="amount" readonly>
-                                                <label>Enter Amount (&#8358;)</label>
+                                    <div class="mb-2">
+                                        <div class="form-group mb-3 position-relative check-valid">
+                                            <div class="input-group input-group-lg">
+                                                <div class="form-floating">
+                                                    <input type="number" placeholder="1234" id="preOrderPin"
+                                                        required="" class="form-control border-start-0">
+                                                    <label>Enter Your Pin</label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+                                    <button type="submit" id="preOrderBtn"
+                                        class=" border-start-0 btn btn-primary mb-2">
+                                        Place Order</button>
                                 </div>
-
-                                <div class="mb-2">
-                                    <div class="form-group mb-3 position-relative check-valid">
-                                        <div class="input-group input-group-lg">
-                                            <div class="form-floating">
-                                                <input type="number" placeholder="1234" id="preOrderPin" required=""
-                                                    class="form-control border-start-0">
-                                                <label>Enter Your Pin</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <button type="submit" id="preOrderBtn" class=" border-start-0 btn btn-primary mb-2">
-                                    Place Order</button>
-                            </div>
-                        </form>
+                            </form>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -118,7 +128,7 @@
     </main>
 
     <script src="/sweetalert%402.1.2/dist/sweetalert.min.js"></script>
-    <script src="/jquery-3.6.0.min.js" ></script>
+    <script src="/jquery-3.6.0.min.js"></script>
     <script>
         $('#preOrderNetwork').on('change', () => {
             const network_id = $('#preOrderNetwork').val();
